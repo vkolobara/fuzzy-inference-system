@@ -7,7 +7,7 @@
 
 class MembershipFunction {
 public:
-    virtual double calculateValue(const double& x) = 0;
+    virtual double calculateValue(const double& x);
 };
 
 #endif //DIPLOMSKI_MEMBERSHIP_FUNCTIONS_H
