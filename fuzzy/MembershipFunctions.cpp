@@ -21,7 +21,7 @@ namespace LinearMembershipFunction {
 
         ~GammaMembershipFunction() {}
 
-        double calculateValue(const double &x) {
+        double valueAt(const double &x) {
             if (x < alpha) {
                 return 0;
             } else if (x >= beta) {
@@ -47,7 +47,7 @@ namespace LinearMembershipFunction {
 
         ~LambdaMembershipFunction() {}
 
-        double calculateValue(const double &x) {
+        double valueAt(const double &x) {
             if (x < alpha || x >= gamma) return 0;
             else if (x < beta && x >= alpha) return (x - alpha) / (beta - alpha);
             else return (gamma - x) / (gamma - beta);
@@ -64,7 +64,7 @@ namespace LinearMembershipFunction {
         LMembershipFunction(double alpha, double beta) : GammaMembershipFunction(alpha, beta) {}
 
         double calculateValue(const double &x) {
-            return 1 - GammaMembershipFunction::calculateValue(x);
+            return 1 - GammaMembershipFunction::valueAt(x);
         }
     };
 
@@ -83,7 +83,7 @@ namespace LinearMembershipFunction {
 
         ~PiMembershipFunction() {}
 
-        double calculateValue(const double &x) {
+        double valueAt(const double &x) {
             if (x < alpha || x >= delta) return 0;
             else if (x < gamma && x >= beta) return 1;
             else if (x < beta && x >= alpha) return (x - alpha) / (beta - alpha);
@@ -108,7 +108,7 @@ namespace SmoothMembershipFunction {
 
         ~SMembershipFunction() {}
 
-        double calculateValue(const double &x) {
+        double valueAt(const double &x) {
             if (x < alpha) return 0;
             else if (x >= gamma) return 1;
             else if (x < beta && x >= alpha) {
@@ -132,7 +132,7 @@ namespace SmoothMembershipFunction {
 
         ~GaussMembershipFunction() {}
 
-        double calculateValue(const double &x) {
+        double valueAt(const double &x) {
             double exponent = (x - mu) / sigma;
             return exp(-exponent * exponent);
         }
@@ -149,7 +149,7 @@ namespace SmoothMembershipFunction {
 
         ~SigmoidMembershipFunction() {}
 
-        double calculateValue(const double &x) {
+        double valueAt(const double &x) {
             return 1 / (1 + exp(-a * (x - c)));
         }
     };
@@ -165,14 +165,14 @@ namespace SmoothMembershipFunction {
 
         ~PiMembershipFunction() {}
 
-        double calculateValue(const double &x) {
+        double valueAt(const double &x) {
             MembershipFunction *f = nullptr;
             if (x < gamma) {
                 f = new SMembershipFunction(gamma - beta, gamma - beta / 2, gamma);
-                return f->calculateValue(x);
+                return f->valueAt(x);
             } else {
                 f = new SMembershipFunction(gamma, gamma + beta / 2, gamma + beta);
-                return 1 - f->calculateValue(x);
+                return 1 - f->valueAt(x);
             }
 
         }
@@ -192,7 +192,7 @@ namespace SmoothMembershipFunction {
 
         }
 
-        double calculateValue(const double &x) {
+        double valueAt(const double &x) {
             return 1 / (1 + k * (x - mu) * (x - mu));
         }
     };

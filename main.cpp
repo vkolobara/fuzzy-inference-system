@@ -1,6 +1,7 @@
 #include <iostream>
 #include "fuzzy/MembershipFunctions.cpp"
 #include "fuzzy/Operators.cpp"
+#include "fuzzy/domain/Domain.h"
 
 int main() {
 
@@ -9,10 +10,17 @@ int main() {
     MembershipFunction *f3 = new LinearMembershipFunction::LMembershipFunction(10, 20);
     MembershipFunction *f4 = new LinearMembershipFunction::PiMembershipFunction(10, 20, 30, 40);
 
-    std::cout << f1->calculateValue(19.28282) << std::endl;
-    std::cout << f2->calculateValue(19.28282) << std::endl;
-    std::cout << f3->calculateValue(19.28282) << std::endl;
-    std::cout << f4->calculateValue(25) << std::endl;
+    std::cout << f1->valueAt(19.28282) << std::endl;
+    std::cout << f2->valueAt(19.28282) << std::endl;
+    std::cout << f3->valueAt(19.28282) << std::endl;
+    std::cout << f4->valueAt(25) << std::endl;
+
+    int *els = new int[3]{1,2,3};
+
+
+    els[0] = 3;
+
+    std::cout << el->values[0] << std::endl;
 
     return 0;
 }

@@ -5,14 +5,14 @@
 #include "Operators.h"
 
 namespace Zadeh {
-    class Complement : public Complement {
+    class Complement : public BaseOperator::Complement {
     public:
         double calculateValue(double a) {
             return 1 - a;
         }
     };
 
-    class TNorm : public TNorm {
+    class TNorm : public BaseOperator::TNorm {
     public:
         double calculateValue(double a, double b) {
             if (a < b) return a;
@@ -20,7 +20,7 @@ namespace Zadeh {
         }
     };
 
-    class SNorm : public SNorm {
+    class SNorm : public BaseOperator::SNorm {
     public:
         double calculateValue(double a, double b) {
             if (a > b) return a;
@@ -30,14 +30,14 @@ namespace Zadeh {
 }
 
 namespace Hamacher {
-    class TNorm : public TNorm {
+    class TNorm : public BaseOperator::TNorm {
     public:
         double calculateValue(double a, double b) {
             return (a * b) / (a + b - a*b);
         }
     };
 
-    class SNorm : public SNorm {
+    class SNorm : public BaseOperator::SNorm {
     public:
         double calculateValue(double a, double b) {
             return (a + b - 2 *a*b) / (1 - a*b);
@@ -46,14 +46,14 @@ namespace Hamacher {
 }
 
 namespace Algebraic {
-    class TNorm : public TNorm {
+    class TNorm : public BaseOperator::TNorm {
     public:
         double calculateValue(double a, double b) {
             return a*b;
         }
     };
 
-    class SNorm : public SNorm {
+    class SNorm : public BaseOperator::SNorm {
     public:
         double calculateValue(double a, double b) {
             return a + b - a*b;
@@ -62,14 +62,14 @@ namespace Algebraic {
 }
 
 namespace Einstein {
-    class TNorm : public TNorm {
+    class TNorm : public BaseOperator::TNorm {
     public:
         double calculateValue(double a, double b) {
             return (a * b) / (2 - (a + b - a*b));
         }
     };
 
-    class SNorm : public SNorm {
+    class SNorm : public BaseOperator::SNorm {
     public:
         double calculateValue(double a, double b) {
             return (a + b) / (a + a*b);
@@ -78,7 +78,7 @@ namespace Einstein {
 }
 
 namespace Limited {
-    class TNorm : public TNorm {
+    class TNorm : public BaseOperator::TNorm {
     public:
         double calculateValue(double a, double b) {
             auto value = a + b - 1;
@@ -87,7 +87,7 @@ namespace Limited {
         }
     };
 
-    class SNorm : public SNorm {
+    class SNorm : public BaseOperator::SNorm {
     public:
         double calculateValue(double a, double b) {
             auto value = a + b;
@@ -98,7 +98,7 @@ namespace Limited {
 }
 
 namespace Drastic {
-    class TNorm : public TNorm {
+    class TNorm : public BaseOperator::TNorm {
     public:
         double calculateValue(double a, double b) {
             if (a < 1 && b < 1) return 0;
@@ -107,7 +107,7 @@ namespace Drastic {
         }
     };
 
-    class SNorm : public SNorm {
+    class SNorm : public BaseOperator::SNorm {
     public:
         double calculateValue(double a, double b) {
             if (a > 0 && b > 0) return 1;

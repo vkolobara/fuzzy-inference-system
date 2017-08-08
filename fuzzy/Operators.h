@@ -17,16 +17,18 @@ public:
     virtual double calculateValue(double a) = 0;
 };
 
-class SNorm : public BinaryFunction {
+namespace BaseOperator {
 
-};
+    class SNorm : public BinaryFunction {
 
-class TNorm : public BinaryFunction {
+    };
 
-};
+    class TNorm : public BinaryFunction {
 
-class Complement : public UnaryFunction {
-};
+    };
 
+    class Complement : public UnaryFunction {
+    };
+}
 
 #endif //DIPLOMSKI_OPERATORS_H
