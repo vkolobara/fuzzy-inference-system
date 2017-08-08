@@ -15,12 +15,5 @@ int main() {
     std::cout << f3->valueAt(19.28282) << std::endl;
     std::cout << f4->valueAt(25) << std::endl;
 
-    int *els = new int[3]{1,2,3};
-
-
-    els[0] = 3;
-
-    std::cout << el->values[0] << std::endl;
-
     return 0;
 }
