@@ -1,1 +1,1 @@
-# fuzzy-time-series
+# fuzzy-time-series diplomski
