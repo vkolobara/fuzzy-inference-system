@@ -14,6 +14,6 @@ int main() {
     std::cout << f2->valueAt(19.28282) << std::endl;
     std::cout << f3->valueAt(19.28282) << std::endl;
     std::cout << f4->valueAt(25) << std::endl;
-
+    
     return 0;
 }

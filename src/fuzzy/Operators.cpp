@@ -77,7 +77,7 @@ namespace Einstein {
     };
 }
 
-namespace Limited {
+namespace Bounded {
     class TNorm : public BaseOperator::TNorm {
     public:
         double calculateValue(double a, double b) {

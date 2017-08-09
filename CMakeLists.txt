@@ -3,5 +3,5 @@ project(diplomski)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES main.cpp fuzzy/MembershipFunctions.h fuzzy/MembershipFunctions.cpp fuzzy/LanguageVariable.cpp fuzzy/LanguageVariable.h fuzzy/Operators.h fuzzy/Operators.cpp fuzzy/domain/Domain.h)
+set(SOURCE_FILES src/main.cpp src/fuzzy/MembershipFunctions.h src/fuzzy/MembershipFunctions.cpp src/fuzzy/LanguageVariable.cpp src/fuzzy/LanguageVariable.h src/fuzzy/Operators.h src/fuzzy/Operators.cpp src/fuzzy/domain/Domain.h)
 add_executable(diplomski ${SOURCE_FILES})

@@ -3,6 +3,7 @@
 //
 
 #include <cmath>
+#include <stdexcept>
 #include "MembershipFunctions.h"
 
 namespace LinearMembershipFunction {
@@ -16,7 +17,7 @@ namespace LinearMembershipFunction {
         double alpha, beta;
     public:
         GammaMembershipFunction(double alpha, double beta) : alpha{alpha}, beta{beta} {
-            // CHECK alpha < beta
+            if (!(alpha < beta)) throw std::invalid_argument("Arguments must be: alpha < beta");
         }
 
         ~GammaMembershipFunction() {}
@@ -42,7 +43,7 @@ namespace LinearMembershipFunction {
         double alpha, beta, gamma;
     public:
         LambdaMembershipFunction(double alpha, double beta, double gamma) : alpha{alpha}, beta{beta}, gamma{gamma} {
-            // CHECK alpha < beta < gamma
+            if (!(alpha < beta && beta < gamma)) throw std::invalid_argument("Arguments must be: alpha < beta < gamma");
         }
 
         ~LambdaMembershipFunction() {}
@@ -61,7 +62,9 @@ namespace LinearMembershipFunction {
     class LMembershipFunction : public GammaMembershipFunction {
     public:
 
-        LMembershipFunction(double alpha, double beta) : GammaMembershipFunction(alpha, beta) {}
+        LMembershipFunction(double alpha, double beta) : GammaMembershipFunction(alpha, beta) {
+            if (!(alpha < beta)) throw std::invalid_argument("Arguments must be: alpha < beta");
+        }
 
         double calculateValue(const double &x) {
             return 1 - GammaMembershipFunction::valueAt(x);
@@ -78,7 +81,7 @@ namespace LinearMembershipFunction {
     public:
         PiMembershipFunction(double alpha, double beta, double gamma, double delta) : alpha(alpha), beta(beta),
                                                                                       gamma(gamma), delta(delta) {
-            // CHECK alpha < beta < gamma < delta
+            if (!(alpha < beta && beta < gamma && gamma < delta)) throw std::invalid_argument("Arguments must be: alpha < beta < gamma < delta");
         }
 
         ~PiMembershipFunction() {}
@@ -103,7 +106,7 @@ namespace SmoothMembershipFunction {
         double alpha, beta, gamma;
     public:
         SMembershipFunction(double alpha, double beta, double gamma) : alpha{alpha}, beta{beta}, gamma{gamma} {
-            // CHECK alpha < beta < gamma
+            if (!(alpha < beta && beta < gamma)) throw std::invalid_argument("Arguments must be: alpha < beta < gamma");
         }
 
         ~SMembershipFunction() {}
@@ -150,7 +153,7 @@ namespace SmoothMembershipFunction {
         ~SigmoidMembershipFunction() {}
 
         double valueAt(const double &x) {
-            return 1 / (1 + exp(-a * (x - c)));
+            return 1.0 / (1 + exp(-a * (x - c)));
         }
     };
 
@@ -193,7 +196,7 @@ namespace SmoothMembershipFunction {
         }
 
         double valueAt(const double &x) {
-            return 1 / (1 + k * (x - mu) * (x - mu));
+            return 1.0 / (1 + k * (x - mu) * (x - mu));
         }
     };
 
