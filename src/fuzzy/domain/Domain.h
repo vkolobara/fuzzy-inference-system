@@ -5,5 +5,16 @@
 #ifndef DIPLOMSKI_DOMAIN_H
 #define DIPLOMSKI_DOMAIN_H
 
+class DomainElement {
+
+};
+
+class Domain {
+
+};
+
+class DomainRange : public Domain {
+    
+};
 
 #endif //DIPLOMSKI_DOMAIN_H
