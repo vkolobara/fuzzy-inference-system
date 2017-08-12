@@ -14,7 +14,7 @@ class Domain {
 };
 
 class DomainRange : public Domain {
-    
+
 };
 
 #endif //DIPLOMSKI_DOMAIN_H
