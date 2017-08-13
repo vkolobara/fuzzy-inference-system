@@ -227,11 +227,11 @@ public:
 
 };
 
-class ContranstIntensificationMembershipFunction : public MembershipFunction {
+class ContrastIntensificationMembershipFunction : public MembershipFunction {
 private:
     std::shared_ptr<MembershipFunction> f;
 public:
-    ContranstIntensificationMembershipFunction(const std::shared_ptr<MembershipFunction> &f) : f(f) {}
+    ContrastIntensificationMembershipFunction(const std::shared_ptr<MembershipFunction> &f) : f(f) {}
 
     double valueAt(const double &x) {
         double value = f->valueAt(x);
