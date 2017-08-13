@@ -17,6 +17,7 @@ private:
     string name;
     shared_ptr<MembershipFunction> meaning;
 public:
+    LanguageTerm();
     LanguageTerm(const string &name, const shared_ptr<MembershipFunction> &meaning);
     shared_ptr<MembershipFunction> getMeaning();
     string getName();

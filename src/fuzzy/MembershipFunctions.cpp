@@ -4,7 +4,9 @@
 
 #include <cmath>
 #include <stdexcept>
+#include <memory>
 #include "MembershipFunctions.h"
+#include "Operators.h"
 
 namespace LinearMembershipFunction {
 
@@ -199,5 +201,84 @@ namespace SmoothMembershipFunction {
             return 1.0 / (1 + k * (x - mu) * (x - mu));
         }
     };
-
 }
+
+class DilatedMembershipFunction : public MembershipFunction {
+private:
+    std::shared_ptr<MembershipFunction> f;
+public:
+    DilatedMembershipFunction(const std::shared_ptr<MembershipFunction> &f) : f(f) {}
+
+    double valueAt(const double &x) {
+        return sqrt(f->valueAt(x));
+    }
+
+};
+
+class ConcentratedMembershipFunction : public MembershipFunction {
+private:
+    std::shared_ptr<MembershipFunction> f;
+public:
+    ConcentratedMembershipFunction(const std::shared_ptr<MembershipFunction> &f) : f(f) {}
+
+    double valueAt(const double &x) {
+        return pow(f->valueAt(x), 2);
+    }
+
+};
+
+class ContranstIntensificationMembershipFunction : public MembershipFunction {
+private:
+    std::shared_ptr<MembershipFunction> f;
+public:
+    ContranstIntensificationMembershipFunction(const std::shared_ptr<MembershipFunction> &f) : f(f) {}
+
+    double valueAt(const double &x) {
+        double value = f->valueAt(x);
+        if (value <= 0.5) {
+            value = 2 * value * value;
+        } else {
+            value = 1 - 2 * pow(1 - value, 2);
+        }
+        return value;
+    }
+
+};
+
+class UnaryOpMembershipFunction : MembershipFunction {
+protected:
+    std::shared_ptr<MembershipFunction> f;
+    std::shared_ptr<UnaryFunction> op;
+public:
+    double valueAt(const double &x) {
+        return op->calculateValue(f->valueAt(x));
+    }
+};
+
+class BinaryOpMembershipFunction : MembershipFunction {
+protected:
+    std::shared_ptr<MembershipFunction> f1;
+    std::shared_ptr<MembershipFunction> f2;
+    std::shared_ptr<BinaryFunction> op;
+public:
+    double valueAt(const double &x) {
+        return op->calculateValue(f1->valueAt(x), f2->valueAt(x));
+    }
+};
+
+class AndMembershipFunction : public BinaryOpMembershipFunction {
+public:
+    AndMembershipFunction(const std::shared_ptr<MembershipFunction> &f1, const std::shared_ptr<MembershipFunction> &f2,
+                          const std::shared_ptr<BaseOperator::TNorm> &op) : f1(f1), f2(f2), op(op) {}
+};
+
+class OrMembershipFunction : public BinaryOpMembershipFunction {
+public:
+    OrMembershipFunction(const std::shared_ptr<MembershipFunction> &f1, const std::shared_ptr<MembershipFunction> &f2,
+                          const std::shared_ptr<BaseOperator::SNorm> &op) : f1(f1), f2(f2), op(op) {}
+};
+
+class NotMembershipFunction : public UnaryOpMembershipFunction {
+public:
+    NotMembershipFunction(const std::shared_ptr<MembershipFunction> &f, const std::shared_ptr<BaseOperator::Complement> &op) : f(f), op(op){};
+};

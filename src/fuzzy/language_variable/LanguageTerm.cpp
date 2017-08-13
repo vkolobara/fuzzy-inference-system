@@ -4,6 +4,8 @@
 
 #include "LanguageTerm.h"
 
+LanguageTerm::LanguageTerm() {};
+
 LanguageTerm::LanguageTerm(const string &name, const shared_ptr<MembershipFunction> &meaning) : name(name),
                                                                                                 meaning(meaning) {}
 
