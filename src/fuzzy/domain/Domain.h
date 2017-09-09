@@ -17,7 +17,7 @@ class DomainRange : public Domain {
 private:
     double  start, step, end;
 public:
-    DomainRange(double start, double step, double end);
+    DomainRange(double start, double step, double end) : start(start), step(step), end(end) {}
 };
 
 #endif //DIPLOMSKI_DOMAIN_H

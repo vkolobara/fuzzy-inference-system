@@ -245,21 +245,23 @@ public:
 
 };
 
-class UnaryOpMembershipFunction : MembershipFunction {
+class UnaryOpMembershipFunction : protected MembershipFunction {
 protected:
     std::shared_ptr<MembershipFunction> f;
     std::shared_ptr<UnaryFunction> op;
+    UnaryOpMembershipFunction(const std::shared_ptr<MembershipFunction> &f, const std::shared_ptr<UnaryFunction> &op) :f(f), op(op) {}
 public:
     double valueAt(const double &x) {
         return op->calculateValue(f->valueAt(x));
     }
 };
 
-class BinaryOpMembershipFunction : MembershipFunction {
+class BinaryOpMembershipFunction : protected MembershipFunction {
 protected:
     std::shared_ptr<MembershipFunction> f1;
     std::shared_ptr<MembershipFunction> f2;
     std::shared_ptr<BinaryFunction> op;
+    BinaryOpMembershipFunction(const std::shared_ptr<MembershipFunction> &f1, const std::shared_ptr<MembershipFunction> &f2, const std::shared_ptr<BinaryFunction> &op) :f1(f1), f2(f2), op(op) {}
 public:
     double valueAt(const double &x) {
         return op->calculateValue(f1->valueAt(x), f2->valueAt(x));
@@ -269,16 +271,16 @@ public:
 class AndMembershipFunction : public BinaryOpMembershipFunction {
 public:
     AndMembershipFunction(const std::shared_ptr<MembershipFunction> &f1, const std::shared_ptr<MembershipFunction> &f2,
-                          const std::shared_ptr<BaseOperator::TNorm> &op) : f1(f1), f2(f2), op(op) {}
+                          const std::shared_ptr<BaseOperator::TNorm> &op) : BinaryOpMembershipFunction(f1, f2, op) {}
 };
 
 class OrMembershipFunction : public BinaryOpMembershipFunction {
 public:
     OrMembershipFunction(const std::shared_ptr<MembershipFunction> &f1, const std::shared_ptr<MembershipFunction> &f2,
-                          const std::shared_ptr<BaseOperator::SNorm> &op) : f1(f1), f2(f2), op(op) {}
+                          const std::shared_ptr<BaseOperator::SNorm> &op) : BinaryOpMembershipFunction(f1, f2, op) {}
 };
 
 class NotMembershipFunction : public UnaryOpMembershipFunction {
 public:
-    NotMembershipFunction(const std::shared_ptr<MembershipFunction> &f, const std::shared_ptr<BaseOperator::Complement> &op) : f(f), op(op){};
+    NotMembershipFunction(const std::shared_ptr<MembershipFunction> &f, const std::shared_ptr<BaseOperator::Complement> &op) : UnaryOpMembershipFunction(f, op){};
 };
