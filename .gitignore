@@ -1,6 +1,6 @@
-<<<<<<< HEAD
 .idea
 cmake-build-debug
+build
 =======
 # Prerequisites
 *.d
@@ -34,4 +34,3 @@ cmake-build-debug
 *.exe
 *.out
 *.app
->>>>>>> 0809d8b0666afbcac2325f85b2466e10d6e32c0a
