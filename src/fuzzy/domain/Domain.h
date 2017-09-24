@@ -4,20 +4,12 @@
 
 #ifndef DIPLOMSKI_DOMAIN_H
 #define DIPLOMSKI_DOMAIN_H
-
-class DomainElement {
-
-};
+#include "DomainElement.h"
 
 class Domain {
-
-};
-
-class DomainRange : public Domain {
-private:
-    double  start, step, end;
 public:
-    DomainRange(double start, double step, double end) : start(start), step(step), end(end) {}
+	virtual DomainElement getElementAt(int index) = 0;
+	virtual int getSize() = 0;
 };
 
 #endif //DIPLOMSKI_DOMAIN_H
