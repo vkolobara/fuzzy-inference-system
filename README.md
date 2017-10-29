@@ -1,1 +1,1 @@
-# fuzzy-time-series diplomski
+# Fuzzy inference system
