@@ -5,6 +5,7 @@
 #ifndef DIPLOMSKI_LANGUAGETERM_H
 #define DIPLOMSKI_LANGUAGETERM_H
 
+
 #include <string>
 #include <map>
 #include <memory>

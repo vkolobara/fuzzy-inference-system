@@ -74,7 +74,7 @@ namespace LinearMembershipFunction {
     };
 
     /*
-     * Similar to the lambda function, except there is no one value which is the center, there is an continuos interval
+     * Similar to the lambda function, except there is no one value which is the center, there is an interval
      * where the center is.
      */
     class PiMembershipFunction : public MembershipFunction {

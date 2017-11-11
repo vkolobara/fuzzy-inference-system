@@ -4,6 +4,7 @@
 
 #include "LanguageVariable.h"
 
+
 LanguageVariable::LanguageVariable(string name, Domain domain, vector<LanguageTerm> term_vector) :  name(name), domain(domain) {
     for (LanguageTerm term : term_vector) {
         terms[term.getName()] = term;

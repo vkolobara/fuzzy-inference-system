@@ -12,6 +12,7 @@
 #include "../domain/Domain.h"
 #include "LanguageTerm.h"
 
+
 using namespace std;
 
 class LanguageVariable {

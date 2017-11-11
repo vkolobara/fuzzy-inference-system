@@ -4,6 +4,7 @@
 
 #include "Operators.h"
 
+
 namespace Zadeh {
     class Complement : public BaseOperator::Complement {
     public:

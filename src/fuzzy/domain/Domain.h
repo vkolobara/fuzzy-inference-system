@@ -4,6 +4,7 @@
 
 #ifndef DIPLOMSKI_DOMAIN_H
 #define DIPLOMSKI_DOMAIN_H
+
 #include "DomainElement.h"
 
 class Domain {

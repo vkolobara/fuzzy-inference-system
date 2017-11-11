@@ -5,6 +5,7 @@
 #ifndef DIPLOMSKI_MEMBERSHIP_FUNCTIONS_H
 #define DIPLOMSKI_MEMBERSHIP_FUNCTIONS_H
 
+
 class MembershipFunction {
 public:
     virtual double valueAt(const double &x) = 0;

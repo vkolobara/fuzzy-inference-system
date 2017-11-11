@@ -3,7 +3,6 @@
 
 
 DomainElement::DomainElement(...) {
-
 }
 
 class DomainRange : public Domain {

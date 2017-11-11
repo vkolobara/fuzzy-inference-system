@@ -20,11 +20,9 @@ public:
 namespace BaseOperator {
 
     class SNorm : public BinaryFunction {
-
     };
 
     class TNorm : public BinaryFunction {
-
     };
 
     class Complement : public UnaryFunction {
