@@ -2,8 +2,8 @@
 // Created by vkolobara on 8/8/17.
 //
 
-#ifndef DIPLOMSKI_OPERATORS_H
-#define DIPLOMSKI_OPERATORS_H
+#ifndef FUZZY_INFERENCE_SYSTEM_OPERATORS_H
+#define FUZZY_INFERENCE_SYSTEM_OPERATORS_H
 
 #include "MembershipFunctions.h"
 
@@ -29,4 +29,4 @@ namespace BaseOperator {
     };
 }
 
-#endif //DIPLOMSKI_OPERATORS_H
+#endif //FUZZY_INFERENCE_SYSTEM_OPERATORS_H

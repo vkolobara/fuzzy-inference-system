@@ -2,8 +2,8 @@
 // Created by vkolobara on 8/13/17.
 //
 
-#ifndef DIPLOMSKI_LANGUAGETERM_H
-#define DIPLOMSKI_LANGUAGETERM_H
+#ifndef FUZZY_INFERENCE_SYSTEM_LANGUAGETERM_H
+#define FUZZY_INFERENCE_SYSTEM_LANGUAGETERM_H
 
 
 #include <string>
@@ -24,4 +24,4 @@ public:
     string getName();
 };
 
-#endif //DIPLOMSKI_LANGUAGETERM_H
+#endif //FUZZY_INFERENCE_SYSTEM_LANGUAGETERM_H

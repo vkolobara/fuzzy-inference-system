@@ -1,5 +1,5 @@
-#ifndef DIPLOMSKI_DOMAINELEMENT_H
-#define DIPLOMSKI_DOMAINELEMENT_H
+#ifndef FUZZY_INFERENCE_SYSTEM_DOMAINELEMENT_H
+#define FUZZY_INFERENCE_SYSTEM_DOMAINELEMENT_H
 
 
 #include <initializer_list>
@@ -12,4 +12,4 @@ public:
 	DomainElement(std::initializer_list<double> values);
 };
 
-#endif //DIPLOMSKI_DOMAINELEMENT_H
+#endif //FUZZY_INFERENCE_SYSTEM_DOMAINELEMENT_H

@@ -2,8 +2,8 @@
 // Created by vkolobara on 8/8/17.
 //
 
-#ifndef DIPLOMSKI_DOMAIN_H
-#define DIPLOMSKI_DOMAIN_H
+#ifndef FUZZY_INFERENCE_SYSTEM_DOMAIN_H
+#define FUZZY_INFERENCE_SYSTEM_DOMAIN_H
 
 #include "DomainElement.h"
 
@@ -13,4 +13,4 @@ public:
 	virtual int getSize() = 0;
 };
 
-#endif //DIPLOMSKI_DOMAIN_H
+#endif //FUZZY_INFERENCE_SYSTEM_DOMAIN_H

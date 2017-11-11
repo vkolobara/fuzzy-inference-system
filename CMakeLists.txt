@@ -1,7 +1,11 @@
 cmake_minimum_required(VERSION 3.8)
-project(diplomski)
+
+project(fuzzy-inference-system)
+set (fuzzy-inference-system_VERSION_MAJOR 1)
+set (fuzzy-inference-system_VERSION_MINOR 0)
+
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES src/main.cpp src/fuzzy/MembershipFunctions.h src/fuzzy/MembershipFunctions.cpp src/fuzzy/language_variable/LanguageVariable.cpp src/fuzzy/language_variable/LanguageVariable.h src/fuzzy/Operators.h src/fuzzy/Operators.cpp src/fuzzy/domain/Domain.h src/fuzzy/language_variable/LanguageTerm.h src/fuzzy/language_variable/LanguageTerm.cpp)
-add_executable(diplomski ${SOURCE_FILES})
+file (GLOB_RECURSE SOURCE_FILES src/*.cpp src/*.h)
+add_executable(fuzzy-inference-system ${SOURCE_FILES})
