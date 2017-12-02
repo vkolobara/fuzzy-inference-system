@@ -3,6 +3,7 @@
 //
 
 #include "Operators.h"
+#include <algorithm>
 
 
 namespace Zadeh {
@@ -16,16 +17,14 @@ namespace Zadeh {
     class TNorm : public BaseOperator::TNorm {
     public:
         double calculateValue(double a, double b) {
-            if (a < b) return a;
-            return b;
+	    return std::min(a, b);
         }
     };
 
     class SNorm : public BaseOperator::SNorm {
     public:
         double calculateValue(double a, double b) {
-            if (a > b) return a;
-            return b;
+            return std::max(a, b);
         }
     };
 }
@@ -83,8 +82,7 @@ namespace Bounded {
     public:
         double calculateValue(double a, double b) {
             auto value = a + b - 1;
-            if (value < 0) return 0;
-            return value;
+            return std::max(0, value);
         }
     };
 
@@ -92,8 +90,7 @@ namespace Bounded {
     public:
         double calculateValue(double a, double b) {
             auto value = a + b;
-            if (value > 1) return 1;
-            else return value;
+            return std::min(1, value);
         }
     };
 }
@@ -103,8 +100,7 @@ namespace Drastic {
     public:
         double calculateValue(double a, double b) {
             if (a < 1 && b < 1) return 0;
-            else if (a < b) return a;
-            else return b;
+            else return std::min(a, b);
         }
     };
 
@@ -112,8 +108,7 @@ namespace Drastic {
     public:
         double calculateValue(double a, double b) {
             if (a > 0 && b > 0) return 1;
-            else if (a > b) return a;
-            else return b;
+            else return std::max(a, b);
         }
     };
 }
