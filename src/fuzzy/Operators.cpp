@@ -82,7 +82,7 @@ namespace Bounded {
     public:
         double calculateValue(double a, double b) {
             auto value = a + b - 1;
-            return std::max(0, value);
+            return std::max(0.0, value);
         }
     };
 
@@ -90,7 +90,7 @@ namespace Bounded {
     public:
         double calculateValue(double a, double b) {
             auto value = a + b;
-            return std::min(1, value);
+            return std::min(1.0, value);
         }
     };
 }

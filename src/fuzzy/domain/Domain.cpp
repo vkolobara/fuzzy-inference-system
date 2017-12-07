@@ -2,9 +2,6 @@
 #include <stdexcept>
 
 
-DomainElement::DomainElement(...) {
-}
-
 class DomainRange : public Domain {
 private:
 	double start, step, end;
@@ -14,7 +11,7 @@ public:
 		if (index > getSize()) {
 			throw std::invalid_argument("Index greater than size of domain");
 		}
-		return DomainElement(start + index * step);
+		return DomainElement({start + index*step});
 	}
 	int getSize() {
 		return (end - start) / step;
