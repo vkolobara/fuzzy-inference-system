@@ -13,4 +13,12 @@ public:
 	virtual int getSize() = 0;
 };
 
+class DomainRange : Domain {
+private:
+    double start, step, end;
+public:
+    DomainRange(double start, double step, double end);
+    DomainElement getElementAt(int index);
+    int getSize();
+};
 #endif //FUZZY_INFERENCE_SYSTEM_DOMAIN_H

@@ -18,12 +18,12 @@ using namespace std;
 class LanguageVariable {
 private:
     string name;
-    Domain domain;
+    DomainRange domain;
     map<string, LanguageTerm> terms;
 public:
-    LanguageVariable(string name, Domain domain, vector<LanguageTerm> terms);
+    LanguageVariable(string name, DomainRange domain, vector<LanguageTerm> terms);
     string getName();
-    Domain getDomain();
+    DomainRange getDomain();
     vector<string> getTermNames();
     shared_ptr<MembershipFunction> getMembershipFunction(string term);
 };
