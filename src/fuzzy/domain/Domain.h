@@ -13,7 +13,7 @@ public:
 	virtual int getSize() = 0;
 };
 
-class DomainRange : Domain {
+class DomainRange : public Domain {
 private:
     double start, step, end;
 public:
