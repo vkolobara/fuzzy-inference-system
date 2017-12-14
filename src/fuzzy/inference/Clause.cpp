@@ -44,6 +44,37 @@ public:
     	this->clauses = std::vector<shared_ptr<Clause>>(clauses);
 	this->snorm = shared_ptr<BaseOperator::SNorm>(new Zadeh::SNorm());
     }
+   
+    double calculateMembership(FuzzyInput fuzzyInput) {
+        double val = 0;
+	
+	for (shared_ptr<Clause> clause : this->clauses) {
+	    val = this->snorm->calculateValue(val, clause->calculateMembership(fuzzyInput));
+	}
 
+	return val;
 
+    }
+}
+
+class AndClause : public Clause {
+private:
+    std::vector<shared_ptr<Clause>> clauses;
+    shared_ptr<BaseOperator::TNorm> tnorm;
+public:
+    OrClause(std::initializer_list<shared_ptr<Clause>> clauses) {
+    	this->clauses = std::vector<shared_ptr<Clause>>(clauses);
+	this->tnorm = shared_ptr<BaseOperator::TNorm>(new Zadeh::TNorm());
+    }
+   
+    double calculateMembership(FuzzyInput fuzzyInput) {
+        double val = 0;
+	
+	for (shared_ptr<Clause> clause : this->clauses) {
+	    val = this->tnorm->calculateValue(val, clause->calculateMembership(fuzzyInput));
+	}
+
+	return val;
+
+    }
 }
