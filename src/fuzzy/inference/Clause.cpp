@@ -4,6 +4,8 @@
 
 #include "Clause.h"
 #include "../Operators.cpp"
+#include <initializer_list>
+#include <vector>
 
 class SimpleClause : public Clause {
 private:
@@ -32,3 +34,16 @@ public:
         return complement->calculateValue(clause->calculateMembership(fuzzyInput));
     }
 };
+
+class OrClause : public Clause {
+private:
+    std::vector<shared_ptr<Clause>> clauses;
+    shared_ptr<BaseOperator::SNorm> snorm;
+public:
+    OrClause(std::initializer_list<shared_ptr<Clause>> clauses) {
+    	this->clauses = std::vector<shared_ptr<Clause>>(clauses);
+	this->snorm = shared_ptr<BaseOperator::SNorm>(new Zadeh::SNorm());
+    }
+
+
+}

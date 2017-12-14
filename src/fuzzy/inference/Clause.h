@@ -14,5 +14,8 @@ public:
     virtual double calculateMembership(FuzzyInput fuzzyInput) = 0;
 };
 
+class NotClause : public Clause {}
+class AndClause : public Clause {}
+class OrClause : public Clause {}
 
 #endif //FUZZY_INFERENCE_SYSTEM_CLAUSE_H
