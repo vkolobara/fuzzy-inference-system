@@ -7,18 +7,11 @@
 #include <initializer_list>
 #include <vector>
 
-class SimpleClause : public Clause {
-private:
-    LanguageTerm languageTerm;
-    LanguageVariable languageVariable;
-public:
-    SimpleClause(const LanguageTerm &languageTerm, const LanguageVariable &languageVariable) : languageTerm(
-            languageTerm), languageVariable(languageVariable) {}
+SimpleClause::SimpleClause(const LanguageTerm &languageTerm, const LanguageVariable &languageVariable) : languageTerm(languageTerm), languageVariable(languageVariable) {}
 
-    double calculateMembership(FuzzyInput fuzzyInput) {
-        return languageTerm.getMeaning()->valueAt(fuzzyInput.getValue(languageVariable.getName()));
-    }
-};
+double SimpleClause::calculateMembership(FuzzyInput fuzzyInput) {
+    return languageTerm.getMeaning()->valueAt(fuzzyInput.getValue(languageVariable.getName()));
+}
 
 class NotClause : public Clause {
 private:
@@ -35,46 +28,34 @@ public:
     }
 };
 
-class OrClause : public Clause {
-private:
-    std::vector<shared_ptr<Clause>> clauses;
-    shared_ptr<BaseOperator::SNorm> snorm;
-public:
-    OrClause(std::initializer_list<shared_ptr<Clause>> clauses) {
-    	this->clauses = std::vector<shared_ptr<Clause>>(clauses);
-	this->snorm = shared_ptr<BaseOperator::SNorm>(new Zadeh::SNorm());
-    }
+OrClause::OrClause(std::initializer_list<shared_ptr<Clause>> clauses) {
+    this->clauses = std::vector<shared_ptr<Clause>>(clauses);
+    this->snorm = shared_ptr<BaseOperator::SNorm>(new Zadeh::SNorm());
+}
    
-    double calculateMembership(FuzzyInput fuzzyInput) {
-        double val = 0;
+double calculateMembership(FuzzyInput fuzzyInput) {
+    double val = 0;
 	
-	for (shared_ptr<Clause> clause : this->clauses) {
-	    val = this->snorm->calculateValue(val, clause->calculateMembership(fuzzyInput));
-	}
-
-	return val;
-
+    for (shared_ptr<Clause> clause : this->clauses) {
+        val = this->snorm->calculateValue(val, clause->calculateMembership(fuzzyInput));
     }
+	
+    return val;
+
 }
 
-class AndClause : public Clause {
-private:
-    std::vector<shared_ptr<Clause>> clauses;
-    shared_ptr<BaseOperator::TNorm> tnorm;
-public:
-    OrClause(std::initializer_list<shared_ptr<Clause>> clauses) {
-    	this->clauses = std::vector<shared_ptr<Clause>>(clauses);
-	this->tnorm = shared_ptr<BaseOperator::TNorm>(new Zadeh::TNorm());
-    }
-   
-    double calculateMembership(FuzzyInput fuzzyInput) {
-        double val = 0;
-	
-	for (shared_ptr<Clause> clause : this->clauses) {
-	    val = this->tnorm->calculateValue(val, clause->calculateMembership(fuzzyInput));
-	}
+AndClause::AndClause(std::initializer_list<shared_ptr<Clause>> clauses) {
+    this->clauses = std::vector<shared_ptr<Clause>>(clauses);
+    this->tnorm = shared_ptr<BaseOperator::TNorm>(new Zadeh::TNorm());
+}
 
-	return val;
+double AndClause::calculateMembership(FuzzyInput fuzzyInput) {
+    double val = 0;
 
+    for (shared_ptr<Clause> clause : this->clauses) {
+        val = this->tnorm->calculateValue(val, clause->calculateMembership(fuzzyInput));
     }
+
+    return val;
+
 }
