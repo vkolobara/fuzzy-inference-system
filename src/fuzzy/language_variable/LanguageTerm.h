@@ -9,18 +9,18 @@
 #include <string>
 #include <map>
 #include <memory>
-#include "../MembershipFunctions.h"
+#include "../FuzzySet.h"
 
 using namespace std;
 
 class LanguageTerm {
 private:
     string name;
-    shared_ptr<MembershipFunction> meaning;
+    shared_ptr<FuzzySet> meaning;
 public:
     LanguageTerm();
-    LanguageTerm(const string &name, const shared_ptr<MembershipFunction> &meaning);
-    shared_ptr<MembershipFunction> getMeaning();
+    LanguageTerm(const string &name, const shared_ptr<FuzzySet> &meaning);
+    shared_ptr<FuzzySet> getMeaning();
     string getName();
 };
 

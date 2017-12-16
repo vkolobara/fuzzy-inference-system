@@ -8,7 +8,7 @@
 #include <vector>
 #include <map>
 #include "string"
-#include "../MembershipFunctions.h"
+#include "../FuzzySet.h"
 #include "../domain/Domain.h"
 #include "LanguageTerm.h"
 
@@ -19,13 +19,14 @@ class LanguageVariable {
 private:
     string name;
     shared_ptr<Domain> domain;
-    map<string, LanguageTerm> terms;
+    map<string, shared_ptr<LanguageTerm>> terms;
 public:
-    LanguageVariable(string name, shared_ptr<Domain> domain, vector<LanguageTerm> terms);
+    LanguageVariable(string name, shared_ptr<Domain> domain, vector<shared_ptr<LanguageTerm>> terms);
     string getName();
     shared_ptr<Domain> getDomain();
     vector<string> getTermNames();
-    shared_ptr<MembershipFunction> getMembershipFunction(string term);
+    shared_ptr<FuzzySet> getMembershipFunction(string term);
+    shared_ptr<LanguageTerm> getLanguageTerm(string term);
 };
 
 

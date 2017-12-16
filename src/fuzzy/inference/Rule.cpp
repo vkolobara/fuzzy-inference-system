@@ -4,8 +4,7 @@
 
 #include "Rule.h"
 
-MembershipFunction Rule::getConclusion() {
+unique_ptr<FuzzySet> Rule::getConclusion() {
 
-
-    return MembershipFunction();
+    return unique_ptr<FuzzySet>();
 }

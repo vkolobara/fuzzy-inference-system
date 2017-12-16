@@ -5,8 +5,6 @@
 #ifndef FUZZY_INFERENCE_SYSTEM_OPERATORS_H
 #define FUZZY_INFERENCE_SYSTEM_OPERATORS_H
 
-#include "MembershipFunctions.h"
-
 class BinaryFunction {
 public:
     virtual double calculateValue(double a, double b) = 0;

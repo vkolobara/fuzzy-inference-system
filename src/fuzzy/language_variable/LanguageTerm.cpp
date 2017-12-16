@@ -7,10 +7,10 @@
 
 LanguageTerm::LanguageTerm() {};
 
-LanguageTerm::LanguageTerm(const string &name, const shared_ptr<MembershipFunction> &meaning) : name(name),
+LanguageTerm::LanguageTerm(const string &name, const shared_ptr<FuzzySet> &meaning) : name(name),
                                                                                                 meaning(meaning) {}
 
-shared_ptr<MembershipFunction> LanguageTerm::getMeaning() {
+shared_ptr<FuzzySet> LanguageTerm::getMeaning() {
     return meaning;
 }
 

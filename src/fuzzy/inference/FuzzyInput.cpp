@@ -19,5 +19,5 @@ double FuzzyInput::getValue(string languageVariable) {
 }
 
 map<string, double> FuzzyInput::getAllValues() {
-    return currentValues;
+    return map<string, double>(currentValues);
 }

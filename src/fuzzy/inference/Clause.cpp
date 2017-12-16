@@ -3,6 +3,7 @@
 //
 
 #include "Clause.h"
+#include "../FuzzySet.h"
 
 double SimpleClause::calculateMembership(FuzzyInput fuzzyInput) {
     return languageTerm->getMeaning()->valueAt(fuzzyInput.getValue(languageVariable->getName()));
@@ -11,40 +12,57 @@ double SimpleClause::calculateMembership(FuzzyInput fuzzyInput) {
 NotClause::NotClause(shared_ptr<Clause> clause) {
     this->clause = clause;
     this->complement = shared_ptr<BaseOperator::Complement>(new Zadeh::Complement());
+    this->fuzzySet = shared_ptr<FuzzySet>(new NotFuzzySet(this->clause->getFuzzySet(), this->complement));
 }
 
 double NotClause::calculateMembership(FuzzyInput fuzzyInput) {
-    return complement->calculateValue(clause->calculateMembership(fuzzyInput));
+    return this->complement->calculateValue(this->clause->calculateMembership(fuzzyInput));
 }
 
-OrClause::OrClause(std::initializer_list<shared_ptr<Clause>> clauses) {
-    this->clauses = std::vector<shared_ptr<Clause>>(clauses);
+OrClause::OrClause(std::vector<shared_ptr<Clause>> clauses) : clauses(clauses) {
     this->snorm = shared_ptr<BaseOperator::SNorm>(new Zadeh::SNorm());
+
+    auto size = clauses.size();
+
+    vector<shared_ptr<FuzzySet>> fuzzySets = vector<shared_ptr<FuzzySet>>(size);
+
+    for (int i=0; i<size; i++) {
+        fuzzySets[i] = this->clauses[i]->getFuzzySet();
+    }
+
+    this->fuzzySet = shared_ptr<OrFuzzySet>(new OrFuzzySet(fuzzySets, this->snorm));
 }
 
 double OrClause::calculateMembership(FuzzyInput fuzzyInput) {
-    double val = 0;
+    auto val = 0.0;
 
-    for (shared_ptr<Clause> clause : this->clauses) {
+    for (shared_ptr<Clause> clause : clauses) {
         val = this->snorm->calculateValue(val, clause->calculateMembership(fuzzyInput));
     }
 
     return val;
-
 }
 
-AndClause::AndClause(std::initializer_list<shared_ptr<Clause>> clauses) {
-    this->clauses = std::vector<shared_ptr<Clause>>(clauses);
+AndClause::AndClause(std::vector<shared_ptr<Clause>> clauses) : clauses(clauses) {
     this->tnorm = shared_ptr<BaseOperator::TNorm>(new Zadeh::TNorm());
+
+    auto size = clauses.size();
+
+    vector<shared_ptr<FuzzySet>> fuzzySets = vector<shared_ptr<FuzzySet>>(size);
+
+    for (int i=0; i<size; i++) {
+        fuzzySets[i] = this->clauses[i]->getFuzzySet();
+    }
+
+    this->fuzzySet = shared_ptr<AndFuzzySet>(new AndFuzzySet(fuzzySets, this->tnorm));
 }
 
 double AndClause::calculateMembership(FuzzyInput fuzzyInput) {
-    double val = 0;
+    auto val = 1.0;
 
-    for (shared_ptr<Clause> clause : this->clauses) {
+    for (shared_ptr<Clause> clause : clauses) {
         val = this->tnorm->calculateValue(val, clause->calculateMembership(fuzzyInput));
     }
 
     return val;
-
 }
