@@ -6,19 +6,16 @@
 #define FUZZY_INFERENCE_SYSTEM_DOMAIN_H
 
 #include "DomainElement.h"
+#include <memory>
 
-class Domain {
-public:
-	virtual DomainElement getElementAt(int index) = 0;
-	virtual int getSize() = 0;
-};
+using namespace std;
 
-class DomainRange : public Domain {
-private:
-    double start, step, end;
+class Domain : public enable_shared_from_this<Domain>{
 public:
-    DomainRange(double start, double step, double end);
-    DomainElement getElementAt(int index);
-    int getSize();
+	virtual int getCardinality() = 0;
+    virtual int getNumberOfComponents() = 0;
+	virtual shared_ptr<Domain> getComponent(int index) = 0;
+    virtual DomainElement getElementAt(int index) = 0;
+    virtual int indexOfElement (DomainElement element) = 0;
 };
 #endif //FUZZY_INFERENCE_SYSTEM_DOMAIN_H

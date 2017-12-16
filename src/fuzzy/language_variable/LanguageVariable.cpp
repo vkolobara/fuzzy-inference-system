@@ -5,7 +5,7 @@
 #include "LanguageVariable.h"
 
 
-LanguageVariable::LanguageVariable(string name, DomainRange domain, vector<LanguageTerm> term_vector) :  name(name), domain(domain) {
+LanguageVariable::LanguageVariable(string name, shared_ptr<Domain> domain, vector<LanguageTerm> term_vector) :  name(name), domain(domain) {
     for (LanguageTerm term : term_vector) {
         terms[term.getName()] = term;
     }
@@ -29,6 +29,6 @@ shared_ptr<MembershipFunction> LanguageVariable::getMembershipFunction(string te
     return terms[term].getMeaning();
 }
 
-DomainRange LanguageVariable::getDomain() {
+shared_ptr<Domain> LanguageVariable::getDomain() {
     return domain;
 }
