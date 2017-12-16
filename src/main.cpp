@@ -22,12 +22,18 @@ int main() {
     shared_ptr<Clause> shortClause = shared_ptr<SimpleClause>(new SimpleClause(shortTerm, langVar));
     shared_ptr<Clause> tallClause = shared_ptr<SimpleClause>(new SimpleClause(tallTerm, langVar));
 
-
     list<string> names {"height"};
     FuzzyInput input = FuzzyInput(names);
 
-    input.setValue("height", 163);
-    std::cout << "You are short with membership of: " << shortClause->calculateMembership(input) << std::endl;
-    std::cout << "You are tall with membership of: " << tallClause->calculateMembership(input);
+    input.setValue("height", 173);
+    cout << "You are short with membership of: " << shortClause->calculateMembership(input) << endl;
+    cout << "You are tall with membership of: " << tallClause->calculateMembership(input) << endl;
+
+    vector<shared_ptr<Clause>> clauses {shortClause, tallClause};
+
+    shared_ptr<Clause> andClause = shared_ptr<AndClause>(new AndClause(clauses));
+
+    cout << "AndClause membership: " << andClause->calculateMembership(input);
+
     return 0;
 }
