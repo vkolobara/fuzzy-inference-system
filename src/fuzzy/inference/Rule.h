@@ -6,6 +6,8 @@
 #define FUZZY_INFERENCE_SYSTEM_RULE_H
 
 
+#include <utility>
+
 #include "../FuzzySet.h"
 #include "Clause.h"
 
@@ -15,8 +17,9 @@ protected:
     shared_ptr<FuzzySet> consequense;
     shared_ptr<BaseOperator::TNorm> tnorm;
 public:
-    Rule(const shared_ptr<Clause> &antecedent, const shared_ptr<FuzzySet> &consequense,
-         const shared_ptr<BaseOperator::TNorm> &tnorm) : antecedent(antecedent), consequense(consequense), tnorm(tnorm) {};
+    Rule(shared_ptr<Clause> antecedent, shared_ptr<FuzzySet> consequense,
+         shared_ptr<BaseOperator::TNorm> tnorm) : antecedent(std::move(antecedent)), consequense(
+            std::move(consequense)), tnorm(std::move(tnorm)) {};
 
 
     unique_ptr<FuzzySet> getConclusion();

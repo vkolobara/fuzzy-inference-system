@@ -30,77 +30,77 @@ namespace BaseOperator {
 namespace Zadeh {
     class Complement : public BaseOperator::Complement {
     public:
-        double calculateValue(double a);
+        double calculateValue(double a) override;
     };
 
     class TNorm : public BaseOperator::TNorm {
     public:
-        double calculateValue(double a, double b);
+        double calculateValue(double a, double b) override;
     };
 
     class SNorm : public BaseOperator::SNorm {
     public:
-        double calculateValue(double a, double b);
+        double calculateValue(double a, double b) override;
     };
 }
 
 namespace Hamacher {
     class TNorm : public BaseOperator::TNorm {
     public:
-        double calculateValue(double a, double b);
+        double calculateValue(double a, double b) override;
     };
 
     class SNorm : public BaseOperator::SNorm {
     public:
-        double calculateValue(double a, double b);
+        double calculateValue(double a, double b) override;
     };
 }
 
 namespace Algebraic {
     class TNorm : public BaseOperator::TNorm {
     public:
-        double calculateValue(double a, double b);
+        double calculateValue(double a, double b) override;
     };
 
     class SNorm : public BaseOperator::SNorm {
     public:
-        double calculateValue(double a, double b);
+        double calculateValue(double a, double b) override;
     };
 }
 
 namespace Einstein {
     class TNorm : public BaseOperator::TNorm {
     public:
-        double calculateValue(double a, double b);
+        double calculateValue(double a, double b) override;
     };
 
     class SNorm : public BaseOperator::SNorm {
     public:
-        double calculateValue(double a, double b);
+        double calculateValue(double a, double b) override;
     };
 }
 
 namespace Bounded {
     class TNorm : public BaseOperator::TNorm {
     public:
-        double calculateValue(double a, double b);
+        double calculateValue(double a, double b) override;
     };
 
     class SNorm : public BaseOperator::SNorm {
     public:
-        double calculateValue(double a, double b);
+        double calculateValue(double a, double b) override;
     };
 }
 
 namespace Drastic {
     class TNorm : public BaseOperator::TNorm {
     public:
-        double calculateValue(double a, double b);
+        double calculateValue(double a, double b) override;
     };
 
     class SNorm : public BaseOperator::SNorm {
     public:
-        double calculateValue(double a, double b);
+        double calculateValue(double a, double b) override;
     };
 }
 

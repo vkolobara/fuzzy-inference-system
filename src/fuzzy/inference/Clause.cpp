@@ -3,6 +3,8 @@
 //
 
 #include "Clause.h"
+
+#include <utility>
 #include "../FuzzySet.h"
 
 double SimpleClause::calculateMembership(FuzzyInput fuzzyInput) {
@@ -10,7 +12,7 @@ double SimpleClause::calculateMembership(FuzzyInput fuzzyInput) {
 }
 
 NotClause::NotClause(shared_ptr<Clause> clause) {
-    this->clause = clause;
+    this->clause = std::move(clause);
     this->complement = shared_ptr<BaseOperator::Complement>(new Zadeh::Complement());
     this->fuzzySet = shared_ptr<FuzzySet>(new NotFuzzySet(this->clause->getFuzzySet(), this->complement));
 }
@@ -30,13 +32,13 @@ OrClause::OrClause(std::vector<shared_ptr<Clause>> clauses) : clauses(clauses) {
         fuzzySets[i] = this->clauses[i]->getFuzzySet();
     }
 
-    this->fuzzySet = shared_ptr<OrFuzzySet>(new OrFuzzySet(fuzzySets, this->snorm));
+    this->fuzzySet = std::make_shared<OrFuzzySet>(fuzzySets, this->snorm);
 }
 
 double OrClause::calculateMembership(FuzzyInput fuzzyInput) {
     auto val = 0.0;
 
-    for (shared_ptr<Clause> clause : clauses) {
+    for (const shared_ptr<Clause> &clause : clauses) {
         val = this->snorm->calculateValue(val, clause->calculateMembership(fuzzyInput));
     }
 
@@ -54,13 +56,13 @@ AndClause::AndClause(std::vector<shared_ptr<Clause>> clauses) : clauses(clauses)
         fuzzySets[i] = this->clauses[i]->getFuzzySet();
     }
 
-    this->fuzzySet = shared_ptr<AndFuzzySet>(new AndFuzzySet(fuzzySets, this->tnorm));
+    this->fuzzySet = std::make_shared<AndFuzzySet>(fuzzySets, this->tnorm);
 }
 
 double AndClause::calculateMembership(FuzzyInput fuzzyInput) {
     auto val = 1.0;
 
-    for (shared_ptr<Clause> clause : clauses) {
+    for (const shared_ptr<Clause> &clause : clauses) {
         val = this->tnorm->calculateValue(val, clause->calculateMembership(fuzzyInput));
     }
 

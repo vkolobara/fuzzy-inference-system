@@ -5,10 +5,10 @@
 #include "LanguageTerm.h"
 
 
-LanguageTerm::LanguageTerm() {};
+LanguageTerm::LanguageTerm() = default;
 
 LanguageTerm::LanguageTerm(const string &name, const shared_ptr<FuzzySet> &meaning) : name(name),
-                                                                                                meaning(meaning) {}
+                                                                                      meaning(meaning) {}
 
 shared_ptr<FuzzySet> LanguageTerm::getMeaning() {
     return meaning;

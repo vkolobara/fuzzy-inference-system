@@ -6,8 +6,9 @@
 #include <memory>
 
 
-LanguageVariable::LanguageVariable(string name, shared_ptr<Domain> domain, vector<shared_ptr<LanguageTerm>> term_vector) :  name(name), domain(domain) {
-    for (shared_ptr<LanguageTerm> term : term_vector) {
+LanguageVariable::LanguageVariable(string name, shared_ptr<Domain> domain, vector<shared_ptr<LanguageTerm>> term_vector) :  name(
+        std::move(name)), domain(std::move(domain)) {
+    for (const shared_ptr<LanguageTerm> &term : term_vector) {
         terms[term->getName()] = term;
     }
 }

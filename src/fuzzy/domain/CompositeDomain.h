@@ -17,11 +17,11 @@ protected:
     vector<shared_ptr<DomainRange>> domains;
 public:
     CompositeDomain(initializer_list<DomainRange> domains);
-    int getCardinality();
-    int getNumberOfComponents();
-    shared_ptr<Domain> getComponent(int index);
-    DomainElement getElementAt(int index);
-    int indexOfElement (DomainElement element);
+    uint getCardinality() override;
+    uint getNumberOfComponents() override;
+    shared_ptr<Domain> getComponent(uint index) override;
+    DomainElement getElementAt(uint index) override;
+    uint indexOfElement (DomainElement element) override;
 };
 
 

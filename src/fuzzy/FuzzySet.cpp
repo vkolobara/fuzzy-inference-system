@@ -16,12 +16,12 @@ namespace LinearFuzzySet {
         double alpha, beta;
     public:
         GammaFuzzySet(double alpha, double beta) : alpha{alpha}, beta{beta} {
-            if (!(alpha < beta)) throw std::invalid_argument("Arguments must be: alpha < beta");
+            if (alpha >= beta) throw std::invalid_argument("Arguments must be: alpha < beta");
         }
 
-        ~GammaFuzzySet() {}
+        ~GammaFuzzySet() = default;
 
-        double valueAt(const double &x) {
+        double valueAt(const double &x) override {
             if (x < alpha) {
                 return 0;
             } else if (x >= beta) {
@@ -45,9 +45,9 @@ namespace LinearFuzzySet {
             if (!(alpha < beta && beta < gamma)) throw std::invalid_argument("Arguments must be: alpha < beta < gamma");
         }
 
-        ~LambdaFuzzySet() {}
+        ~LambdaFuzzySet() = default;
 
-        double valueAt(const double &x) {
+        double valueAt(const double &x) override {
             if (x < alpha || x >= gamma) return 0;
             else if (x < beta && x >= alpha) return (x - alpha) / (beta - alpha);
             else return (gamma - x) / (gamma - beta);
@@ -64,12 +64,12 @@ namespace LinearFuzzySet {
     public:
 
         LFuzzySet(double alpha, double beta) : alpha(alpha), beta(beta) {
-            if (!(alpha < beta)) throw std::invalid_argument("Arguments must be: alpha < beta");
+            if (alpha >= beta) throw std::invalid_argument("Arguments must be: alpha < beta");
         }
 
-        ~LFuzzySet() {};
+        ~LFuzzySet() = default;;
 
-        double valueAt(const double &x) {
+        double valueAt(const double &x) override {
             if (x < alpha) return 1;
             else if (x >= beta) return 0;
             else return (beta - x) / (beta - alpha);
@@ -90,9 +90,9 @@ namespace LinearFuzzySet {
                 throw std::invalid_argument("Arguments must be: alpha < beta < gamma < delta");
         }
 
-        ~PiFuzzySet() {}
+        ~PiFuzzySet() = default;
 
-        double valueAt(const double &x) {
+        double valueAt(const double &x) override {
             if (x < alpha || x >= delta) return 0;
             else if (x < gamma && x >= beta) return 1;
             else if (x < beta && x >= alpha) return (x - alpha) / (beta - alpha);
@@ -115,9 +115,9 @@ namespace SmoothFuzzySet {
             if (!(alpha < beta && beta < gamma)) throw std::invalid_argument("Arguments must be: alpha < beta < gamma");
         }
 
-        ~SFuzzySet() {}
+        ~SFuzzySet() = default;
 
-        double valueAt(const double &x) {
+        double valueAt(const double &x) override {
             if (x < alpha) return 0;
             else if (x >= gamma) return 1;
             else if (x < beta && x >= alpha) {
@@ -139,9 +139,9 @@ namespace SmoothFuzzySet {
     public:
         GaussFuzzySet(double mu, double sigma) : mu(mu), sigma(sigma) {}
 
-        ~GaussFuzzySet() {}
+        ~GaussFuzzySet() = default;
 
-        double valueAt(const double &x) {
+        double valueAt(const double &x) override {
             double exponent = (x - mu) / sigma;
             return exp(-exponent * exponent);
         }
@@ -156,34 +156,10 @@ namespace SmoothFuzzySet {
     public:
         SigmoidFuzzySet(double a, double c) : a(a), c(c) {}
 
-        ~SigmoidFuzzySet() {}
+        ~SigmoidFuzzySet() = default;
 
-        double valueAt(const double &x) {
+        double valueAt(const double &x) override {
             return 1.0 / (1 + exp(-a * (x - c)));
-        }
-    };
-
-    /*
-     * Pi membership function. gamma represents the center, beta the bell width.
-     */
-    class PiFuzzySet : public FuzzySet {
-    private:
-        double beta, gamma;
-    public:
-        PiFuzzySet(double beta, double gamma) : beta(beta), gamma(gamma) {}
-
-        ~PiFuzzySet() {}
-
-        double valueAt(const double &x) {
-            FuzzySet *f = nullptr;
-            if (x < gamma) {
-                f = new SFuzzySet(gamma - beta, gamma - beta / 2, gamma);
-                return f->valueAt(x);
-            } else {
-                f = new SFuzzySet(gamma, gamma + beta / 2, gamma + beta);
-                return 1 - f->valueAt(x);
-            }
-
         }
     };
 

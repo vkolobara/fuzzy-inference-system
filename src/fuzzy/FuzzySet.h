@@ -6,6 +6,7 @@
 #define FUZZY_INFERENCE_SYSTEM_MEMBERSHIP_FUNCTIONS_H
 
 #include "Operators.h"
+#include <utility>
 #include <vector>
 #include <initializer_list>
 #include <memory>
@@ -23,9 +24,9 @@ class DilatedFuzzySet : public FuzzySet {
 private:
     shared_ptr<FuzzySet> f;
 public:
-    DilatedFuzzySet(const shared_ptr<FuzzySet> &f) : f(f) {}
+    explicit DilatedFuzzySet(shared_ptr<FuzzySet> f) : f(std::move(f)) {}
 
-    double valueAt(const double &x) {
+    double valueAt(const double &x) override {
         return sqrt(f->valueAt(x));
     }
 
@@ -35,9 +36,9 @@ class ConcentratedFuzzySet : public FuzzySet {
 private:
     shared_ptr<FuzzySet> f;
 public:
-    ConcentratedFuzzySet(const shared_ptr<FuzzySet> &f) : f(f) {}
+    explicit ConcentratedFuzzySet(shared_ptr<FuzzySet> f) : f(std::move(f)) {}
 
-    double valueAt(const double &x) {
+    double valueAt(const double &x) override {
         return pow(f->valueAt(x), 2);
     }
 
@@ -47,9 +48,9 @@ class ContrastIntensificationFuzzySet : public FuzzySet {
 private:
     shared_ptr<FuzzySet> f;
 public:
-    ContrastIntensificationFuzzySet(const shared_ptr<FuzzySet> &f) : f(f) {}
+    explicit ContrastIntensificationFuzzySet(shared_ptr<FuzzySet> f) : f(std::move(f)) {}
 
-    double valueAt(const double &x) {
+    double valueAt(const double &x) override {
         double value = f->valueAt(x);
         if (value <= 0.5) {
             value = 2 * value * value;
@@ -66,9 +67,9 @@ protected:
     shared_ptr<FuzzySet> f;
     shared_ptr<UnaryFunction> op;
 public:
-    UnaryOpFuzzySet(const shared_ptr<FuzzySet> &f, const shared_ptr<UnaryFunction> &op) :f(f), op(op) {}
+    UnaryOpFuzzySet(shared_ptr<FuzzySet> f, shared_ptr<UnaryFunction> op) :f(std::move(f)), op(std::move(op)) {}
 
-    double valueAt(const double &x) {
+    double valueAt(const double &x) override {
         return op->calculateValue(f->valueAt(x));
     }
 };
@@ -78,9 +79,10 @@ protected:
     vector<shared_ptr<FuzzySet>> fuzzySets;
     shared_ptr<BinaryFunction> op;
 public:
-    MultipleOpFuzzySet(const vector<shared_ptr<FuzzySet>> &fuzzySets, const shared_ptr<BinaryFunction> &op) : fuzzySets(fuzzySets), op(op) {}
+    MultipleOpFuzzySet(vector<shared_ptr<FuzzySet>> fuzzySets, shared_ptr<BinaryFunction> op) : fuzzySets(
+            std::move(fuzzySets)), op(std::move(op)) {}
 
-    double valueAt(const double &x) {
+    double valueAt(const double &x) override {
 
         auto val = fuzzySets[0]->valueAt(x);
 
