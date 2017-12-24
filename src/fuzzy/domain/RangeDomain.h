@@ -7,14 +7,14 @@
 
 #include "Domain.h"
 
-class DomainRange : public Domain {
+class RangeDomain : public Domain {
 private:
     double start, step, end;
 public:
-    DomainRange(double start, double step, double end);
+    RangeDomain(double start, double step, double end);
     DomainElement getElementAt(uint index) override;
     uint getCardinality() override;
-    uint getNumberOfComponents() override;
+    unsigned long getNumberOfComponents() override;
     shared_ptr<Domain> getComponent(uint index) override;
     uint indexOfElement (DomainElement element) override;
 };

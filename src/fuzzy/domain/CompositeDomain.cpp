@@ -12,7 +12,7 @@ shared_ptr<Domain> CompositeDomain::getComponent(uint index) {
     return domains[index];
 }
 
-uint CompositeDomain::getNumberOfComponents() {
+unsigned long CompositeDomain::getNumberOfComponents() {
     return domains.size();
 }
 
@@ -26,4 +26,8 @@ DomainElement CompositeDomain::getElementAt(uint index) {
 
 uint CompositeDomain::indexOfElement(DomainElement element) {
     return 0;
+}
+
+CompositeDomain::CompositeDomain(initializer_list<shared_ptr<RangeDomain>> domains) {
+    this->domains = std::vector<shared_ptr<RangeDomain>>(domains);
 }

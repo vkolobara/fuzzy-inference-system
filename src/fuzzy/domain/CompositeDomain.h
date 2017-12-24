@@ -6,7 +6,7 @@
 #define FUZZY_INFERENCE_SYSTEM_COMPOSITEDOMAIN_H
 
 #include "Domain.h"
-#include "DomainRange.h"
+#include "RangeDomain.h"
 #include <initializer_list>
 #include <vector>
 
@@ -14,11 +14,11 @@ using namespace std;
 
 class CompositeDomain : public Domain {
 protected:
-    vector<shared_ptr<DomainRange>> domains;
+    vector<shared_ptr<RangeDomain>> domains;
 public:
-    CompositeDomain(initializer_list<DomainRange> domains);
+    CompositeDomain(initializer_list<shared_ptr<RangeDomain>> domains);
     uint getCardinality() override;
-    uint getNumberOfComponents() override;
+    unsigned long getNumberOfComponents() override;
     shared_ptr<Domain> getComponent(uint index) override;
     DomainElement getElementAt(uint index) override;
     uint indexOfElement (DomainElement element) override;

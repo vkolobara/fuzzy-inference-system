@@ -2,7 +2,7 @@
 #include <memory>
 #include "fuzzy/FuzzySet.cpp"
 #include "fuzzy/inference/Clause.h"
-#include "fuzzy/domain/DomainRange.h"
+#include "fuzzy/domain/RangeDomain.h"
 
 using namespace std;
 
@@ -13,7 +13,7 @@ int main() {
     shared_ptr<LanguageTerm> shortTerm = shared_ptr<LanguageTerm>(new LanguageTerm("short", shortFuzzy));
     shared_ptr<LanguageTerm> tallTerm  = shared_ptr<LanguageTerm>(new LanguageTerm("tall", tallFuzzy));
 
-    shared_ptr<Domain> domain = shared_ptr<DomainRange>(new DomainRange(40,0.01,250));
+    shared_ptr<Domain> domain = shared_ptr<RangeDomain>(new RangeDomain(40,0.01,250));
 
     vector<shared_ptr<LanguageTerm>> terms = vector<shared_ptr<LanguageTerm>>({shortTerm, tallTerm});
 
