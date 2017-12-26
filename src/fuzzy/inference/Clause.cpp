@@ -8,7 +8,6 @@
 #include "../MembershipFunction.h"
 
 double SimpleClause::calculateMembership(FuzzyInput fuzzyInput) {
-    int 
     return languageTerm->getMeaning()->valueAt(fuzzyInput.getValue(languageVariable->getName()));
 }
 
