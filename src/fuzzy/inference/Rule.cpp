@@ -4,7 +4,6 @@
 
 #include "Rule.h"
 
-unique_ptr<FuzzySet> Rule::getConclusion() {
-
-    return unique_ptr<FuzzySet>();
+shared_ptr<FuzzySet> Rule::getConclusion() {
+    return FuzzySet::combine(antecedent->getFuzzySet(), consequense, tnorm);
 }

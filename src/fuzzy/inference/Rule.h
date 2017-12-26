@@ -10,6 +10,7 @@
 
 #include "../MembershipFunction.h"
 #include "Clause.h"
+#include "../FuzzySet.h"
 
 class Rule {
 protected:
@@ -22,7 +23,7 @@ public:
             std::move(consequense)), tnorm(std::move(tnorm)) {};
 
 
-    unique_ptr<FuzzySet> getConclusion();
+    shared_ptr<FuzzySet> getConclusion();
 };
 
 

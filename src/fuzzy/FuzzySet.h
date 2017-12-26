@@ -14,6 +14,8 @@ class FuzzySet {
 public:
     virtual shared_ptr<Domain> getDomain() = 0;
     virtual double getValueAt(DomainElement el) = 0;
+
+    static shared_ptr<FuzzySet> combine(shared_ptr<FuzzySet> set1, shared_ptr<FuzzySet> set2, shared_ptr<BinaryFunction> f);
 };
 
 class CalculatedFuzzySet : public FuzzySet {
@@ -37,7 +39,8 @@ public:
     shared_ptr<Domain> getDomain() override;
 
     double getValueAt(DomainElement el) override;
-    
+
+    void set(DomainElement el, double mu);
 };
 
 #endif //FUZZY_INFERENCE_SYSTEM_FUZZYSET_H

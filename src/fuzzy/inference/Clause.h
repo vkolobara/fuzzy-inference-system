@@ -11,6 +11,7 @@
 #include "../language_variable/LanguageVariable.h"
 #include "FuzzyInput.h"
 #include "../Operators.h"
+#include "../FuzzySet.h"
 
 class Clause {
 protected:

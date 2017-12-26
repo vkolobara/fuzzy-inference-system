@@ -14,9 +14,11 @@ double COADefuzzifier::defuzzify(shared_ptr<FuzzySet> fuzzySet) {
     for (uint i=0; i<domain->getCardinality(); i++) {
         auto el = domain->getElementAt(i);
 
-        sumX += fuzzySet->valueAt(el.getComponentValue(0)) * el.getComponentValue(0);
-        sum += fuzzySet->valueAt(el.getComponentValue(0));
+        sumX += fuzzySet->getValueAt(el) * el.getComponentValue(0);
+        sum += fuzzySet->getValueAt(el);
     }
 
-    return 0;
+    if (sum == 0) return 0;
+
+    return sumX/sum;
 }

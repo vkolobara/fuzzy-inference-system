@@ -11,7 +11,7 @@ DomainElement Domain::getElementAt(uint index) {
     }
 
     uint numComponents = getNumberOfComponents();
-    double values[numComponents];
+    double values[numComponents] = {};
 
     int divisor = 1;
 
@@ -21,7 +21,7 @@ DomainElement Domain::getElementAt(uint index) {
         divisor*=card;
     }
 
-    std::vector<double> ret(begin(values), end(values));
+    std::vector<double> ret(values, values + numComponents);
 
     return DomainElement(ret);
 }

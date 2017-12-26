@@ -10,6 +10,7 @@
 #include <map>
 #include <memory>
 #include "../MembershipFunction.h"
+#include "../FuzzySet.h"
 
 using namespace std;
 
