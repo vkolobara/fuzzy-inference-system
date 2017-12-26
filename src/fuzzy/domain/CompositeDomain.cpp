@@ -9,23 +9,21 @@ shared_ptr<Domain> CompositeDomain::getComponent(uint index) {
     if (index < 0 || index > getNumberOfComponents()) {
         throw invalid_argument("Index greater than number of components");
     }
-    return domains[index];
+    return domains.at(index);
 }
 
-unsigned long CompositeDomain::getNumberOfComponents() {
-    return domains.size();
+uint CompositeDomain::getNumberOfComponents() {
+    return static_cast<uint>(domains.size());
 }
 
 uint CompositeDomain::getCardinality() {
-    return 0;
-}
+    uint cardinality = 1;
 
-DomainElement CompositeDomain::getElementAt(uint index) {
-    return DomainElement(std::initializer_list<double>());
-}
+    for (const auto &domain : domains) {
+        cardinality *= domain->getCardinality();
+    }
 
-uint CompositeDomain::indexOfElement(DomainElement element) {
-    return 0;
+    return cardinality;
 }
 
 CompositeDomain::CompositeDomain(initializer_list<shared_ptr<RangeDomain>> domains) {

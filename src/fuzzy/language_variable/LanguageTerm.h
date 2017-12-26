@@ -9,7 +9,7 @@
 #include <string>
 #include <map>
 #include <memory>
-#include "../FuzzySet.h"
+#include "../MembershipFunction.h"
 
 using namespace std;
 

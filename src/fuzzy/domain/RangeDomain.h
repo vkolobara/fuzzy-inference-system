@@ -12,11 +12,15 @@ private:
     double start, step, end;
 public:
     RangeDomain(double start, double step, double end);
-    DomainElement getElementAt(uint index) override;
     uint getCardinality() override;
-    unsigned long getNumberOfComponents() override;
+    uint getNumberOfComponents() override;
     shared_ptr<Domain> getComponent(uint index) override;
-    uint indexOfElement (DomainElement element) override;
+
+    double getStart() const;
+
+    double getStep() const;
+
+    double getEnd() const;
 };
 
 

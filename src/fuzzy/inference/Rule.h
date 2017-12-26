@@ -8,7 +8,7 @@
 
 #include <utility>
 
-#include "../FuzzySet.h"
+#include "../MembershipFunction.h"
 #include "Clause.h"
 
 class Rule {

@@ -5,7 +5,7 @@
 #include "Clause.h"
 
 #include <utility>
-#include "../FuzzySet.h"
+#include "../MembershipFunction.h"
 
 double SimpleClause::calculateMembership(FuzzyInput fuzzyInput) {
     return languageTerm->getMeaning()->valueAt(fuzzyInput.getValue(languageVariable->getName()));

@@ -18,10 +18,8 @@ protected:
 public:
     CompositeDomain(initializer_list<shared_ptr<RangeDomain>> domains);
     uint getCardinality() override;
-    unsigned long getNumberOfComponents() override;
+    uint getNumberOfComponents() override;
     shared_ptr<Domain> getComponent(uint index) override;
-    DomainElement getElementAt(uint index) override;
-    uint indexOfElement (DomainElement element) override;
 };
 
 
