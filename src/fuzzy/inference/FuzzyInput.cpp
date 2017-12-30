@@ -2,22 +2,20 @@
 // Created by vkolobara on 12.12.2017..
 //
 
+#include <memory>
 #include "FuzzyInput.h"
+#include "../domain/DomainElement.h"
 
 FuzzyInput::FuzzyInput(list<string> names) {
     for (string name : names) {
-        setValue(name, 0);
+        setValue(name, make_shared<DomainElement>(DomainElement({0})));
     }
 }
 
-void FuzzyInput::setValue(string languageVariable, double value) {
+void FuzzyInput::setValue(string languageVariable, shared_ptr<DomainElement> value) {
     currentValues[languageVariable] = value;
 }
 
-double FuzzyInput::getValue(string languageVariable) {
+shared_ptr<DomainElement> FuzzyInput::getValue(string languageVariable) {
     return currentValues[languageVariable];
-}
-
-map<string, double> FuzzyInput::getAllValues() {
-    return map<string, double>(currentValues);
 }

@@ -35,7 +35,7 @@ int Domain::indexOfElement(DomainElement element) {
 
     for (uint i=0; i<element.getNumberOfComponents(); i++) {
         double value = element.getComponentValue(i);
-        shared_ptr<RangeDomain> domain = getComponent(i);
+        shared_ptr<RangeDomain> domain = dynamic_pointer_cast<RangeDomain>(getComponent(i));
 
         if (value >= domain->getEnd()) {
             return -1;

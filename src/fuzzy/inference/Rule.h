@@ -23,7 +23,7 @@ public:
             std::move(consequense)), tnorm(std::move(tnorm)) {};
 
 
-    shared_ptr<FuzzySet> getConclusion();
+    shared_ptr<FuzzySet> getConclusion(shared_ptr<FuzzyInput> fuzzyInput);
 };
 
 

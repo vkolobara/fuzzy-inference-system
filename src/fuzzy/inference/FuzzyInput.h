@@ -6,6 +6,8 @@
 #define FUZZY_INFERENCE_SYSTEM_FUZZYINPUT_H
 
 #include "string"
+#include <memory>
+#include "../domain/DomainElement.h"
 #include <map>
 #include <list>
 
@@ -13,12 +15,11 @@ using namespace std;
 
 class FuzzyInput {
 protected:
-    map<string, double> currentValues;
+    map<string, shared_ptr<DomainElement>> currentValues;
 public:
     FuzzyInput(list<string> names);
-    void setValue(string languageVariable, double value);
-    double getValue(string languageVariable);
-    map<string, double> getAllValues();
+    void setValue(string languageVariable, shared_ptr<DomainElement> value);
+    shared_ptr<DomainElement> getValue(string languageVariable);
 };
 
 

@@ -14,13 +14,8 @@
 #include "../FuzzySet.h"
 
 class Clause {
-protected:
-    shared_ptr<FuzzySet> fuzzySet;
 public:
     virtual double calculateMembership(FuzzyInput fuzzyInput) = 0;
-    shared_ptr<FuzzySet> getFuzzySet() {
-            return fuzzySet;
-    };
 };
 
 class SimpleClause : public Clause {
@@ -30,7 +25,6 @@ protected:
 public:
     SimpleClause(const shared_ptr<LanguageTerm> &languageTerm, shared_ptr<LanguageVariable> languageVariable) :
                  languageTerm(languageTerm), languageVariable(std::move(languageVariable)){
-        fuzzySet = languageTerm->getMeaning();
     };
     double calculateMembership(FuzzyInput fuzzyInput) override;
 };

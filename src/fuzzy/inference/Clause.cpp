@@ -8,13 +8,13 @@
 #include "../MembershipFunction.h"
 
 double SimpleClause::calculateMembership(FuzzyInput fuzzyInput) {
-    return languageTerm->getMeaning()->valueAt(fuzzyInput.getValue(languageVariable->getName()));
+    auto el = fuzzyInput.getValue(languageVariable->getName());
+    return languageTerm->getMeaning()->getValueAt(*el);
 }
 
 NotClause::NotClause(shared_ptr<Clause> clause) {
     this->clause = std::move(clause);
     this->complement = shared_ptr<BaseOperator::Complement>(new Zadeh::Complement());
-    this->fuzzySet = shared_ptr<FuzzySet>(new NotFuzzySet(this->clause->getFuzzySet(), this->complement));
 }
 
 double NotClause::calculateMembership(FuzzyInput fuzzyInput) {
@@ -23,16 +23,6 @@ double NotClause::calculateMembership(FuzzyInput fuzzyInput) {
 
 OrClause::OrClause(std::vector<shared_ptr<Clause>> clauses) : clauses(clauses) {
     this->snorm = shared_ptr<BaseOperator::SNorm>(new Zadeh::SNorm());
-
-    auto size = clauses.size();
-
-    vector<shared_ptr<FuzzySet>> fuzzySets = vector<shared_ptr<FuzzySet>>(size);
-
-    for (int i=0; i<size; i++) {
-        fuzzySets[i] = this->clauses[i]->getFuzzySet();
-    }
-
-    this->fuzzySet = std::make_shared<OrFuzzySet>(fuzzySets, this->snorm);
 }
 
 double OrClause::calculateMembership(FuzzyInput fuzzyInput) {
@@ -47,16 +37,6 @@ double OrClause::calculateMembership(FuzzyInput fuzzyInput) {
 
 AndClause::AndClause(std::vector<shared_ptr<Clause>> clauses) : clauses(clauses) {
     this->tnorm = shared_ptr<BaseOperator::TNorm>(new Zadeh::TNorm());
-
-    auto size = clauses.size();
-
-    vector<shared_ptr<FuzzySet>> fuzzySets = vector<shared_ptr<FuzzySet>>(size);
-
-    for (int i=0; i<size; i++) {
-        fuzzySets[i] = this->clauses[i]->getFuzzySet();
-    }
-
-    this->fuzzySet = std::make_shared<AndFuzzySet>(fuzzySets, this->tnorm);
 }
 
 double AndClause::calculateMembership(FuzzyInput fuzzyInput) {

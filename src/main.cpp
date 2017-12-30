@@ -7,13 +7,17 @@
 using namespace std;
 
 int main() {
-    shared_ptr<FuzzySet> tallFuzzy = shared_ptr<FuzzySet>(new LinearFuzzySet::GammaFuzzySet(170, 185));
-    shared_ptr<FuzzySet> shortFuzzy = shared_ptr<FuzzySet>(new LinearFuzzySet::LFuzzySet(40, 175));
+    shared_ptr<MembershipFunction> tallM = make_shared<LinearMembershipFunction::GammaMembershipFunction>(170, 185);
+    shared_ptr<MembershipFunction> shortM = make_shared<LinearMembershipFunction::LMembershipFunction>(40, 175);
+    shared_ptr<Domain> domain = std::make_shared<RangeDomain>(40,0.01,250);
+
+    shared_ptr<FuzzySet> tallFuzzy = make_shared<CalculatedFuzzySet>(tallM, domain);
+    shared_ptr<FuzzySet> shortFuzzy = make_shared<CalculatedFuzzySet>(shortM, domain);
+
 
     shared_ptr<LanguageTerm> shortTerm = std::make_shared<LanguageTerm>("short", shortFuzzy);
     shared_ptr<LanguageTerm> tallTerm  = std::make_shared<LanguageTerm>("tall", tallFuzzy);
 
-    shared_ptr<Domain> domain = std::make_shared<RangeDomain>(40,0.01,250);
 
     vector<shared_ptr<LanguageTerm>> terms = vector<shared_ptr<LanguageTerm>>({shortTerm, tallTerm});
 
@@ -23,17 +27,17 @@ int main() {
     shared_ptr<Clause> tallClause = std::make_shared<SimpleClause>(tallTerm, langVar);
 
     list<string> names {"height"};
-    FuzzyInput input = FuzzyInput(names);
+    auto input = make_shared<FuzzyInput>(names);
 
-    input.setValue("height", 173);
-    cout << "You are short with membership of: " << shortClause->calculateMembership(input) << endl;
-    cout << "You are tall with membership of: " << tallClause->calculateMembership(input) << endl;
+    input->setValue("height", make_shared<DomainElement>(DomainElement({173})));
+    cout << "You are short with membership of: " << shortClause->calculateMembership(*input) << endl;
+    cout << "You are tall with membership of: " << tallClause->calculateMembership(*input) << endl;
 
     vector<shared_ptr<Clause>> clauses {shortClause, tallClause};
 
     shared_ptr<Clause> andClause = std::make_shared<AndClause>(clauses);
 
-    cout << "AndClause membership: " << andClause->calculateMembership(input);
+    cout << "AndClause membership: " << andClause->calculateMembership(*input);
 
     return 0;
 }
