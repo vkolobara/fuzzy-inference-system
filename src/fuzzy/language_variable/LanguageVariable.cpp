@@ -3,10 +3,10 @@
 //
 
 #include "LanguageVariable.h"
-#include <memory>
 
 
-LanguageVariable::LanguageVariable(string name, shared_ptr<Domain> domain, vector<shared_ptr<LanguageTerm>> term_vector) :  name(
+LanguageVariable::LanguageVariable(string name, shared_ptr<Domain> domain, vector<shared_ptr<LanguageTerm>> term_vector)
+        : name(
         std::move(name)), domain(std::move(domain)) {
     for (const shared_ptr<LanguageTerm> &term : term_vector) {
         terms[term->getName()] = term;
@@ -20,14 +20,14 @@ string LanguageVariable::getName() {
 vector<string> LanguageVariable::getTermNames() {
     vector<string> names;
 
-    for (auto const& name: this->terms) {
+    for (auto const &name: this->terms) {
         names.push_back(name.first);
     }
 
     return names;
 }
 
-shared_ptr<FuzzySet> LanguageVariable::getMembershipFunction(string term) {
+shared_ptr<FuzzySet> LanguageVariable::getMeaning(string term) {
     return terms[term]->getMeaning();
 }
 

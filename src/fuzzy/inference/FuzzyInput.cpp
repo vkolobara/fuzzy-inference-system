@@ -4,7 +4,6 @@
 
 #include <memory>
 #include "FuzzyInput.h"
-#include "../domain/DomainElement.h"
 
 FuzzyInput::FuzzyInput(list<string> names) {
     for (string name : names) {

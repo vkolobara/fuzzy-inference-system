@@ -4,8 +4,6 @@
 
 #include "FuzzySet.h"
 
-#include <utility>
-
 shared_ptr<Domain> CalculatedFuzzySet::getDomain() {
     return domain;
 }
@@ -41,11 +39,12 @@ void MutableFuzzySet::set(DomainElement el, double mu) {
     memberships.at(index) = mu;
 }
 
-shared_ptr<FuzzySet> FuzzySet::combine(shared_ptr<FuzzySet> set1, shared_ptr<FuzzySet> set2, shared_ptr<BinaryFunction> f) {
+shared_ptr<FuzzySet>
+FuzzySet::combine(shared_ptr<FuzzySet> set1, shared_ptr<FuzzySet> set2, shared_ptr<BinaryFunction> f) {
 
     shared_ptr<MutableFuzzySet> set = make_shared<MutableFuzzySet>(set1->getDomain());
 
-    for (uint i=0; i<set->getDomain()->getCardinality(); i++) {
+    for (uint i = 0; i < set->getDomain()->getCardinality(); i++) {
         DomainElement el = set->getDomain()->getElementAt(i);
         set->set(el, f->calculateValue(set1->getValueAt(el), set2->getValueAt(el)));
     }

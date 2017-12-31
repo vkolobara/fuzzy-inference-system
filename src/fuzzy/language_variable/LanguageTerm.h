@@ -20,8 +20,11 @@ private:
     shared_ptr<FuzzySet> meaning;
 public:
     LanguageTerm();
+
     LanguageTerm(const string &name, const shared_ptr<FuzzySet> &meaning);
+
     shared_ptr<FuzzySet> getMeaning();
+
     string getName();
 };
 

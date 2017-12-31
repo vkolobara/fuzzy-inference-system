@@ -13,9 +13,11 @@ class FuzzySet {
 
 public:
     virtual shared_ptr<Domain> getDomain() = 0;
+
     virtual double getValueAt(DomainElement el) = 0;
 
-    static shared_ptr<FuzzySet> combine(shared_ptr<FuzzySet> set1, shared_ptr<FuzzySet> set2, shared_ptr<BinaryFunction> f);
+    static shared_ptr<FuzzySet>
+    combine(shared_ptr<FuzzySet> set1, shared_ptr<FuzzySet> set2, shared_ptr<BinaryFunction> f);
 };
 
 class CalculatedFuzzySet : public FuzzySet {
@@ -26,6 +28,7 @@ public:
     CalculatedFuzzySet(const shared_ptr<MembershipFunction> &function, const shared_ptr<Domain> &domain);
 
     shared_ptr<Domain> getDomain() override;
+
     double getValueAt(DomainElement el) override;
 };
 

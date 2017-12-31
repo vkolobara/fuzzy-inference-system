@@ -17,8 +17,10 @@ class FuzzyInput {
 protected:
     map<string, shared_ptr<DomainElement>> currentValues;
 public:
-    FuzzyInput(list<string> names);
+    FuzzyInput(list <string> names);
+
     void setValue(string languageVariable, shared_ptr<DomainElement> value);
+
     shared_ptr<DomainElement> getValue(string languageVariable);
 };
 

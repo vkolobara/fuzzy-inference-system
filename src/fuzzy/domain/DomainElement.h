@@ -6,13 +6,16 @@
 #include <vector>
 #include <zconf.h>
 
-class DomainElement{
+class DomainElement {
 protected:
-	std::vector<double> values;
+    std::vector<double> values;
 public:
-	DomainElement(std::initializer_list<double> values);
+    DomainElement(std::initializer_list<double> values);
+
     explicit DomainElement(std::vector<double> values);
-	double getComponentValue(uint index);
+
+    double getComponentValue(uint index);
+
     double getNumberOfComponents();
 };
 

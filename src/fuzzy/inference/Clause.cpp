@@ -4,26 +4,22 @@
 
 #include "Clause.h"
 
-#include <utility>
-#include "../MembershipFunction.h"
-
 double SimpleClause::calculateMembership(FuzzyInput fuzzyInput) {
     auto el = fuzzyInput.getValue(languageVariable->getName());
     return languageTerm->getMeaning()->getValueAt(*el);
 }
 
-NotClause::NotClause(shared_ptr<Clause> clause) {
-    this->clause = std::move(clause);
-    this->complement = shared_ptr<BaseOperator::Complement>(new Zadeh::Complement());
-}
+NotClause::NotClause(shared_ptr<Clause> clause) : NotClause::NotClause(clause, make_shared<Zadeh::Complement>()) {};
 
 double NotClause::calculateMembership(FuzzyInput fuzzyInput) {
     return this->complement->calculateValue(this->clause->calculateMembership(fuzzyInput));
 }
 
-OrClause::OrClause(std::vector<shared_ptr<Clause>> clauses) : clauses(clauses) {
-    this->snorm = shared_ptr<BaseOperator::SNorm>(new Zadeh::SNorm());
-}
+NotClause::NotClause(const shared_ptr<Clause> &clause, const shared_ptr<BaseOperator::Complement> &complement) : clause(
+        clause), complement(complement) {}
+
+OrClause::OrClause(std::vector<shared_ptr<Clause>> clauses) : OrClause::OrClause(clauses,
+                                                                                 make_shared<Zadeh::SNorm>()) {};
 
 double OrClause::calculateMembership(FuzzyInput fuzzyInput) {
     auto val = 0.0;
@@ -35,9 +31,11 @@ double OrClause::calculateMembership(FuzzyInput fuzzyInput) {
     return val;
 }
 
-AndClause::AndClause(std::vector<shared_ptr<Clause>> clauses) : clauses(clauses) {
-    this->tnorm = shared_ptr<BaseOperator::TNorm>(new Zadeh::TNorm());
-}
+OrClause::OrClause(const vector<shared_ptr<Clause>> &clauses, const shared_ptr<BaseOperator::SNorm> &snorm) : clauses(
+        clauses), snorm(snorm) {}
+
+AndClause::AndClause(std::vector<shared_ptr<Clause>> clauses) : AndClause::AndClause(clauses,
+                                                                                     make_shared<Zadeh::TNorm>()) {};
 
 double AndClause::calculateMembership(FuzzyInput fuzzyInput) {
     auto val = 1.0;
@@ -48,3 +46,6 @@ double AndClause::calculateMembership(FuzzyInput fuzzyInput) {
 
     return val;
 }
+
+AndClause::AndClause(const vector<shared_ptr<Clause>> &clauses, const shared_ptr<BaseOperator::TNorm> &tnorm) : clauses(
+        clauses), tnorm(tnorm) {}

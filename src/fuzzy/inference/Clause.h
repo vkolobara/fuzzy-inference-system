@@ -24,8 +24,9 @@ protected:
     shared_ptr<LanguageVariable> languageVariable;
 public:
     SimpleClause(const shared_ptr<LanguageTerm> &languageTerm, shared_ptr<LanguageVariable> languageVariable) :
-                 languageTerm(languageTerm), languageVariable(std::move(languageVariable)){
+            languageTerm(languageTerm), languageVariable(std::move(languageVariable)) {
     };
+
     double calculateMembership(FuzzyInput fuzzyInput) override;
 };
 
@@ -34,7 +35,10 @@ protected:
     shared_ptr<Clause> clause;
     shared_ptr<BaseOperator::Complement> complement;
 public:
+    NotClause(const shared_ptr<Clause> &clause, const shared_ptr<BaseOperator::Complement> &complement);
+
     explicit NotClause(shared_ptr<Clause> clause);
+
     double calculateMembership(FuzzyInput fuzzyInput) override;
 };
 
@@ -44,6 +48,9 @@ protected:
     shared_ptr<BaseOperator::SNorm> snorm;
 public:
     explicit OrClause(std::vector<shared_ptr<Clause>> clauses);
+
+    OrClause(const vector<shared_ptr<Clause>> &clauses, const shared_ptr<BaseOperator::SNorm> &snorm);
+
     double calculateMembership(FuzzyInput fuzzyInput) override;
 };
 
@@ -53,6 +60,10 @@ protected:
     shared_ptr<BaseOperator::TNorm> tnorm;
 public:
     explicit AndClause(std::vector<shared_ptr<Clause>> clauses);
+
+    AndClause(const vector<shared_ptr<Clause>> &clauses, const shared_ptr<BaseOperator::TNorm> &tnorm);
+
     double calculateMembership(FuzzyInput fuzzyInput) override;
 };
+
 #endif //FUZZY_INFERENCE_SYSTEM_CLAUSE_H

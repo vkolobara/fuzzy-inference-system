@@ -1,43 +1,43 @@
 #include <iostream>
 #include <memory>
-#include "fuzzy/MembershipFunction.cpp"
+#include "fuzzy/MembershipFunction.h"
 #include "fuzzy/inference/Clause.h"
-#include "fuzzy/domain/RangeDomain.h"
+#include "fuzzy/Defuzzifier.h"
+#include "fuzzy/inference/InferenceSystem.h"
+#include "fuzzy/parser/VariableParser.h"
+#include "fuzzy/parser/RulesParser.h"
 
 using namespace std;
 
 int main() {
-    shared_ptr<MembershipFunction> tallM = make_shared<LinearMembershipFunction::GammaMembershipFunction>(170, 185);
-    shared_ptr<MembershipFunction> shortM = make_shared<LinearMembershipFunction::LMembershipFunction>(40, 175);
-    shared_ptr<Domain> domain = std::make_shared<RangeDomain>(40,0.01,250);
-
-    shared_ptr<FuzzySet> tallFuzzy = make_shared<CalculatedFuzzySet>(tallM, domain);
-    shared_ptr<FuzzySet> shortFuzzy = make_shared<CalculatedFuzzySet>(shortM, domain);
-
-
-    shared_ptr<LanguageTerm> shortTerm = std::make_shared<LanguageTerm>("short", shortFuzzy);
-    shared_ptr<LanguageTerm> tallTerm  = std::make_shared<LanguageTerm>("tall", tallFuzzy);
-
-
-    vector<shared_ptr<LanguageTerm>> terms = vector<shared_ptr<LanguageTerm>>({shortTerm, tallTerm});
-
-    shared_ptr<LanguageVariable> langVar = std::make_shared<LanguageVariable>("height", domain, terms);
-
-    shared_ptr<Clause> shortClause = std::make_shared<SimpleClause>(shortTerm, langVar);
-    shared_ptr<Clause> tallClause = std::make_shared<SimpleClause>(tallTerm, langVar);
-
-    list<string> names {"height"};
+    list<string> names{"height", "weight"};
     auto input = make_shared<FuzzyInput>(names);
 
-    input->setValue("height", make_shared<DomainElement>(DomainElement({173})));
-    cout << "You are short with membership of: " << shortClause->calculateMembership(*input) << endl;
-    cout << "You are tall with membership of: " << tallClause->calculateMembership(*input) << endl;
+    input->setValue("height", make_shared<DomainElement>(DomainElement({150})));
+    input->setValue("weight", make_shared<DomainElement>(DomainElement({85})));
 
-    vector<shared_ptr<Clause>> clauses {shortClause, tallClause};
+    auto defuzzifier = make_shared<COADefuzzifier>();
 
-    shared_ptr<Clause> andClause = std::make_shared<AndClause>(clauses);
 
-    cout << "AndClause membership: " << andClause->calculateMembership(*input);
+    auto variableParser = make_shared<VariableParser>();
+
+    vector<string> lines{"height\t0,0.01,250", "short\tL\t40,175", "tall\tGAMMA\t140,185",
+                         "", "weight\t1,0.01,250", "light\tL\t50,100", "heavy\tGAMMA\t70,130", "",
+                         "output\t0,1,100", "small\tPI\t0,15,30,40", "large\tPI\t30,40,50,80", ""};
+
+    variableParser->parseLines(lines);
+
+    auto rulesParser = make_shared<RulesParser>(variableParser->getLangVariables(), make_shared<Zadeh::TNorm>());
+
+    vector<string> ruleLines{"height=short, weight=light -> output=small",
+                             "height=tall,  weight=heavy -> output=large"};
+
+    rulesParser->parseLines(ruleLines);
+
+    auto inferenceSystem = make_shared<MamdaniInferenceSystem>(rulesParser->getRules(), make_shared<Zadeh::SNorm>(),
+                                                               defuzzifier);
+
+    cout << "PARSED INF SYSTEM CONCLUSION:\n" << inferenceSystem->getConclusion(input) << endl;
 
     return 0;
 }

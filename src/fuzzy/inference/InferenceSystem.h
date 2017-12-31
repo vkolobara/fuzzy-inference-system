@@ -6,10 +6,24 @@
 #define FUZZY_INFERENCE_SYSTEM_INFERENCESYSTEM_H
 
 #include "FuzzyInput.h"
+#include "Rule.h"
+#include "../Defuzzifier.h"
 
 class InferenceSystem {
 public:
-    virtual double getConclusion(FuzzyInput fuzzyInput) = 0;
+    virtual double getConclusion(shared_ptr<FuzzyInput> fuzzyInput) = 0;
+};
+
+class MamdaniInferenceSystem : public InferenceSystem {
+private:
+    vector<shared_ptr<Rule>> rules;
+    shared_ptr<BaseOperator::SNorm> snorm;
+    shared_ptr<Defuzzifier> defuzzifier;
+public:
+    MamdaniInferenceSystem(const vector<shared_ptr<Rule>> &rules, const shared_ptr<BaseOperator::SNorm> &snorm,
+                           const shared_ptr<Defuzzifier> &defuzzifier);
+
+    double getConclusion(shared_ptr<FuzzyInput> fuzzyInput) override;
 };
 
 

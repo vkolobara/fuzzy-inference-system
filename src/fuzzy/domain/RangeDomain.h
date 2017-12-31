@@ -12,8 +12,11 @@ private:
     double start, step, end;
 public:
     RangeDomain(double start, double step, double end);
+
     uint getCardinality() override;
+
     uint getNumberOfComponents() override;
+
     shared_ptr<Domain> getComponent(uint index) override;
 
     double getStart() const;

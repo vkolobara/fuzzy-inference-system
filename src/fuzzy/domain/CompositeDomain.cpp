@@ -3,7 +3,6 @@
 //
 
 #include "CompositeDomain.h"
-#include <stdexcept>
 
 shared_ptr<Domain> CompositeDomain::getComponent(uint index) {
     if (index < 0 || index > getNumberOfComponents()) {
