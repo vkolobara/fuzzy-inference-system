@@ -6,8 +6,26 @@
 #define FUZZY_INFERENCE_SYSTEM_RULESPARSER_H
 
 
-class RulesParser {
+#include "Parser.h"
+#include "../inference/Rule.h"
+#include <memory>
 
+
+class RulesParser : public Parser {
+private:
+    vector<shared_ptr<Rule>> rules;
+    map<string, shared_ptr<LanguageVariable>> variables;
+    shared_ptr<BaseOperator::TNorm> tnorm;
+public:
+    RulesParser(vector<shared_ptr<LanguageVariable>> langVars, shared_ptr<BaseOperator::TNorm> tnorm);
+
+    void parseLines(vector<string> lines) override;
+
+    const vector<shared_ptr<Rule>> &getRules() const;
+
+    const map<string, shared_ptr<LanguageVariable>> &getVariables() const;
+
+    const shared_ptr<BaseOperator::TNorm> &getTnorm() const;
 };
 
 

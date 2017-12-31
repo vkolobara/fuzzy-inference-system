@@ -1,0 +1,2 @@
+height=short, weight=light -> output=small
+weight=heavy, height=tall -> output=large

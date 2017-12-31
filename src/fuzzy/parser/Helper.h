@@ -6,47 +6,25 @@
 #include "../domain/Domain.h"
 #include "../domain/RangeDomain.h"
 #include "../language_variable/LanguageTerm.h"
+#include "../MembershipFunction.h"
+#include "../inference/Clause.h"
+
+shared_ptr<MembershipFunction> parseMembershipFunction(string membershipString, string paramsStr);
+
+vector<string> split(string s, string delimiter);
+
+shared_ptr<Domain> parseDomain(string domainStr);
+
+shared_ptr<LanguageTerm> parseTerm(string termString, shared_ptr<Domain> domain);
+
+shared_ptr<SimpleClause> parseSimpleClause(string clauseString, map<string, shared_ptr<LanguageVariable>> variables);
+
+shared_ptr<FuzzySet> parseConsequense(string consequense, map<string, shared_ptr<LanguageVariable>> variables);
 
 
-vector<string> split(string s, string delimiter) {
-    vector<string> ret;
+std::string ltrim(std::string s);
 
-    size_t last = 0;
-    size_t next = 0;
+std::string rtrim(std::string s);
 
-    while ((next = s.find(delimiter, last)) != string::npos)
-    {
-        ret.push_back(s.substr(last, next-last));
-        last = next + 1;
-    }
+string trim(string s);
 
-    ret.push_back(s.substr(last));
-
-    return ret;
-}
-
-shared_ptr<Domain> parseDomain(string domainStr) {
-    double start, step, end;
-
-    istringstream iss(domainStr);
-
-    string token;
-
-    getline(iss, token, ',');
-    start = stod(token);
-    getline(iss, token, ',');
-    step = stod(token);
-    getline(iss, token, ',');
-    end = stod(token);
-
-    return make_shared<RangeDomain>(start,step,end);
-}
-
-shared_ptr<LanguageTerm> parseTerm(string termString) {
-    vector<string> splitTerm = split(termString, "\t");
-
-    auto name = splitTerm[0];
-
-    auto membershipString = splitTerm[1];
-
-}

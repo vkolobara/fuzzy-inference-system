@@ -1,0 +1,11 @@
+height  0,0.01,250
+short   L   40,175
+tall    GAMMA   140,185
+
+weight  0,0.01,250
+light   L   0,80
+heavy   GAMMA   50, 110
+
+output  0,1,100
+small   PI  0,10,40,70
+large   PI  30,50,70,90
