@@ -21,29 +21,40 @@ int main(int argc, char* argv[]) {
 
     variableParser->parse(argv[1]);
 
-    auto rulesParser = make_shared<RulesParser>(variableParser->getLangVariables(), make_shared<Zadeh::TNorm>());
+    auto rulesParser = make_shared<RulesParser>(variableParser->getInputVariables(),
+                                                variableParser->getOutputVariables(),
+                                                make_shared<Zadeh::TNorm>());
 
     rulesParser->parse(argv[2]);
 
-    list<string> names;
+    auto inputNames = variableParser->getInputNames();
+    auto outputNames = variableParser->getOutputNames();
 
-    for (int i=0; i<variableParser->getLangVariables().size()-1; i++) {
-        auto var = variableParser->getLangVariables()[i]->getName();
-        names.push_back(var);
+    auto input = make_shared<FuzzyInput>(inputNames);
+
+    map<string, shared_ptr<InferenceSystem>> inferenceSystems;
+
+    for (auto ruleSet : rulesParser->getRules()) {
+        inferenceSystems[ruleSet.first] = make_shared<MamdaniInferenceSystem>(ruleSet.second, make_shared<Zadeh::SNorm>(), defuzzifier);
     }
 
-    auto input = make_shared<FuzzyInput>(names);
 
-    auto inferenceSystem = make_shared<MamdaniInferenceSystem>(rulesParser->getRules(), make_shared<Zadeh::SNorm>(),
-                                                               defuzzifier);
+    double inputs[inputNames.size()];
 
-    double height, weight;
+    int index = 0;
+    while (cin >> inputs[index]) {
 
-    while (cin >> height >> weight) {
-        input->setValue("height", make_shared<DomainElement>(DomainElement({height})));
-        input->setValue("weight", make_shared<DomainElement>(DomainElement({weight})));
+        input->setValue(inputNames[index], make_shared<DomainElement>(DomainElement({inputs[index]})));
 
-        cout << "PARSED INF SYSTEM CONCLUSION: " << inferenceSystem->getConclusion(input) << endl;
+        index = static_cast<int>((index + 1) % inputNames.size());
+
+        if (index == 0) {
+            for (auto outName : outputNames) {
+                cout << inferenceSystems[outName]->getConclusion(input) << " ";
+            }
+            cout << endl;
+        }
+
     }
 
 

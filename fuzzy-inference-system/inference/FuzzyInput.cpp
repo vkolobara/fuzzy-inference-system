@@ -5,7 +5,7 @@
 #include <memory>
 #include "FuzzyInput.h"
 
-FuzzyInput::FuzzyInput(list<string> names) {
+FuzzyInput::FuzzyInput(vector<string> names) {
     for (string name : names) {
         setValue(name, make_shared<DomainElement>(DomainElement({0})));
     }
