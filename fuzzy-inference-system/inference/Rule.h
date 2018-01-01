@@ -8,9 +8,9 @@
 
 #include <utility>
 
-#include "../MembershipFunction.h"
+#include "../fuzzyset/MembershipFunction.h"
 #include "Clause.h"
-#include "../FuzzySet.h"
+#include "../fuzzyset/FuzzySet.h"
 
 class Rule {
 protected:

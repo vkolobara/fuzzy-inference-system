@@ -27,3 +27,7 @@ double MamdaniInferenceSystem::getConclusion(shared_ptr<FuzzyInput> fuzzyInput) 
 
     return defuzzifier->defuzzify(c);
 }
+
+const vector<shared_ptr<Rule>> &MamdaniInferenceSystem::getRules() const {
+    return rules;
+}

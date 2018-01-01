@@ -8,7 +8,7 @@
 #include <vector>
 #include <map>
 #include "string"
-#include "../MembershipFunction.h"
+#include "../fuzzyset/MembershipFunction.h"
 #include "../domain/Domain.h"
 #include "LanguageTerm.h"
 

@@ -6,7 +6,7 @@
 #define FUZZY_INFERENCE_SYSTEM_DEFUZZIFIER_H
 
 
-#include "FuzzySet.h"
+#include "../fuzzyset/FuzzySet.h"
 
 class Defuzzifier {
 public:

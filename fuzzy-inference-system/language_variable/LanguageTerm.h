@@ -9,8 +9,8 @@
 #include <string>
 #include <map>
 #include <memory>
-#include "../MembershipFunction.h"
-#include "../FuzzySet.h"
+#include "../fuzzyset/MembershipFunction.h"
+#include "../fuzzyset/FuzzySet.h"
 
 using namespace std;
 

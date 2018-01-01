@@ -7,7 +7,7 @@
 
 #include "FuzzyInput.h"
 #include "Rule.h"
-#include "../Defuzzifier.h"
+#include "Defuzzifier.h"
 
 class InferenceSystem {
 public:
@@ -24,6 +24,8 @@ public:
                            const shared_ptr<Defuzzifier> &defuzzifier);
 
     double getConclusion(shared_ptr<FuzzyInput> fuzzyInput) override;
+
+    const vector<shared_ptr<Rule>> &getRules() const;
 };
 
 

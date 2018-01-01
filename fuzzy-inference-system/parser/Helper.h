@@ -6,7 +6,7 @@
 #include "../domain/Domain.h"
 #include "../domain/RangeDomain.h"
 #include "../language_variable/LanguageTerm.h"
-#include "../MembershipFunction.h"
+#include "../fuzzyset/MembershipFunction.h"
 #include "../inference/Clause.h"
 
 shared_ptr<MembershipFunction> parseMembershipFunction(string membershipString, string paramsStr);

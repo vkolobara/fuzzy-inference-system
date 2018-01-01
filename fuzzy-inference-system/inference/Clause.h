@@ -10,8 +10,8 @@
 
 #include "../language_variable/LanguageVariable.h"
 #include "FuzzyInput.h"
-#include "../Operators.h"
-#include "../FuzzySet.h"
+#include "../fuzzyset/Operators.h"
+#include "../fuzzyset/FuzzySet.h"
 
 class Clause {
 public:

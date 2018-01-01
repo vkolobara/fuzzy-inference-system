@@ -6,7 +6,7 @@
 #define FUZZY_INFERENCE_SYSTEM_FUZZYSET_H
 
 
-#include "domain/Domain.h"
+#include "../domain/Domain.h"
 #include "MembershipFunction.h"
 
 class FuzzySet {
