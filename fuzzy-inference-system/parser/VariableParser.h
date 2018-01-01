@@ -11,14 +11,27 @@
 
 class VariableParser : public Parser {
 private:
-    vector<shared_ptr<LanguageVariable>> langVariables;
+    map<string, shared_ptr<LanguageVariable>> inputVariables;
+    map<string, shared_ptr<LanguageVariable>> outputVariables;
+    vector<string> inputNames;
+    vector<string> outputNames;
 public:
     VariableParser() = default;
 
     void parseLines(vector<string> lines) override;
 
-    const vector<shared_ptr<LanguageVariable>> &getLangVariables() const;
+    const vector<string> &getOutputNames() const;
+
+    shared_ptr<LanguageVariable> getInputVariable(string name);
+    shared_ptr<LanguageVariable> getOuputVariable(string name);
+
+    const map<string, shared_ptr<LanguageVariable>> &getInputVariables() const;
+
+    const map<string, shared_ptr<LanguageVariable>> &getOutputVariables() const;
+
+    const vector<string> &getInputNames() const;
 };
+
 
 
 #endif //FUZZY_INFERENCE_SYSTEM_VARIABLEPARSER_H

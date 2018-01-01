@@ -15,9 +15,11 @@ void VariableParser::parseLines(vector<string> lines) {
     while (index < size) {
         vector<string> lineSplit = split(lines[index], "\t");
 
-        auto name = lineSplit[0];
+        auto inOut = lineSplit[0];
 
-        auto domain = parseDomain(lineSplit[1]);
+        auto name = lineSplit[1];
+
+        auto domain = parseDomain(lineSplit[2]);
 
         index++;
 
@@ -28,12 +30,44 @@ void VariableParser::parseLines(vector<string> lines) {
             index++;
         }
 
-        langVariables.push_back(make_shared<LanguageVariable>(name, domain, terms));
+        auto var = make_shared<LanguageVariable>(name, domain, terms);
+
+        if (inOut == "IN") {
+            inputVariables[name] = var;
+            inputNames.push_back(name);
+        }
+        else {
+            outputVariables[name] = var;
+            outputNames.push_back(name);
+        }
+
         index++;
     }
 
 }
 
-const vector<shared_ptr<LanguageVariable>> &VariableParser::getLangVariables() const {
-    return langVariables;
+shared_ptr<LanguageVariable> VariableParser::getInputVariable(string name) {
+    return inputVariables[name];
 }
+
+shared_ptr<LanguageVariable> VariableParser::getOuputVariable(string name) {
+    return outputVariables[name];
+}
+
+const map<string, shared_ptr<LanguageVariable>> &VariableParser::getInputVariables() const {
+    return inputVariables;
+}
+
+const map<string, shared_ptr<LanguageVariable>> &VariableParser::getOutputVariables() const {
+    return outputVariables;
+}
+
+const vector<string> &VariableParser::getOutputNames() const {
+    return outputNames;
+}
+
+const vector<string> &VariableParser::getInputNames() const {
+    return inputNames;
+}
+
+
