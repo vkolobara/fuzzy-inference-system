@@ -43,11 +43,7 @@ int main(int argc, char* argv[]) {
         input->setValue("height", make_shared<DomainElement>(DomainElement({height})));
         input->setValue("weight", make_shared<DomainElement>(DomainElement({weight})));
 
-        for (auto rule : inferenceSystem->getRules()) {
-            cout << defuzzifier->defuzzify(rule->getConclusion(input)) << endl;
-        }
-
-        cout << "PARSED INF SYSTEM CONCLUSION:\n" << inferenceSystem->getConclusion(input) << endl;
+        cout << "PARSED INF SYSTEM CONCLUSION: " << inferenceSystem->getConclusion(input) << endl;
     }
 
 

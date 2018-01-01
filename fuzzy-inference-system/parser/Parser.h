@@ -22,7 +22,6 @@ public:
 
         while (getline(file, line)) {
             lines.push_back(line);
-            cout << line << endl;
         }
 
         parseLines(lines);

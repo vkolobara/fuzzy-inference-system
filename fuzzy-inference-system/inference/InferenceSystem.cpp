@@ -20,10 +20,7 @@ double MamdaniInferenceSystem::getConclusion(shared_ptr<FuzzyInput> fuzzyInput) 
 
     for (uint i = 0; i < c->getDomain()->getCardinality(); i++) {
         DomainElement el = c->getDomain()->getElementAt(i);
-
-        cout << el.getComponentValue(0) << " " << c->getValueAt(el) << endl;
     }
-    cout << endl;
 
     return defuzzifier->defuzzify(c);
 }
