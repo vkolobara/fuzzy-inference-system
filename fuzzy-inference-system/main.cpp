@@ -50,9 +50,9 @@ int main(int argc, char* argv[]) {
 
         if (index == 0) {
             for (auto outName : outputNames) {
-                cout << inferenceSystems[outName]->getConclusion(input) << " ";
+                cout << (int) inferenceSystems[outName]->getConclusion(input) << " ";
             }
-            cout << endl;
+            cout << flush << endl;
         }
 
     }
