@@ -109,10 +109,33 @@ shared_ptr<SimpleClause> parseSimpleClause(string clauseString, map<string, shar
     auto varName = trim(clauseSplit[0]);
     auto termName = trim(clauseSplit[1]);
 
+    auto termNameSplit = split(termName, " ");
+
+    string modifier = "";
+
+    if (termNameSplit.size() == 2) {
+        termName = trim(termNameSplit[1]);
+        modifier = trim(termNameSplit[0]);
+    }
+
     auto variable = variables[varName];
     auto term = variable->getLanguageTerm(termName);
 
-    return make_shared<SimpleClause>(term, variable);
+    shared_ptr<FuzzySet> newSet;
+
+    if (modifier == "not") {
+        newSet = make_shared<NegatedFuzzySet>(term->getMeaning(), make_shared<Zadeh::Complement>());
+    } else if (modifier == "very") {
+        newSet = make_shared<ConcentratedFuzzySet>(term->getMeaning());
+    } else if (modifier == "around") {
+        newSet = make_shared<DilatedFuzzySet>(term->getMeaning());
+    } else {
+        newSet = term->getMeaning();
+    }
+
+    auto newTerm = make_shared<LanguageTerm>(term->getName(), newSet);
+    return make_shared<SimpleClause>(newTerm, variable);
+
 }
 
 std::string ltrim(std::string s) {

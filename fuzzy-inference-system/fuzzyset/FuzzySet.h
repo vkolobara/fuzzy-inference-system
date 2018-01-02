@@ -46,4 +46,38 @@ public:
     void set(DomainElement el, double mu);
 };
 
+class NegatedFuzzySet : public FuzzySet {
+private:
+    shared_ptr<FuzzySet> fuzzySet;
+    shared_ptr<BaseOperator::Complement> complement;
+public:
+    NegatedFuzzySet(const shared_ptr<FuzzySet> &fuzzySet, const shared_ptr<BaseOperator::Complement> &complement);
+
+    shared_ptr<Domain> getDomain() override;
+
+    double getValueAt(DomainElement el) override;
+};
+
+class ConcentratedFuzzySet : public FuzzySet {
+private:
+    shared_ptr<FuzzySet> fuzzySet;
+public:
+    explicit ConcentratedFuzzySet(const shared_ptr<FuzzySet> &fuzzySet);
+
+    shared_ptr<Domain> getDomain() override;
+
+    double getValueAt(DomainElement el) override;
+};
+
+class DilatedFuzzySet : public FuzzySet {
+private:
+    shared_ptr<FuzzySet> fuzzySet;
+public:
+    explicit DilatedFuzzySet(const shared_ptr<FuzzySet> &fuzzySet);
+
+    shared_ptr<Domain> getDomain() override;
+
+    double getValueAt(DomainElement el) override;
+};
+
 #endif //FUZZY_INFERENCE_SYSTEM_FUZZYSET_H

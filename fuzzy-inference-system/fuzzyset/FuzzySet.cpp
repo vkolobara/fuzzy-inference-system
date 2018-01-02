@@ -51,3 +51,37 @@ FuzzySet::combine(shared_ptr<FuzzySet> set1, shared_ptr<FuzzySet> set2, shared_p
 
     return set;
 }
+
+NegatedFuzzySet::NegatedFuzzySet(const shared_ptr<FuzzySet> &fuzzySet,
+                                 const shared_ptr<BaseOperator::Complement> &complement) : fuzzySet(fuzzySet),
+                                                                                           complement(complement) {}
+
+shared_ptr<Domain> NegatedFuzzySet::getDomain() {
+    return fuzzySet->getDomain();
+}
+
+double NegatedFuzzySet::getValueAt(DomainElement el) {
+    return complement->calculateValue(fuzzySet->getValueAt(el));
+}
+
+ConcentratedFuzzySet::ConcentratedFuzzySet(const shared_ptr<FuzzySet> &fuzzySet) : fuzzySet(fuzzySet) {}
+
+shared_ptr<Domain> ConcentratedFuzzySet::getDomain() {
+    return fuzzySet->getDomain();
+}
+
+double ConcentratedFuzzySet::getValueAt(DomainElement el) {
+    auto val = fuzzySet->getValueAt(el);
+    return val*val;
+}
+
+DilatedFuzzySet::DilatedFuzzySet(const shared_ptr<FuzzySet> &fuzzySet) : fuzzySet(fuzzySet) {}
+
+shared_ptr<Domain> DilatedFuzzySet::getDomain() {
+    return fuzzySet->getDomain();
+}
+
+double DilatedFuzzySet::getValueAt(DomainElement el) {
+    auto val = fuzzySet->getValueAt(el);
+    return sqrt(val);
+}
