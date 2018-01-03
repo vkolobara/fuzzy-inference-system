@@ -84,14 +84,46 @@ namespace SmoothMembershipFunction {
 
 
     double GaussMembershipFunction::valueAt(const double &x) {
-        double exponent = (x - mu) / sigma;
-        return exp(-exponent * exponent);
+        double exponent = (x - mu) / (2*sigma);
+        return exp(-(exponent * exponent));
+    }
+
+    void GaussMembershipFunction::setMu(double mu) {
+        GaussMembershipFunction::mu = mu;
+    }
+
+    void GaussMembershipFunction::setSigma(double sigma) {
+        GaussMembershipFunction::sigma = sigma;
+    }
+
+    double GaussMembershipFunction::getMu() const {
+        return mu;
+    }
+
+    double GaussMembershipFunction::getSigma() const {
+        return sigma;
     }
 
     SigmoidMembershipFunction::SigmoidMembershipFunction(double a, double c) : a(a), c(c) {}
 
     double SigmoidMembershipFunction::valueAt(const double &x) {
         return 1.0 / (1 + exp(-a * (x - c)));
+    }
+
+    double SigmoidMembershipFunction::getA() const {
+        return a;
+    }
+
+    void SigmoidMembershipFunction::setA(double a) {
+        SigmoidMembershipFunction::a = a;
+    }
+
+    double SigmoidMembershipFunction::getC() const {
+        return c;
+    }
+
+    void SigmoidMembershipFunction::setC(double c) {
+        SigmoidMembershipFunction::c = c;
     }
 
     ExponentialLikeMembershipFunction::ExponentialLikeMembershipFunction(double mu, double k) : mu(mu), k(k) {}

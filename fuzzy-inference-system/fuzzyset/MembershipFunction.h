@@ -216,6 +216,14 @@ namespace SmoothMembershipFunction {
         ~GaussMembershipFunction() = default;
 
         double valueAt(const double &x) override;
+
+        void setMu(double mu);
+
+        void setSigma(double sigma);
+
+        double getMu() const;
+
+        double getSigma() const;
     };
 
     /*
@@ -230,6 +238,14 @@ namespace SmoothMembershipFunction {
         ~SigmoidMembershipFunction() = default;
 
         double valueAt(const double &x) override;
+
+        double getA() const;
+
+        void setA(double a);
+
+        double getC() const;
+
+        void setC(double c);
     };
 
     /*
