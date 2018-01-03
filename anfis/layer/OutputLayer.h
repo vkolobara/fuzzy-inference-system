@@ -6,8 +6,12 @@
 #define FUZZY_OUTPUTLAYER_H
 
 
-class OutputLayer {
+#include "Layer.h"
 
+class OutputLayer : public Layer {
+public:
+    OutputLayer() = default;
+    vector<double> forwardPass (vector<double> inputs) override;
 };
 
 

@@ -6,8 +6,22 @@
 #define FUZZY_ANTECEDENTLAYER_H
 
 
-class AntecedentLayer {
+#include <memory>
+#include "Layer.h"
+#include "../tnorm/TNorm.h"
+#include "../membership/AnfisMembershipFunction.h"
 
+class AntecedentLayer : public Layer {
+private:
+    int numRules
+    TNorm* tnorm;
+    vector<vector<shared_ptr<AnfisMembershipFunction>>> memberships;
+public:
+    AntecedentLayer(int numRules, TNorm *tnorm, const vector<vector<shared_ptr<AnfisMembershipFunction>>> &memberships);
+
+    vector<double> forwardPass(vector<double> inputs) override;
+
+    virtual ~AntecedentLayer();
 };
 
 

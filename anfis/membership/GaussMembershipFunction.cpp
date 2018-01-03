@@ -31,5 +31,10 @@ vector<double> GaussMembershipFunction::gradients(double x) {
 }
 
 GaussMembershipFunction::GaussMembershipFunction() {
-    f = make_shared<SmoothMembershipFunction::GaussMembershipFunction>(0, 1);
+    f = new SmoothMembershipFunction::GaussMembershipFunction(0, 1);
+}
+
+GaussMembershipFunction::~GaussMembershipFunction() {
+    delete f;
+
 }

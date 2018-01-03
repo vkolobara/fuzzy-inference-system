@@ -11,9 +11,11 @@
 
 class GaussMembershipFunction : public AnfisMembershipFunction{
 private:
-    shared_ptr<SmoothMembershipFunction::GaussMembershipFunction> f;
+    SmoothMembershipFunction::GaussMembershipFunction* f;
 public:
     GaussMembershipFunction();
+
+    virtual ~GaussMembershipFunction();
 
     double valueAt(double x) override;
 

@@ -6,8 +6,23 @@
 #define FUZZY_SIGMOIDMEMBERSHIPFUNCTION_H
 
 
-class SigmoidMembershipFunction {
+#include "AnfisMembershipFunction.h"
+#include "../../fuzzy-inference-system/fuzzyset/MembershipFunction.h"
 
+class SigmoidMembershipFunction : public AnfisMembershipFunction {
+private:
+    SmoothMembershipFunction::SigmoidMembershipFunction* f;
+public:
+    SigmoidMembershipFunction();
+    double valueAt(double x) override;
+
+    virtual ~SigmoidMembershipFunction();
+
+    int getNumParameters() override;
+
+    void updateParameters(vector<double> params) override;
+
+    vector<double> gradients(double x) override;
 };
 
 

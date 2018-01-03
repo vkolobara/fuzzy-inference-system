@@ -5,9 +5,11 @@
 #ifndef FUZZY_NORMALIZINGLAYER_H
 #define FUZZY_NORMALIZINGLAYER_H
 
+#include "Layer.h"
 
-class NormalizingLayer {
-
+class NormalizingLayer : public Layer {
+public:
+    vector<double> forwardPass(vector<double> inputs) override;
 };
 
 
