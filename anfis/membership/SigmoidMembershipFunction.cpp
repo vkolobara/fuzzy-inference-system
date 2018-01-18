@@ -2,6 +2,7 @@
 // Created by vkolobara on 1/3/18.
 //
 
+#include <random>
 #include "SigmoidMembershipFunction.h"
 
 double SigmoidMembershipFunction::valueAt(double x) {
@@ -32,7 +33,10 @@ vector<double> SigmoidMembershipFunction::gradients(double x) {
 }
 
 SigmoidMembershipFunction::SigmoidMembershipFunction() {
-    f = new SmoothMembershipFunction::SigmoidMembershipFunction(1, 0);
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_real_distribution<double> dist(-10.0, 10.0);
+    f = new SmoothMembershipFunction::SigmoidMembershipFunction(dist(mt), dist(mt));
 }
 
 SigmoidMembershipFunction::~SigmoidMembershipFunction() {
