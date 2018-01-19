@@ -19,20 +19,11 @@ ANFIS::~ANFIS() {
 
 vector<double> ANFIS::forward(vector<double> inputs) {
     vector<double> w  = antecedentForward(inputs);
-    for (auto val : w) {
-        cout << val << " ";
-    }
-    cout << endl << endl;
+
     vector<double> z = normalizingForward(w);
-    for (auto val : z) {
-        cout << val << " ";
-    }
-    cout << endl << endl;
+
     vector<double> f  = consequentForward(inputs, z);
-    for (auto val : f) {
-        cout << val << " ";
-    }
-    cout << endl << endl;
+
     vector<double> o  = outputForward(f);
     return o;
 }

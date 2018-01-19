@@ -7,8 +7,7 @@
 
 #include "Layer.h"
 
-class NormalizingLayer : public Layer {
-public:
+struct NormalizingLayer : public Layer {
     vector<double> forwardPass(vector<double> inputs) override;
 };
 

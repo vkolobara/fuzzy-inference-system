@@ -14,8 +14,8 @@ int SigmoidMembershipFunction::getNumParameters() {
 }
 
 void SigmoidMembershipFunction::updateParameters(vector<double> params) {
-    f->setA(params[0]);
-    f->setC(params[1]);
+    f->setA(f->getA()-params[0]);
+    f->setC(f->getC()-params[1]);
 }
 
 vector<double> SigmoidMembershipFunction::gradients(double x) {
@@ -35,7 +35,7 @@ vector<double> SigmoidMembershipFunction::gradients(double x) {
 SigmoidMembershipFunction::SigmoidMembershipFunction() {
     std::random_device rd;
     std::mt19937 mt(rd());
-    std::uniform_real_distribution<double> dist(-10.0, 10.0);
+    std::uniform_real_distribution<double> dist(-1.0, 1.0);
     f = new SmoothMembershipFunction::SigmoidMembershipFunction(dist(mt), dist(mt));
 }
 

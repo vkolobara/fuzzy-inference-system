@@ -7,24 +7,34 @@
 
 void Backpropagation::learn(vector<vector<double>> inputs, vector<double> outputs) {
 
-    for (int j=0; j<inputs.size()*10000; j++) {
+    auto lossVal=0.0;
+    for (int j = 0; j < inputs.size() * 1000; j++) {
         auto i = j % inputs.size();
         double pred = anfis->forward(inputs[i])[0];
 
-        cout << "LOSS AT " << j << ": "<< loss->loss(pred, outputs[i]) << endl;
+        lossVal += loss->loss(pred, outputs[i]);
+
+        //cout << "REAL: " << outputs[i] << " - PRED: " << pred << endl;
+        if (j>0 && i % inputs.size() == 0) {
+            cout << "LOSS AT " << j/inputs.size() << ": " << lossVal / inputs.size() << endl << endl;
+            lossVal = 0;
+        }
+
         learnExample(inputs[i], outputs[i]);
     }
+
+    cout << "FINAL LOSS: " << lossVal / inputs.size() << endl << endl;
 
 
 }
 
 void Backpropagation::learnExample(vector<double> inputs, double output) {
-    auto w  = anfis->antecedentForward(inputs);
+    auto w = anfis->antecedentForward(inputs);
     auto z = anfis->normalizingForward(w);
-    auto f  = anfis->consequentForward(inputs, z);
-    auto o  = anfis->outputForward(f);
+    auto f = anfis->consequentForward(inputs, z);
+    auto o = anfis->outputForward(f);
 
-    auto consParams = anfis->getConsequentLayer()->getParams();
+    auto consParams = anfis->consequentLayer->params;
 
     auto dO = o[0] - output;
     auto wSum = 1e-6;
@@ -33,47 +43,44 @@ void Backpropagation::learnExample(vector<double> inputs, double output) {
         wSum += val;
     }
 
-    for (int i=0; i<anfis->numRules; i++) {
+    for (int i = 0; i < anfis->numRules; i++) {
         auto memberships = anfis->antecedentLayer->memberships[i];
 
         auto dZ = w[i] / wSum;
 
-        vector<double> gradCons(consParams[i].size());
-
-        for (int j=0; j<consParams[i].size()-1; j++) {
-            gradCons[j] = 0.1*dO*dZ*inputs[j];
+        for (int j = 0; j < consParams[i].size() - 1; j++) {
+            anfis->consequentLayer->params[i][j] -= 0.01 * dO * dZ * inputs[j];
         }
 
-        gradCons[consParams[i].size()-1] = 0.00001*dO*dZ;
+        anfis->consequentLayer->params[i][consParams[i].size() - 1] -= 0.01 * dO * dZ;
 
-        anfis->getConsequentLayer()->setParams(i, gradCons);
 
         auto dW = 0.0;
 
-        for (int j=0; j<z.size(); j++) {
-            dW += w[i]*z[i];
+        for (int j = 0; j < z.size(); j++) {
+            dW += w[i] * z[i];
         }
 
         dW = (wSum * z[i] - dW) / (wSum * wSum);
 
-        vector<vector<double>> gradMemb(memberships.size());
+        vector<double> gradMemb;
 
-        for (int j=0; j<memberships.size(); j++) {
-            gradMemb[j] = memberships[j]->gradients(inputs[j]);
-            for (int k=0; k<memberships.size(); k++) {
-                if (k!=j) {
-                    gradMemb[j][k] += 0.00001 * dO * dW * memberships[k]->valueAt(inputs[k]);
+        for (int j = 0; j < memberships.size(); j++) {
+            gradMemb = memberships[j]->gradients(inputs[j]);
+            for (int l = 0; l < memberships[j]->getNumParameters(); l++) {
+                gradMemb[l] = 0.0001;
+                for (int k = 0; k < memberships.size(); k++) {
+                    if (k != j) {
+                        gradMemb[l] *= memberships[k]->valueAt(inputs[k]);
+                    }
                 }
+                gradMemb[l] *= dO * dW;
             }
-        }
+            anfis->antecedentLayer->memberships[i][j]->updateParameters(gradMemb);
 
-        for (int j=0; j<memberships.size(); j++) {
-            memberships[j]->updateParameters(gradMemb[j]);
         }
-
 
     }
-
 
 
 }

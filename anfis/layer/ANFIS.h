@@ -11,13 +11,11 @@
 #include "OutputLayer.h"
 #include "ConsequentLayer.h"
 
-class ANFIS {
-public:
+struct ANFIS {
     AntecedentLayer* antecedentLayer;
     NormalizingLayer* normalizingLayer;
     ConsequentLayer* consequentLayer;
     OutputLayer* outputLayer;
-public:
     int numRules;
     ANFIS(int numRules, AntecedentLayer *antecedentLayer, NormalizingLayer *normalizingLayer, ConsequentLayer *consequentLayer,
           OutputLayer *outputLayer);

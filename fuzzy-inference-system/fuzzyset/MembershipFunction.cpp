@@ -107,7 +107,7 @@ namespace SmoothMembershipFunction {
     SigmoidMembershipFunction::SigmoidMembershipFunction(double a, double c) : a(a), c(c) {}
 
     double SigmoidMembershipFunction::valueAt(const double &x) {
-        return 1.0 / (1 + exp(-a * (x - c)));
+        return 1.0 / (1 + exp(a * (x - c)));
     }
 
     double SigmoidMembershipFunction::getA() const {

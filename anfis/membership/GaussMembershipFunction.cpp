@@ -14,8 +14,8 @@ int GaussMembershipFunction::getNumParameters() {
 }
 
 void GaussMembershipFunction::updateParameters(vector<double> params) {
-    f->setMu(params[0]);
-    f->setSigma(params[1]);
+    f->setMu(f->getMu()-params[0]);
+    f->setSigma(f->getSigma()-params[1]);
 }
 
 vector<double> GaussMembershipFunction::gradients(double x) {

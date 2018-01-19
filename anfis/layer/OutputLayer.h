@@ -8,8 +8,7 @@
 
 #include "Layer.h"
 
-class OutputLayer : public Layer {
-public:
+struct OutputLayer : public Layer {
     OutputLayer() = default;
     vector<double> forwardPass (vector<double> inputs) override;
 };

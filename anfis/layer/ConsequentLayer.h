@@ -8,11 +8,9 @@
 
 #include "Layer.h"
 
-class ConsequentLayer : public Layer {
-private:
+struct ConsequentLayer : public Layer {
     vector<double> startInputs;
     vector<vector<double>> params;
-public:
     ConsequentLayer(int numRules, int numInputs);
     vector<double> forwardPass(vector<double> inputs) override;
 

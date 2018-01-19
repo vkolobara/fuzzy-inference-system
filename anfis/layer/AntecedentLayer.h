@@ -11,13 +11,10 @@
 #include "../tnorm/TNorm.h"
 #include "../membership/AnfisMembershipFunction.h"
 
-class AntecedentLayer : public Layer {
-private:
+struct AntecedentLayer : public Layer {
     int numRules;
     TNorm* tnorm;
-public:
     vector<vector<AnfisMembershipFunction*>> memberships;
-public:
     AntecedentLayer(int numRules, TNorm *tnorm, vector<vector<AnfisMembershipFunction*>> memberships);
 
     vector<double> forwardPass(vector<double> inputs) override;
