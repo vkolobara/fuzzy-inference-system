@@ -37,3 +37,9 @@ build
 *.app
 
 *.swp
+*.aux
+*.log
+*.nav
+*.pdf
+*.snm
+*.toc
