@@ -10,6 +10,7 @@ void RulesParser::parseLines(vector<string> lines) {
 
     for (auto line : lines) {
         if (line.empty()) continue;
+        if (line[0] == '#') continue;
 
         vector<string> splitLine = split(line, "->");
 

@@ -2,6 +2,7 @@
 // Created by vkolobara on 1/3/18.
 //
 
+#include <random>
 #include "ConsequentLayer.h"
 
 vector<double> ConsequentLayer::forwardPass(vector<double> inputs) {
@@ -37,4 +38,23 @@ const vector<vector<double>> &ConsequentLayer::getParams() const {
 
 void ConsequentLayer::setParams(const vector<vector<double>> &params) {
     ConsequentLayer::params = params;
+}
+
+ConsequentLayer::ConsequentLayer(int numRules, int numInputs) {
+    params = vector<vector<double>>(numRules);
+    std::random_device r;
+    std::mt19937 mt(r());
+    std::uniform_real_distribution<double> dist(1.0, 10.0);    std::uniform_real_distribution<double> uniform_dist(-1, 1);
+    for (int i=0; i<numRules; i++) {
+        vector<double> vals(numInputs+1);
+        for (int j=0; j<numInputs+1; j++){
+            vals[j] = uniform_dist(mt);
+        }
+        params[i] = vals;
+    }
+
+}
+
+void ConsequentLayer::setParams(int index, const vector<double> &params) {
+    this->params[index] = params;
 }

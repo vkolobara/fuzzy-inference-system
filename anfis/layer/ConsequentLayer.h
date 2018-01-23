@@ -8,12 +8,10 @@
 
 #include "Layer.h"
 
-class ConsequentLayer : public Layer {
-private:
+struct ConsequentLayer : public Layer {
     vector<double> startInputs;
     vector<vector<double>> params;
-public:
-    ConsequentLayer() = default;
+    ConsequentLayer(int numRules, int numInputs);
     vector<double> forwardPass(vector<double> inputs) override;
 
     const vector<double> &getStartInputs() const;
@@ -23,6 +21,8 @@ public:
     const vector<vector<double>> &getParams() const;
 
     void setParams(const vector<vector<double>> &params);
+
+    void setParams(int index, const vector<double> &params);
 };
 
 

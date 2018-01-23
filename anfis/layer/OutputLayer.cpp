@@ -13,3 +13,4 @@ vector<double> OutputLayer::forwardPass(vector<double> inputs) {
 
     return vector<double>({output});
 }
+

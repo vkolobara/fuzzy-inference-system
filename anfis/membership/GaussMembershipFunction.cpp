@@ -2,6 +2,7 @@
 // Created by vkolobara on 1/3/18.
 //
 
+#include <random>
 #include "GaussMembershipFunction.h"
 
 double GaussMembershipFunction::valueAt(double x) {
@@ -13,8 +14,8 @@ int GaussMembershipFunction::getNumParameters() {
 }
 
 void GaussMembershipFunction::updateParameters(vector<double> params) {
-    f->setMu(params[0]);
-    f->setSigma(params[1]);
+    f->setMu(f->getMu()-params[0]);
+    f->setSigma(f->getSigma()-params[1]);
 }
 
 vector<double> GaussMembershipFunction::gradients(double x) {
@@ -31,7 +32,10 @@ vector<double> GaussMembershipFunction::gradients(double x) {
 }
 
 GaussMembershipFunction::GaussMembershipFunction() {
-    f = new SmoothMembershipFunction::GaussMembershipFunction(0, 1);
+    std::random_device r;
+    std::default_random_engine e1(r());
+    std::uniform_real_distribution<double> uniform_dist(-1, 1);
+    f = new SmoothMembershipFunction::GaussMembershipFunction(uniform_dist(e1), uniform_dist(e1));
 }
 
 GaussMembershipFunction::~GaussMembershipFunction() {

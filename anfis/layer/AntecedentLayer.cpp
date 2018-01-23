@@ -2,6 +2,8 @@
 // Created by vkolobara on 1/3/18.
 //
 
+#include <iostream>
+#include <utility>
 #include "AntecedentLayer.h"
 
 vector<double> AntecedentLayer::forwardPass(vector<double> inputs) {
@@ -20,8 +22,17 @@ vector<double> AntecedentLayer::forwardPass(vector<double> inputs) {
 
 AntecedentLayer::~AntecedentLayer() {
     delete tnorm;
+    for (auto mems : memberships) {
+        for (auto mem : mems) {
+            delete mem;
+        }
+    }
 }
 
 AntecedentLayer::AntecedentLayer(int numRules, TNorm *tnorm,
-                                 const vector<vector<shared_ptr<AnfisMembershipFunction>>> &memberships) : numRules(
-        numRules), tnorm(tnorm), memberships(memberships) {}
+                                 vector<vector<AnfisMembershipFunction*>> memberships) : numRules(
+        numRules), tnorm(tnorm), memberships(std::move(memberships)) {}
+
+vector<AnfisMembershipFunction *> AntecedentLayer::membershipsForRule(int index) {
+    return memberships.at(index);
+}
