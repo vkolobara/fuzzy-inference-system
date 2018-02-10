@@ -17,13 +17,15 @@ using namespace std;
 class LanguageTerm {
 private:
     string name;
-    shared_ptr<FuzzySet> meaning;
+    FuzzySet* meaning;
 public:
     LanguageTerm();
 
-    LanguageTerm(const string &name, const shared_ptr<FuzzySet> &meaning);
+    virtual ~LanguageTerm();
 
-    shared_ptr<FuzzySet> getMeaning();
+    LanguageTerm(const string &name, FuzzySet* meaning);
+
+    FuzzySet* getMeaning();
 
     string getName();
 };

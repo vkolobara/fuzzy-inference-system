@@ -4,7 +4,7 @@
 
 #include "CompositeDomain.h"
 
-shared_ptr<Domain> CompositeDomain::getComponent(uint index) {
+Domain* CompositeDomain::getComponent(uint index) {
     if (index < 0 || index > getNumberOfComponents()) {
         throw invalid_argument("Index greater than number of components");
     }
@@ -25,6 +25,6 @@ uint CompositeDomain::getCardinality() {
     return cardinality;
 }
 
-CompositeDomain::CompositeDomain(initializer_list<shared_ptr<RangeDomain>> domains) {
-    this->domains = std::vector<shared_ptr<RangeDomain>>(domains);
+CompositeDomain::CompositeDomain(initializer_list<RangeDomain*> domains) {
+    this->domains = std::vector<RangeDomain*>(domains);
 }

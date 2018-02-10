@@ -7,13 +7,18 @@
 
 LanguageTerm::LanguageTerm() = default;
 
-LanguageTerm::LanguageTerm(const string &name, const shared_ptr<FuzzySet> &meaning) : name(name),
+LanguageTerm::LanguageTerm(const string &name, FuzzySet* meaning) : name(name),
                                                                                       meaning(meaning) {}
 
-shared_ptr<FuzzySet> LanguageTerm::getMeaning() {
+FuzzySet* LanguageTerm::getMeaning() {
     return meaning;
 }
 
 string LanguageTerm::getName() {
     return name;
+}
+
+LanguageTerm::~LanguageTerm() {
+    delete meaning;
+
 }

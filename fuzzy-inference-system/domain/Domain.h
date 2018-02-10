@@ -16,7 +16,7 @@ public:
 
     virtual uint getNumberOfComponents() = 0;
 
-    virtual shared_ptr<Domain> getComponent(uint index) = 0;
+    virtual Domain* getComponent(uint index) = 0;
 
     DomainElement getElementAt(uint index);
 

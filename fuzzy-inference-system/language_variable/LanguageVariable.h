@@ -18,20 +18,20 @@ using namespace std;
 class LanguageVariable {
 private:
     string name;
-    shared_ptr<Domain> domain;
-    map<string, shared_ptr<LanguageTerm>> terms;
+    Domain* domain;
+    map<string, LanguageTerm*> terms;
 public:
-    LanguageVariable(string name, shared_ptr<Domain> domain, vector<shared_ptr<LanguageTerm>> terms);
+    LanguageVariable(string name, Domain* domain, vector<LanguageTerm*> terms);
 
     string getName();
 
-    shared_ptr<Domain> getDomain();
+    Domain* getDomain();
 
     vector<string> getTermNames();
 
-    shared_ptr<FuzzySet> getMeaning(string term);
+    FuzzySet* getMeaning(string term);
 
-    shared_ptr<LanguageTerm> getLanguageTerm(string term);
+    LanguageTerm* getLanguageTerm(string term);
 };
 
 

@@ -6,7 +6,7 @@
 #include <algorithm>
 #include "Helper.h"
 
-shared_ptr<MembershipFunction> parseMembershipFunction(string membershipString, string paramsStr) {
+MembershipFunction* parseMembershipFunction(string membershipString, string paramsStr) {
     istringstream iss(paramsStr);
     string token;
 
@@ -16,40 +16,40 @@ shared_ptr<MembershipFunction> parseMembershipFunction(string membershipString, 
         params.push_back(stod(token));
     }
 
-    shared_ptr<MembershipFunction> func;
+    MembershipFunction* func;
 
     if (membershipString == "L") {
         if (params.size() != 2) //TODO: ERROR;
             ;
-        func = make_shared<LinearMembershipFunction::LMembershipFunction>(params[0], params[1]);
+        func = new LinearMembershipFunction::LMembershipFunction(params[0], params[1]);
     } else if (membershipString == "LAMBDA") {
         if (params.size() != 3) //TODO: ERROR;
             ;
-        func = make_shared<LinearMembershipFunction::LambdaMembershipFunction>(params[0], params[1], params[2]);
+        func = new LinearMembershipFunction::LambdaMembershipFunction(params[0], params[1], params[2]);
     } else if (membershipString == "GAMMA") {
         if (params.size() != 2) //TODO: ERROR;
             ;
-        func = make_shared<LinearMembershipFunction::GammaMembershipFunction>(params[0], params[1]);
+        func = new LinearMembershipFunction::GammaMembershipFunction(params[0], params[1]);
     } else if (membershipString == "PI") {
         if (params.size() != 4) //TODO: ERROR
             ;
-        func = make_shared<LinearMembershipFunction::PiMembershipFunction>(params[0], params[1], params[2], params[3]);
+        func = new LinearMembershipFunction::PiMembershipFunction(params[0], params[1], params[2], params[3]);
     } else if (membershipString == "S") {
         if (params.size() != 4) //TODO: ERROR
             ;
-        func = make_shared<SmoothMembershipFunction::SMembershipFunction>(params[0], params[1], params[2]);
+        func = new SmoothMembershipFunction::SMembershipFunction(params[0], params[1], params[2]);
     } else if (membershipString == "GAUSS") {
         if (params.size() != 2) //TODO: ERROR
             ;
-        func = make_shared<SmoothMembershipFunction::GaussMembershipFunction>(params[0], params[1]);
+        func = new SmoothMembershipFunction::GaussMembershipFunction(params[0], params[1]);
     } else if (membershipString == "SIGMOID") {
         if (params.size() != 3) //TODO: ERROR
             ;
-        func = make_shared<SmoothMembershipFunction::SigmoidMembershipFunction>(params[0], params[1]);
+        func = new SmoothMembershipFunction::SigmoidMembershipFunction(params[0], params[1]);
     } else if (membershipString == "EXP") {
         if (params.size() != 2) //TODO: ERROR
             ;
-        func = make_shared<SmoothMembershipFunction::ExponentialLikeMembershipFunction>(params[0], params[1]);
+        func = new SmoothMembershipFunction::ExponentialLikeMembershipFunction(params[0], params[1]);
     }
 
     return func;
@@ -72,7 +72,7 @@ vector<string> split(string s, string delimiter) {
     return ret;
 }
 
-shared_ptr<Domain> parseDomain(string domainStr) {
+Domain* parseDomain(string domainStr) {
     double start, step, end;
 
     istringstream iss(domainStr);
@@ -86,24 +86,23 @@ shared_ptr<Domain> parseDomain(string domainStr) {
     getline(iss, token, ',');
     end = stod(token);
 
-    return make_shared<RangeDomain>(start, step, end);
+    return new RangeDomain(start, step, end);
 }
 
-shared_ptr<LanguageTerm> parseTerm(string termString, shared_ptr<Domain> domain) {
+LanguageTerm* parseTerm(string termString, Domain* domain) {
     vector<string> splitTerm = split(termString, "\t");
 
     string name = splitTerm[0];
 
     auto func = parseMembershipFunction(splitTerm[1], splitTerm[2]);
 
-    auto fuzzySet = make_shared<CalculatedFuzzySet>(func, domain);
+    auto fuzzySet = new CalculatedFuzzySet(func, domain);
 
-
-    return make_shared<LanguageTerm>(name, fuzzySet);
+    return new LanguageTerm(name, fuzzySet);
 
 }
 
-shared_ptr<SimpleClause> parseSimpleClause(string clauseString, map<string, shared_ptr<LanguageVariable>> variables) {
+SimpleClause* parseSimpleClause(string clauseString, map<string, LanguageVariable*> variables) {
     vector<string> clauseSplit = split(clauseString, "=");
 
     auto varName = trim(clauseSplit[0]);
@@ -121,20 +120,20 @@ shared_ptr<SimpleClause> parseSimpleClause(string clauseString, map<string, shar
     auto variable = variables[varName];
     auto term = variable->getLanguageTerm(termName);
 
-    shared_ptr<FuzzySet> newSet;
+    FuzzySet* newSet;
 
     if (modifier == "not") {
-        newSet = make_shared<NegatedFuzzySet>(term->getMeaning(), make_shared<Zadeh::Complement>());
+        newSet = new NegatedFuzzySet(term->getMeaning(), new Zadeh::Complement());
     } else if (modifier == "very") {
-        newSet = make_shared<ConcentratedFuzzySet>(term->getMeaning());
+        newSet = new ConcentratedFuzzySet(term->getMeaning());
     } else if (modifier == "around") {
-        newSet = make_shared<DilatedFuzzySet>(term->getMeaning());
+        newSet = new DilatedFuzzySet(term->getMeaning());
     } else {
         newSet = term->getMeaning();
     }
 
-    auto newTerm = make_shared<LanguageTerm>(term->getName(), newSet);
-    return make_shared<SimpleClause>(newTerm, variable);
+    auto newTerm = new LanguageTerm(term->getName(), newSet);
+    return new SimpleClause(newTerm, variable);
 
 }
 
@@ -158,7 +157,7 @@ string trim(string s) {
     return ltrim(rtrim(s));
 }
 
-shared_ptr<FuzzySet> parseConsequense(string consequense, map<string, shared_ptr<LanguageVariable>> variables) {
+FuzzySet* parseConsequense(string consequense, map<string, LanguageVariable*> variables) {
 
     vector<string> consSplit = split(consequense, "=");
 

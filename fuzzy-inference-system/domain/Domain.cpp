@@ -22,7 +22,7 @@ DomainElement Domain::getElementAt(uint index) {
         divisor *= card;
     }
 
-    auto comp0 = dynamic_pointer_cast<RangeDomain>(getComponent(0));
+    auto comp0 = dynamic_cast<RangeDomain*>(getComponent(0));
     values[0] = comp0->getStart() + index / divisor / comp0->getStep();
     std::vector<double> ret(values, values + numComponents);
 
@@ -38,7 +38,7 @@ int Domain::indexOfElement(DomainElement element) {
 
     for (uint i = 0; i < element.getNumberOfComponents(); i++) {
         double value = element.getComponentValue(i);
-        shared_ptr<RangeDomain> domain = dynamic_pointer_cast<RangeDomain>(getComponent(i));
+        auto domain = dynamic_cast<RangeDomain*>(getComponent(i));
 
         if (value >= domain->getEnd()) {
             return -1;

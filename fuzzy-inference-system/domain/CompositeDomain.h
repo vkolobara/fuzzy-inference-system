@@ -14,15 +14,15 @@ using namespace std;
 
 class CompositeDomain : public Domain {
 protected:
-    vector<shared_ptr<RangeDomain>> domains;
+    vector<RangeDomain*> domains;
 public:
-    CompositeDomain(initializer_list<shared_ptr<RangeDomain>> domains);
+    CompositeDomain(initializer_list<RangeDomain*> domains);
 
     uint getCardinality() override;
 
     uint getNumberOfComponents() override;
 
-    shared_ptr<Domain> getComponent(uint index) override;
+    Domain* getComponent(uint index) override;
 };
 
 

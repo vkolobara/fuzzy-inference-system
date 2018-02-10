@@ -11,8 +11,8 @@
 
 class VariableParser : public Parser {
 private:
-    map<string, shared_ptr<LanguageVariable>> inputVariables;
-    map<string, shared_ptr<LanguageVariable>> outputVariables;
+    map<string, LanguageVariable*> inputVariables;
+    map<string, LanguageVariable*> outputVariables;
     vector<string> inputNames;
     vector<string> outputNames;
 public:
@@ -22,12 +22,12 @@ public:
 
     const vector<string> &getOutputNames() const;
 
-    shared_ptr<LanguageVariable> getInputVariable(string name);
-    shared_ptr<LanguageVariable> getOuputVariable(string name);
+    LanguageVariable* getInputVariable(string name);
+    LanguageVariable* getOuputVariable(string name);
 
-    const map<string, shared_ptr<LanguageVariable>> &getInputVariables() const;
+    const map<string, LanguageVariable*> &getInputVariables() const;
 
-    const map<string, shared_ptr<LanguageVariable>> &getOutputVariables() const;
+    const map<string, LanguageVariable*> &getOutputVariables() const;
 
     const vector<string> &getInputNames() const;
 };

@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
 
     auto rulesParser = make_shared<RulesParser>(variableParser->getInputVariables(),
                                                 variableParser->getOutputVariables(),
-                                                make_shared<Zadeh::TNorm>());
+                                                new Zadeh::TNorm());
 
     rulesParser->parse(argv[2]);
 
@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
     map<string, shared_ptr<InferenceSystem>> inferenceSystems;
 
     for (auto ruleSet : rulesParser->getRules()) {
-        inferenceSystems[ruleSet.first] = make_shared<MamdaniInferenceSystem>(ruleSet.second, make_shared<Zadeh::SNorm>(), defuzzifier);
+        inferenceSystems[ruleSet.first] = make_shared<MamdaniInferenceSystem>(ruleSet.second, new Zadeh::SNorm(), defuzzifier.get());
     }
 
 
@@ -44,13 +44,13 @@ int main(int argc, char* argv[]) {
     int index = 0;
     while (cin >> inputs[index]) {
 
-        input->setValue(inputNames[index], make_shared<DomainElement>(DomainElement({inputs[index]})));
+        input->setValue(inputNames[index], new DomainElement({inputs[index]}));
 
         index = static_cast<int>((index + 1) % inputNames.size());
 
         if (index == 0) {
             for (auto outName : outputNames) {
-                cout << (int) inferenceSystems[outName]->getConclusion(input) << " ";
+                cout << (int) inferenceSystems[outName]->getConclusion(input.get()) << " ";
             }
             cout << flush << endl;
         }

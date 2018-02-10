@@ -15,13 +15,13 @@ using namespace std;
 
 class FuzzyInput {
 protected:
-    map<string, shared_ptr<DomainElement>> currentValues;
+    map<string, DomainElement*> currentValues;
 public:
     FuzzyInput(vector <string> names);
 
-    void setValue(string languageVariable, shared_ptr<DomainElement> value);
+    void setValue(string languageVariable, DomainElement* value);
 
-    shared_ptr<DomainElement> getValue(string languageVariable);
+    DomainElement* getValue(string languageVariable);
 };
 
 

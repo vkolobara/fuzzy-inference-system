@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <utility>
 #include "RulesParser.h"
 #include "Helper.h"
 
@@ -16,38 +17,38 @@ void RulesParser::parseLines(vector<string> lines) {
 
         vector<string> simpleClauses = split(splitLine[0], ",");
 
-        vector<shared_ptr<Clause>> clauses;
+        vector<Clause*> clauses;
 
         for (auto clauseS : simpleClauses) {
             clauses.push_back(parseSimpleClause(clauseS, inputVariables));
         }
 
-        auto antecedent = make_shared<AndClause>(clauses, tnorm);
+        auto antecedent = new AndClause(clauses, tnorm);
         auto consequense = parseConsequense(trim(splitLine[1]), outputVariables);
 
-        rules[trim(split(trim(splitLine[1]), "=")[0])].push_back(make_shared<Rule>(antecedent, consequense, tnorm));
+        rules[trim(split(trim(splitLine[1]), "=")[0])].push_back(new Rule(antecedent, consequense, tnorm));
     }
 
 }
 
-const shared_ptr<BaseOperator::TNorm> &RulesParser::getTnorm() const {
+BaseOperator::TNorm* RulesParser::getTnorm() {
     return tnorm;
 }
 
-RulesParser::RulesParser(const map<string, shared_ptr<LanguageVariable>> &inputVariables,
-                         const map<string, shared_ptr<LanguageVariable>> &outputVariables,
-                         const shared_ptr<BaseOperator::TNorm> &tnorm) : inputVariables(inputVariables),
-                                                                         outputVariables(outputVariables),
+RulesParser::RulesParser(map<string, LanguageVariable *> inputVariables,
+                         map<string, LanguageVariable *> outputVariables,
+                         BaseOperator::TNorm* tnorm) : inputVariables(std::move(inputVariables)),
+                                                                         outputVariables(std::move(outputVariables)),
                                                                          tnorm(tnorm) {}
 
-const map<string, shared_ptr<LanguageVariable>> &RulesParser::getInputVariables() const {
+const map<string, LanguageVariable*> &RulesParser::getInputVariables() const {
     return inputVariables;
 }
 
-const map<string, shared_ptr<LanguageVariable>> &RulesParser::getOutputVariables() const {
+const map<string, LanguageVariable*> &RulesParser::getOutputVariables() const {
     return outputVariables;
 }
 
-const map<string, vector<shared_ptr<Rule>>> &RulesParser::getRules() const {
+const map<string, vector<Rule*>> &RulesParser::getRules() const {
     return rules;
 }

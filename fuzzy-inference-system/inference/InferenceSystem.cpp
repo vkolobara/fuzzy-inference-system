@@ -5,14 +5,14 @@
 #include <iostream>
 #include "InferenceSystem.h"
 
-MamdaniInferenceSystem::MamdaniInferenceSystem(const vector<shared_ptr<Rule>> &rules,
-                                               const shared_ptr<BaseOperator::SNorm> &snorm,
-                                               const shared_ptr<Defuzzifier> &defuzzifier) : rules(rules), snorm(snorm),
+MamdaniInferenceSystem::MamdaniInferenceSystem(vector<Rule*> rules,
+                                               BaseOperator::SNorm* snorm,
+                                               Defuzzifier* defuzzifier) : rules(rules), snorm(snorm),
                                                                                              defuzzifier(defuzzifier) {}
 
-double MamdaniInferenceSystem::getConclusion(shared_ptr<FuzzyInput> fuzzyInput) {
+double MamdaniInferenceSystem::getConclusion(FuzzyInput* fuzzyInput) {
 
-    shared_ptr<FuzzySet> c = rules[0]->getConclusion(fuzzyInput);
+    auto c = rules[0]->getConclusion(fuzzyInput);
 
     for (int i = 1; i < rules.size(); i++) {
         c = FuzzySet::combine(c, rules[i]->getConclusion(fuzzyInput), snorm);
@@ -25,6 +25,14 @@ double MamdaniInferenceSystem::getConclusion(shared_ptr<FuzzyInput> fuzzyInput) 
     return defuzzifier->defuzzify(c);
 }
 
-const vector<shared_ptr<Rule>> &MamdaniInferenceSystem::getRules() const {
+const vector<Rule*> &MamdaniInferenceSystem::getRules() const {
     return rules;
+}
+
+MamdaniInferenceSystem::~MamdaniInferenceSystem() {
+    delete defuzzifier;
+    delete snorm;
+
+    for (auto rule : rules) delete rule;
+    rules.clear();
 }

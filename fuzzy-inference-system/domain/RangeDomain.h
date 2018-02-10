@@ -17,7 +17,7 @@ public:
 
     uint getNumberOfComponents() override;
 
-    shared_ptr<Domain> getComponent(uint index) override;
+    Domain* getComponent(uint index) override;
 
     double getStart() const;
 

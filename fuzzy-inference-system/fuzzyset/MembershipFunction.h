@@ -22,9 +22,9 @@ public:
 
 class DilatedMembershipFunction : public MembershipFunction {
 private:
-    shared_ptr<MembershipFunction> f;
+    MembershipFunction* f;
 public:
-    explicit DilatedMembershipFunction(shared_ptr<MembershipFunction> f) : f(std::move(f)) {}
+    explicit DilatedMembershipFunction(MembershipFunction* f) : f(f) {}
 
     double valueAt(const double &x) override {
         return sqrt(f->valueAt(x));
@@ -34,9 +34,9 @@ public:
 
 class ConcentratedMembershipFunction : public MembershipFunction {
 private:
-    shared_ptr<MembershipFunction> f;
+    MembershipFunction* f;
 public:
-    explicit ConcentratedMembershipFunction(shared_ptr<MembershipFunction> f) : f(std::move(f)) {}
+    explicit ConcentratedMembershipFunction(MembershipFunction* f) : f(f) {}
 
     double valueAt(const double &x) override {
         return pow(f->valueAt(x), 2);
@@ -46,9 +46,9 @@ public:
 
 class ContrastIntensificationMembershipFunction : public MembershipFunction {
 private:
-    shared_ptr<MembershipFunction> f;
+    MembershipFunction* f;
 public:
-    explicit ContrastIntensificationMembershipFunction(shared_ptr<MembershipFunction> f) : f(std::move(f)) {}
+    explicit ContrastIntensificationMembershipFunction(MembershipFunction* f) : f(f) {}
 
     double valueAt(const double &x) override {
         double value = f->valueAt(x);
@@ -64,11 +64,11 @@ public:
 
 class UnaryOpMembershipFunction : public MembershipFunction {
 protected:
-    shared_ptr<MembershipFunction> f;
-    shared_ptr<UnaryFunction> op;
+    MembershipFunction* f;
+    UnaryFunction* op;
 public:
-    UnaryOpMembershipFunction(shared_ptr<MembershipFunction> f, shared_ptr<UnaryFunction> op) : f(std::move(f)),
-                                                                                                op(std::move(op)) {}
+    UnaryOpMembershipFunction(MembershipFunction* f, UnaryFunction* op) : f(f),
+                                                                                                op(op) {}
 
     double valueAt(const double &x) override {
         return op->calculateValue(f->valueAt(x));
@@ -77,12 +77,12 @@ public:
 
 class MultipleOpMembershipFunction : public MembershipFunction {
 protected:
-    vector<shared_ptr<MembershipFunction>> membershipFunctions;
-    shared_ptr<BinaryFunction> op;
+    vector<MembershipFunction*> membershipFunctions;
+    BinaryFunction* op;
 public:
-    MultipleOpMembershipFunction(vector<shared_ptr<MembershipFunction>> membershipFunctions,
-                                 shared_ptr<BinaryFunction> op) : membershipFunctions(
-            std::move(membershipFunctions)), op(std::move(op)) {}
+    MultipleOpMembershipFunction(vector<MembershipFunction*> membershipFunctions,
+                                 BinaryFunction* op) : membershipFunctions(
+            membershipFunctions), op(op) {}
 
     double valueAt(const double &x) override {
 
@@ -97,21 +97,21 @@ public:
 
 class AndMembershipFunction : public MultipleOpMembershipFunction {
 public:
-    AndMembershipFunction(const vector<shared_ptr<MembershipFunction>> &membershipFunctions,
-                          const shared_ptr<BaseOperator::TNorm> &op) : MultipleOpMembershipFunction(membershipFunctions,
+    AndMembershipFunction(vector<MembershipFunction*> membershipFunctions,
+                          BaseOperator::TNorm* op) : MultipleOpMembershipFunction(std::move(membershipFunctions),
                                                                                                     op) {}
 };
 
 class OrMembershipFunction : public MultipleOpMembershipFunction {
 public:
-    OrMembershipFunction(const vector<shared_ptr<MembershipFunction>> &membershipFunctions,
-                         const shared_ptr<BaseOperator::SNorm> &op) : MultipleOpMembershipFunction(membershipFunctions,
+    OrMembershipFunction(vector<MembershipFunction*> membershipFunctions,
+                         BaseOperator::SNorm* op) : MultipleOpMembershipFunction(std::move(membershipFunctions),
                                                                                                    op) {}
 };
 
 class NotMembershipFunction : public UnaryOpMembershipFunction {
 public:
-    NotMembershipFunction(const shared_ptr<MembershipFunction> &f, const shared_ptr<BaseOperator::Complement> &op)
+    NotMembershipFunction(MembershipFunction* f, BaseOperator::Complement* op)
             : UnaryOpMembershipFunction(f, op) {};
 };
 

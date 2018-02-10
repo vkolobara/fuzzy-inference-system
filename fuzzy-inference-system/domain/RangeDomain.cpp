@@ -10,8 +10,8 @@ uint RangeDomain::getCardinality() {
     return static_cast<uint>((end - start) / step);
 }
 
-shared_ptr<Domain> RangeDomain::getComponent(uint index) {
-    return shared_from_this();
+Domain* RangeDomain::getComponent(uint index) {
+    return this;
 }
 
 
