@@ -16,18 +16,18 @@ public:
 
 class MamdaniInferenceSystem : public InferenceSystem {
 private:
-    vector<Rule*> rules;
+    vector<Rule> rules;
     BaseOperator::SNorm* snorm;
     Defuzzifier* defuzzifier;
 public:
-    MamdaniInferenceSystem(vector<Rule*> rules, BaseOperator::SNorm* snorm,
+    MamdaniInferenceSystem(vector<Rule> rules, BaseOperator::SNorm* snorm,
                            Defuzzifier* defuzzifier);
 
-    virtual ~MamdaniInferenceSystem();
-
+    ~MamdaniInferenceSystem();
+    
     double getConclusion(FuzzyInput* fuzzyInput) override;
 
-    const vector<Rule*> &getRules() const;
+    const vector<Rule> &getRules() const;
 };
 
 

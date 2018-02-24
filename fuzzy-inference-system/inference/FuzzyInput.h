@@ -18,6 +18,7 @@ protected:
     map<string, DomainElement*> currentValues;
 public:
     FuzzyInput(vector <string> names);
+    ~FuzzyInput();
 
     void setValue(string languageVariable, DomainElement* value);
 

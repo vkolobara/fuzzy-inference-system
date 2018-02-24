@@ -13,7 +13,7 @@
 
 class RulesParser : public Parser {
 private:
-    map<string, vector<Rule*>> rules;
+    map<string, vector<Rule>> rules;
     map<string, LanguageVariable*> inputVariables;
     map<string, LanguageVariable*> outputVariables;
     BaseOperator::TNorm* tnorm;
@@ -22,9 +22,11 @@ public:
                 map<string, LanguageVariable*> outputVariables,
                 BaseOperator::TNorm* tnorm);
 
+    ~RulesParser();
+
     void parseLines(vector<string> lines) override;
 
-    const map<string, vector<Rule*>> &getRules() const;
+    const map<string, vector<Rule>> &getRules() const;
 
     const map<string, LanguageVariable*> &getInputVariables() const;
 

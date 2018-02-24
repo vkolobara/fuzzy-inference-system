@@ -18,6 +18,8 @@ private:
 public:
     VariableParser() = default;
 
+    ~VariableParser();
+
     void parseLines(vector<string> lines) override;
 
     const vector<string> &getOutputNames() const;

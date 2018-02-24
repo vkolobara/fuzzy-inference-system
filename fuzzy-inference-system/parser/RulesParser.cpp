@@ -26,7 +26,7 @@ void RulesParser::parseLines(vector<string> lines) {
         auto antecedent = new AndClause(clauses, tnorm);
         auto consequense = parseConsequense(trim(splitLine[1]), outputVariables);
 
-        rules[trim(split(trim(splitLine[1]), "=")[0])].push_back(new Rule(antecedent, consequense, tnorm));
+        rules[trim(split(trim(splitLine[1]), "=")[0])].emplace_back(Rule(antecedent, consequense, tnorm));
     }
 
 }
@@ -49,6 +49,19 @@ const map<string, LanguageVariable*> &RulesParser::getOutputVariables() const {
     return outputVariables;
 }
 
-const map<string, vector<Rule*>> &RulesParser::getRules() const {
+const map<string, vector<Rule>> &RulesParser::getRules() const {
     return rules;
+}
+
+RulesParser::~RulesParser() {
+    for (auto var : inputVariables) {
+        delete var.second;
+    }
+    for (auto var : outputVariables) {
+        delete var.second;
+    }
+
+    inputVariables.clear();
+    outputVariables.clear();
+
 }

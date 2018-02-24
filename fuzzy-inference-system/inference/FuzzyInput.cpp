@@ -19,3 +19,11 @@ void FuzzyInput::setValue(string languageVariable, DomainElement* value) {
 DomainElement* FuzzyInput::getValue(string languageVariable) {
     return currentValues[languageVariable];
 }
+
+FuzzyInput::~FuzzyInput() {
+    for (auto val : currentValues) {
+        delete val.second;
+    }
+
+    currentValues.clear();
+}

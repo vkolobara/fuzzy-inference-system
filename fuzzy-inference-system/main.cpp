@@ -16,26 +16,26 @@ int main(int argc, char* argv[]) {
         return -1;
     }
 
-    auto variableParser = make_shared<VariableParser>();
-    auto defuzzifier = make_shared<COADefuzzifier>();
+    auto variableParser = VariableParser();
+    auto defuzzifier = COADefuzzifier();
 
-    variableParser->parse(argv[1]);
+    variableParser.parse(argv[1]);
 
-    auto rulesParser = make_shared<RulesParser>(variableParser->getInputVariables(),
-                                                variableParser->getOutputVariables(),
+    auto rulesParser = RulesParser(variableParser.getInputVariables(),
+                                                variableParser.getOutputVariables(),
                                                 new Zadeh::TNorm());
 
-    rulesParser->parse(argv[2]);
+    rulesParser.parse(argv[2]);
 
-    auto inputNames = variableParser->getInputNames();
-    auto outputNames = variableParser->getOutputNames();
+    auto inputNames = variableParser.getInputNames();
+    auto outputNames = variableParser.getOutputNames();
 
-    auto input = make_shared<FuzzyInput>(inputNames);
+    auto input = new FuzzyInput(inputNames);
 
-    map<string, shared_ptr<InferenceSystem>> inferenceSystems;
+    map<string, InferenceSystem*> inferenceSystems;
 
-    for (auto ruleSet : rulesParser->getRules()) {
-        inferenceSystems[ruleSet.first] = make_shared<MamdaniInferenceSystem>(ruleSet.second, new Zadeh::SNorm(), defuzzifier.get());
+    for (auto ruleSet : rulesParser.getRules()) {
+        inferenceSystems[ruleSet.first] = new MamdaniInferenceSystem(ruleSet.second, new Zadeh::SNorm(), &defuzzifier);
     }
 
 
@@ -50,7 +50,7 @@ int main(int argc, char* argv[]) {
 
         if (index == 0) {
             for (auto outName : outputNames) {
-                cout << (int) inferenceSystems[outName]->getConclusion(input.get()) << " ";
+                cout << (int) inferenceSystems[outName]->getConclusion(input) << " ";
             }
             cout << flush << endl;
         }

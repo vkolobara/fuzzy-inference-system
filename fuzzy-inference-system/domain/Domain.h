@@ -10,7 +10,7 @@
 
 using namespace std;
 
-class Domain : public enable_shared_from_this<Domain> {
+class Domain {
 public:
     virtual unsigned int getCardinality() = 0;
 

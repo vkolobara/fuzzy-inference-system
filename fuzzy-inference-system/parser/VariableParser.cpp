@@ -23,7 +23,7 @@ void VariableParser::parseLines(vector<string> lines) {
 
         index++;
 
-        vector<LanguageTerm*> terms;
+        vector<LanguageTerm *> terms;
 
         while (index < size && !lines[index].empty()) {
             terms.push_back(parseTerm(lines[index], domain));
@@ -35,8 +35,7 @@ void VariableParser::parseLines(vector<string> lines) {
         if (inOut == "IN") {
             inputVariables[name] = var;
             inputNames.push_back(name);
-        }
-        else {
+        } else {
             outputVariables[name] = var;
             outputNames.push_back(name);
         }
@@ -46,19 +45,19 @@ void VariableParser::parseLines(vector<string> lines) {
 
 }
 
-LanguageVariable* VariableParser::getInputVariable(string name) {
+LanguageVariable *VariableParser::getInputVariable(string name) {
     return inputVariables[name];
 }
 
-LanguageVariable* VariableParser::getOuputVariable(string name) {
+LanguageVariable *VariableParser::getOuputVariable(string name) {
     return outputVariables[name];
 }
 
-const map<string, LanguageVariable*> &VariableParser::getInputVariables() const {
+const map<string, LanguageVariable *> &VariableParser::getInputVariables() const {
     return inputVariables;
 }
 
-const map<string, LanguageVariable*> &VariableParser::getOutputVariables() const {
+const map<string, LanguageVariable *> &VariableParser::getOutputVariables() const {
     return outputVariables;
 }
 
@@ -68,6 +67,20 @@ const vector<string> &VariableParser::getOutputNames() const {
 
 const vector<string> &VariableParser::getInputNames() const {
     return inputNames;
+}
+
+VariableParser::~VariableParser() {
+    for (auto var : inputVariables) {
+        delete var.second;
+    }
+    for (auto var : outputVariables) {
+        delete var.second;
+    }
+
+    inputVariables.clear();
+    outputVariables.clear();
+
+
 }
 
 
