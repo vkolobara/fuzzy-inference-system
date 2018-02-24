@@ -6,16 +6,16 @@
 
 RangeDomain::RangeDomain(double start, double step, double end) : start(start), step(step), end(end) {}
 
-uint RangeDomain::getCardinality() {
-    return static_cast<uint>((end - start) / step);
+unsigned int RangeDomain::getCardinality() {
+    return static_cast<unsigned int>((end - start) / step);
 }
 
-Domain* RangeDomain::getComponent(uint index) {
+Domain* RangeDomain::getComponent(unsigned int index) {
     return this;
 }
 
 
-uint RangeDomain::getNumberOfComponents() {
+unsigned int RangeDomain::getNumberOfComponents() {
     return 1;
 }
 

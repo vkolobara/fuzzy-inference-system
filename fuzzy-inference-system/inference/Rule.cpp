@@ -9,7 +9,7 @@ FuzzySet* Rule::getConclusion(FuzzyInput* fuzzyInput) {
 
     auto ret = new MutableFuzzySet(consequense->getDomain());
 
-    for (uint i = 0; i < ret->getDomain()->getCardinality(); i++) {
+    for (unsigned int i = 0; i < ret->getDomain()->getCardinality(); i++) {
         DomainElement el = ret->getDomain()->getElementAt(i);
 
         ret->set(el, tnorm->calculateValue(antecedent->calculateMembership(*fuzzyInput), consequense->getValueAt(el)));

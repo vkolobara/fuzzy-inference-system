@@ -6,17 +6,17 @@
 #include "Domain.h"
 #include "RangeDomain.h"
 
-DomainElement Domain::getElementAt(uint index) {
+DomainElement Domain::getElementAt(unsigned int index) {
     if (index > getCardinality()) {
         //TODO: ERROR
     }
 
-    uint numComponents = getNumberOfComponents();
+    unsigned int numComponents = getNumberOfComponents();
     double values[numComponents] = {0};
 
     int divisor = 1;
 
-    for (uint i = numComponents - 1; i > 0; i--) {
+    for (unsigned int i = numComponents - 1; i > 0; i--) {
         int card = getComponent(i)->getCardinality();
         values[i] = getComponent(i)->getElementAt(index / divisor % card).getComponentValue(0);
         divisor *= card;
@@ -36,7 +36,7 @@ int Domain::indexOfElement(DomainElement element) {
 
     int index = 0;
 
-    for (uint i = 0; i < element.getNumberOfComponents(); i++) {
+    for (unsigned int i = 0; i < element.getNumberOfComponents(); i++) {
         double value = element.getComponentValue(i);
         auto domain = dynamic_cast<RangeDomain*>(getComponent(i));
 

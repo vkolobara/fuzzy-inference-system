@@ -13,11 +13,11 @@ private:
 public:
     RangeDomain(double start, double step, double end);
 
-    uint getCardinality() override;
+    unsigned int getCardinality() override;
 
-    uint getNumberOfComponents() override;
+    unsigned int getNumberOfComponents() override;
 
-    Domain* getComponent(uint index) override;
+    Domain* getComponent(unsigned int index) override;
 
     double getStart() const;
 

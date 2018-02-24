@@ -14,7 +14,7 @@ public:
 
     explicit DomainElement(std::vector<double> values);
 
-    double getComponentValue(uint index);
+    double getComponentValue(unsigned int index);
 
     double getNumberOfComponents();
 };

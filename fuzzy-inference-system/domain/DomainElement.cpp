@@ -6,7 +6,7 @@ DomainElement::DomainElement(std::initializer_list<double> valuesList) {
     values = std::vector<double>(valuesList);
 }
 
-double DomainElement::getComponentValue(uint index) {
+double DomainElement::getComponentValue(unsigned int index) {
     //TODO: ERROR IF INDEX OUT OF RANGE
     return values[index];
 }

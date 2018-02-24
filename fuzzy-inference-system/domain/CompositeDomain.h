@@ -18,11 +18,11 @@ protected:
 public:
     CompositeDomain(initializer_list<RangeDomain*> domains);
 
-    uint getCardinality() override;
+    unsigned int getCardinality() override;
 
-    uint getNumberOfComponents() override;
+    unsigned int getNumberOfComponents() override;
 
-    Domain* getComponent(uint index) override;
+    Domain* getComponent(unsigned int index) override;
 };
 
 

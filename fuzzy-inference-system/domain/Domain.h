@@ -12,13 +12,13 @@ using namespace std;
 
 class Domain : public enable_shared_from_this<Domain> {
 public:
-    virtual uint getCardinality() = 0;
+    virtual unsigned int getCardinality() = 0;
 
-    virtual uint getNumberOfComponents() = 0;
+    virtual unsigned int getNumberOfComponents() = 0;
 
-    virtual Domain* getComponent(uint index) = 0;
+    virtual Domain* getComponent(unsigned int index) = 0;
 
-    DomainElement getElementAt(uint index);
+    DomainElement getElementAt(unsigned int index);
 
     int indexOfElement(DomainElement element);
 };

@@ -18,7 +18,7 @@ double MamdaniInferenceSystem::getConclusion(FuzzyInput* fuzzyInput) {
         c = FuzzySet::combine(c, rules[i]->getConclusion(fuzzyInput), snorm);
     }
 
-    for (uint i = 0; i < c->getDomain()->getCardinality(); i++) {
+    for (unsigned int i = 0; i < c->getDomain()->getCardinality(); i++) {
         DomainElement el = c->getDomain()->getElementAt(i);
     }
 

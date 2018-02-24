@@ -4,19 +4,19 @@
 
 #include "CompositeDomain.h"
 
-Domain* CompositeDomain::getComponent(uint index) {
+Domain* CompositeDomain::getComponent(unsigned int index) {
     if (index < 0 || index > getNumberOfComponents()) {
         throw invalid_argument("Index greater than number of components");
     }
     return domains.at(index);
 }
 
-uint CompositeDomain::getNumberOfComponents() {
-    return static_cast<uint>(domains.size());
+unsigned int CompositeDomain::getNumberOfComponents() {
+    return static_cast<unsigned int>(domains.size());
 }
 
-uint CompositeDomain::getCardinality() {
-    uint cardinality = 1;
+unsigned int CompositeDomain::getCardinality() {
+    unsigned int cardinality = 1;
 
     for (const auto &domain : domains) {
         cardinality *= domain->getCardinality();

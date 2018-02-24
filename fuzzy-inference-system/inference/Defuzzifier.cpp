@@ -11,7 +11,7 @@ double COADefuzzifier::defuzzify(FuzzySet* fuzzySet) {
 
     auto domain = fuzzySet->getDomain();
 
-    for (uint i = 0; i < domain->getCardinality(); i++) {
+    for (unsigned int i = 0; i < domain->getCardinality(); i++) {
         auto el = domain->getElementAt(i);
 
         sumX += fuzzySet->getValueAt(el) * el.getComponentValue(0);

@@ -44,7 +44,7 @@ FuzzySet::combine(FuzzySet* set1, FuzzySet* set2, BinaryFunction* f) {
 
     auto set = new MutableFuzzySet(set1->getDomain());
 
-    for (uint i = 0; i < set->getDomain()->getCardinality(); i++) {
+    for (unsigned int i = 0; i < set->getDomain()->getCardinality(); i++) {
         DomainElement el = set->getDomain()->getElementAt(i);
         set->set(el, f->calculateValue(set1->getValueAt(el), set2->getValueAt(el)));
     }
