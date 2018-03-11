@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.8)
 
-project(anfis)
-set(anfis_VERSION_MAJOR 1)
-set(anfis_VERSION_MINOR 0)
+project(ANFIS)
+set(ANFIS_VERSION_MAJOR 1)
+set(ANFIS_VERSION_MINOR 0)
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -29,7 +29,7 @@ set(SOURCE_FILES
         ./membership/SigmoidMembershipFunction.h
         ./tnorm/TNorm.cpp
         ./tnorm/TNorm.h
-        ../fuzzy-inference-system/fuzzyset/MembershipFunction.h
-        ../fuzzy-inference-system/fuzzyset/MembershipFunction.cpp)
+        ../FIS/fuzzyset/MembershipFunction.h
+        ../FIS/fuzzyset/MembershipFunction.cpp)
 
-add_library(anfis ${SOURCE_FILES})
+add_library(ANFIS ${SOURCE_FILES})

@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.8)
 
-project(fuzzy-inference-system)
-set(fuzzy-inference-system_VERSION_MAJOR 1)
-set(fuzzy-inference-system_VERSION_MINOR 0)
+project(FIS)
+set(FIS_VERSION_MAJOR 1)
+set(FIS_VERSION_MINOR 0)
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -45,5 +45,5 @@ set(SOURCE_FILES
         ./parser/VariableParser.h
         )
 
-# add_executable(fuzzy-inference-system main.cpp)
-add_library(fuzzy-inference-system ${SOURCE_FILES})
+# add_executable(FIS main.cpp)
+add_library(FIS ${SOURCE_FILES})

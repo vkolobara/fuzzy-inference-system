@@ -82,7 +82,7 @@ test = ["IN\tL\t0,1,1300",
         "large\tGAMMA\t90,150"
         ]
 
-with open("../fuzzy-inference-system/democonf/lang_variables.conf") as f:
+with open("../FIS/democonf/lang_variables.conf") as f:
     content = f.read()
     split = content.split("\n\n")
     for l in split:

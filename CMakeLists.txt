@@ -6,5 +6,5 @@ set (fuzzy_VERSION_MINOR 0)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_subdirectory(anfis)
-add_subdirectory(fuzzy-inference-system)
+add_subdirectory(ANFIS)
+add_subdirectory(FIS)
