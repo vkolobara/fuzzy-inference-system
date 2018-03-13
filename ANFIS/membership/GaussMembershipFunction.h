@@ -7,7 +7,7 @@
 
 
 #include "AnfisMembershipFunction.h"
-#include "../../fuzzy-inference-system/fuzzyset/MembershipFunction.h"
+#include "../../FIS/fuzzyset/MembershipFunction.h"
 
 class GaussMembershipFunction : public AnfisMembershipFunction{
 private:
