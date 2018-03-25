@@ -14,7 +14,7 @@ class FuzzySet {
 public:
     virtual Domain* getDomain() = 0;
 
-    virtual double getValueAt(DomainElement el) = 0;
+    virtual double getValueAt(double el) = 0;
 
     static FuzzySet*
     combine(FuzzySet* set1, FuzzySet* set2, BinaryFunction* f);
@@ -29,7 +29,7 @@ public:
 
     Domain* getDomain() override;
 
-    double getValueAt(DomainElement el) override;
+    double getValueAt(double el) override;
 };
 
 class MutableFuzzySet : public FuzzySet {
@@ -41,9 +41,9 @@ public:
 
     Domain* getDomain() override;
 
-    double getValueAt(DomainElement el) override;
+    double getValueAt(double el) override;
 
-    void set(DomainElement el, double mu);
+    void set(double el, double mu);
 };
 
 class NegatedFuzzySet : public FuzzySet {
@@ -55,7 +55,7 @@ public:
 
     Domain* getDomain() override;
 
-    double getValueAt(DomainElement el) override;
+    double getValueAt(double el) override;
 };
 
 class ConcentratedFuzzySet : public FuzzySet {
@@ -66,7 +66,7 @@ public:
 
     Domain* getDomain() override;
 
-    double getValueAt(DomainElement el) override;
+    double getValueAt(double el) override;
 };
 
 class DilatedFuzzySet : public FuzzySet {
@@ -77,7 +77,7 @@ public:
 
     Domain* getDomain() override;
 
-    double getValueAt(DomainElement el) override;
+    double getValueAt(double el) override;
 };
 
 #endif //FUZZY_INFERENCE_SYSTEM_FUZZYSET_H

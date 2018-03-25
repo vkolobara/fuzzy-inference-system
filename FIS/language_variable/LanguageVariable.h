@@ -20,6 +20,7 @@ private:
     string name;
     Domain* domain;
     map<string, LanguageTerm*> terms;
+    vector<string> termNames;
 public:
     LanguageVariable(string name, Domain* domain, vector<LanguageTerm*> terms);
 

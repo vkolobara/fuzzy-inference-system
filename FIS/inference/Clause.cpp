@@ -6,7 +6,7 @@
 
 double SimpleClause::calculateMembership(FuzzyInput fuzzyInput) {
     auto el = fuzzyInput.getValue(languageVariable->getName());
-    return languageTerm->getMeaning()->getValueAt(*el);
+    return languageTerm->getMeaning()->getValueAt(el);
 }
 
 NotClause::NotClause(Clause* clause) : NotClause::NotClause(clause, new Zadeh::Complement()) {};

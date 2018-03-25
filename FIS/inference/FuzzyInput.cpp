@@ -7,16 +7,15 @@
 
 FuzzyInput::FuzzyInput(vector<string> names) {
     for (string name : names) {
-        setValue(name, new DomainElement({0}));
+        setValue(name, 0.0);
     }
 }
 
-void FuzzyInput::setValue(string languageVariable, DomainElement* value) {
-    delete currentValues[languageVariable];
+void FuzzyInput::setValue(string languageVariable, double value) {
     currentValues[languageVariable] = value;
 }
 
-DomainElement* FuzzyInput::getValue(string languageVariable) {
+double FuzzyInput::getValue(string languageVariable) {
     return currentValues[languageVariable];
 }
 

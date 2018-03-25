@@ -7,22 +7,22 @@
 
 #include "string"
 #include <memory>
-#include "../domain/DomainElement.h"
 #include <map>
 #include <list>
+#include <vector>
 
 using namespace std;
 
 class FuzzyInput {
 protected:
-    map<string, DomainElement*> currentValues;
+    map<string, double> currentValues;
 public:
     FuzzyInput(vector <string> names);
     ~FuzzyInput();
 
-    void setValue(string languageVariable, DomainElement* value);
+    void setValue(string languageVariable, double value);
 
-    DomainElement* getValue(string languageVariable);
+    double getValue(string languageVariable);
 };
 
 

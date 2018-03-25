@@ -8,12 +8,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
         ./domain
-        ./domain/CompositeDomain.cpp
-        ./domain/CompositeDomain.h
-        ./domain/Domain.cpp
         ./domain/Domain.h
-        ./domain/DomainElement.cpp
-        ./domain/DomainElement.h
         ./domain/RangeDomain.cpp
         ./domain/RangeDomain.h
         ./fuzzyset/FuzzySet.cpp
@@ -45,5 +40,6 @@ set(SOURCE_FILES
         ./parser/VariableParser.h
         )
 
-# add_executable(FIS main.cpp)
+# add_executable(FIS ${SOURCE_FILES} main.cpp)
 add_library(FIS ${SOURCE_FILES})
+

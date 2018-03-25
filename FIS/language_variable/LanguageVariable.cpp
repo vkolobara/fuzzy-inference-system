@@ -10,6 +10,7 @@ LanguageVariable::LanguageVariable(string name, Domain* domain, vector<LanguageT
         std::move(name)), domain(domain) {
     for (LanguageTerm* term : term_vector) {
         terms[term->getName()] = term;
+        termNames.push_back(term->getName());
     }
 }
 
@@ -18,13 +19,7 @@ string LanguageVariable::getName() {
 }
 
 vector<string> LanguageVariable::getTermNames() {
-    vector<string> names;
-
-    for (auto const &name: this->terms) {
-        names.push_back(name.first);
-    }
-
-    return names;
+    return termNames;
 }
 
 FuzzySet* LanguageVariable::getMeaning(string term) {
