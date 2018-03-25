@@ -129,7 +129,7 @@ SimpleClause* parseSimpleClause(string clauseString, map<string, LanguageVariabl
     } else if (modifier == "around") {
         newSet = new DilatedFuzzySet(term->getMeaning());
     } else {
-        newSet = term->getMeaning();
+        return new SimpleClause(term, variable);
     }
 
     auto newTerm = new LanguageTerm(term->getName(), newSet);

@@ -54,14 +54,5 @@ const map<string, vector<Rule>> &RulesParser::getRules() const {
 }
 
 RulesParser::~RulesParser() {
-    for (auto var : inputVariables) {
-        delete var.second;
-    }
-    for (auto var : outputVariables) {
-        delete var.second;
-    }
-
-    inputVariables.clear();
-    outputVariables.clear();
-
+    delete tnorm;
 }

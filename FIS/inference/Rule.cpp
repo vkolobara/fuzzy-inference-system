@@ -2,7 +2,6 @@
 // Created by vkolobara on 16.12.2017..
 //
 
-#include <iostream>
 #include "Rule.h"
 
 FuzzySet* Rule::getConclusion(FuzzyInput* fuzzyInput) {

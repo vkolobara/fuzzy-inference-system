@@ -20,9 +20,5 @@ double FuzzyInput::getValue(string languageVariable) {
 }
 
 FuzzyInput::~FuzzyInput() {
-    for (auto val : currentValues) {
-        delete val.second;
-    }
-
     currentValues.clear();
 }

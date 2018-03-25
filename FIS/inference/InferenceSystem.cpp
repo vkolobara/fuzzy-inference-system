@@ -13,13 +13,20 @@ MamdaniInferenceSystem::MamdaniInferenceSystem(vector<Rule> rules,
 
 double MamdaniInferenceSystem::getConclusion(FuzzyInput* fuzzyInput) {
 
-    auto c = rules[0].getConclusion(fuzzyInput);
+    auto firstConclusion = rules[0].getConclusion(fuzzyInput);
+
+    auto c = firstConclusion;
 
     for (int i = 1; i < rules.size(); i++) {
-        c = FuzzySet::combine(c, rules[i].getConclusion(fuzzyInput), snorm);
+        auto conclusion = rules[i].getConclusion(fuzzyInput);
+        c = FuzzySet::combine(c, conclusion, snorm);
+        delete conclusion;
     }
 
-    return defuzzifier->defuzzify(c);
+    delete firstConclusion;
+    auto val = defuzzifier->defuzzify(c);
+
+    return val;
 }
 
 const vector<Rule> &MamdaniInferenceSystem::getRules() const {

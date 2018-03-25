@@ -40,6 +40,6 @@ set(SOURCE_FILES
         ./parser/VariableParser.h
         )
 
-# add_executable(FIS ${SOURCE_FILES} main.cpp)
-add_library(FIS ${SOURCE_FILES})
+add_executable(FIS ${SOURCE_FILES} main.cpp)
+# add_library(FIS ${SOURCE_FILES})
 

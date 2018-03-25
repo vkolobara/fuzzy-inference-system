@@ -44,7 +44,7 @@ int main(int argc, char* argv[]) {
     int index = 0;
     while (cin >> inputs[index]) {
 
-        input->setValue(inputNames[index], new DomainElement({inputs[index]}));
+        input->setValue(inputNames[index], inputs[index]);
 
         index = static_cast<int>((index + 1) % inputNames.size());
 

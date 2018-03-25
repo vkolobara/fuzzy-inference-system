@@ -39,7 +39,7 @@ void MutableFuzzySet::set(double el, double mu) {
     memberships.at(index) = mu;
 }
 
-FuzzySet*
+FuzzySet *
 FuzzySet::combine(FuzzySet* set1, FuzzySet* set2, BinaryFunction* f) {
 
     auto set = new MutableFuzzySet(set1->getDomain());
