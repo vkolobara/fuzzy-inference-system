@@ -15,9 +15,9 @@ public:
 
     unsigned int getCardinality() override;
 
-    unsigned int getNumberOfComponents() override;
+    double getElementAt(unsigned int index) override;
 
-    Domain* getComponent(unsigned int index) override;
+    int indexOfElement(double element) override;
 
     double getStart() const;
 

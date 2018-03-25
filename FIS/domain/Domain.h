@@ -14,13 +14,9 @@ class Domain {
 public:
     virtual unsigned int getCardinality() = 0;
 
-    virtual unsigned int getNumberOfComponents() = 0;
+    virtual double getElementAt(unsigned int index);
 
-    virtual Domain* getComponent(unsigned int index) = 0;
-
-    DomainElement getElementAt(unsigned int index);
-
-    int indexOfElement(DomainElement element);
+    virtual int indexOfElement(double element);
 };
 
 #endif //FUZZY_INFERENCE_SYSTEM_DOMAIN_H
