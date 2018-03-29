@@ -17,8 +17,7 @@ class FuzzyInput {
 protected:
     map<string, double> currentValues;
 public:
-    FuzzyInput(vector <string> names);
-    ~FuzzyInput();
+    explicit FuzzyInput(vector <string> names);
 
     void setValue(string languageVariable, double value);
 

@@ -13,26 +13,24 @@
 
 class RulesParser : public Parser {
 private:
-    map<string, vector<Rule>> rules;
-    map<string, LanguageVariable*> inputVariables;
-    map<string, LanguageVariable*> outputVariables;
-    BaseOperator::TNorm* tnorm;
+    map<string, vector<shared_ptr<Rule>>> rules;
+    map<string, shared_ptr<LanguageVariable>> inputVariables;
+    map<string, shared_ptr<LanguageVariable>> outputVariables;
+    shared_ptr<BaseOperator::TNorm> tnorm;
 public:
-    RulesParser(map<string, LanguageVariable*> inputVariables,
-                map<string, LanguageVariable*> outputVariables,
-                BaseOperator::TNorm* tnorm);
-
-    ~RulesParser();
+    RulesParser(map<string, shared_ptr<LanguageVariable>> inputVariables,
+                map<string, shared_ptr<LanguageVariable>> outputVariables,
+                shared_ptr<BaseOperator::TNorm> tnorm);
 
     void parseLines(vector<string> lines) override;
 
-    const map<string, vector<Rule>> &getRules() const;
+    const map<string, vector<shared_ptr<Rule>>> &getRules() const;
 
-    const map<string, LanguageVariable*> &getInputVariables() const;
+    const map<string, shared_ptr<LanguageVariable>> &getInputVariables() const;
 
-    const map<string, LanguageVariable*> &getOutputVariables() const;
+    const map<string, shared_ptr<LanguageVariable>> &getOutputVariables() const;
 
-    BaseOperator::TNorm* getTnorm();
+    shared_ptr<BaseOperator::TNorm> getTnorm();
 };
 
 

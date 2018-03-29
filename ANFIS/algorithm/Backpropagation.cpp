@@ -85,4 +85,4 @@ void Backpropagation::learnExample(vector<double> inputs, double output) {
 
 }
 
-Backpropagation::Backpropagation(ANFIS *anfis, Loss *loss) : anfis(anfis), loss(loss) {}
+Backpropagation::Backpropagation(shared_ptr<ANFIS>anfis, shared_ptr<Loss>loss) : anfis(anfis), loss(loss) {}

@@ -11,23 +11,21 @@
 
 class InferenceSystem {
 public:
-    virtual double getConclusion(FuzzyInput* fuzzyInput) = 0;
+    virtual double getConclusion(shared_ptr<FuzzyInput> fuzzyInput) = 0;
 };
 
 class MamdaniInferenceSystem : public InferenceSystem {
 private:
-    vector<Rule> rules;
-    BaseOperator::SNorm* snorm;
-    Defuzzifier* defuzzifier;
+    vector<shared_ptr<Rule>> rules;
+    shared_ptr<BaseOperator::SNorm> snorm;
+    shared_ptr<Defuzzifier> defuzzifier;
 public:
-    MamdaniInferenceSystem(vector<Rule> rules, BaseOperator::SNorm* snorm,
-                           Defuzzifier* defuzzifier);
+    MamdaniInferenceSystem(vector<shared_ptr<Rule>> rules, shared_ptr<BaseOperator::SNorm> snorm,
+                           shared_ptr<Defuzzifier> defuzzifier);
 
-    ~MamdaniInferenceSystem();
-    
-    double getConclusion(FuzzyInput* fuzzyInput) override;
+    double getConclusion(shared_ptr<FuzzyInput> fuzzyInput) override;
 
-    const vector<Rule> &getRules() const;
+    const vector<shared_ptr<Rule>> &getRules() const;
 };
 
 

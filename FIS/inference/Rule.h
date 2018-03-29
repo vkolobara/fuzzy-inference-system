@@ -14,15 +14,15 @@
 
 class Rule {
 protected:
-    Clause* antecedent;
-    FuzzySet* consequense;
-    BaseOperator::TNorm* tnorm;
+    shared_ptr<Clause> antecedent;
+    shared_ptr<FuzzySet> consequense;
+    shared_ptr<BaseOperator::TNorm> tnorm;
 public:
-    Rule(Clause* antecedent, FuzzySet* consequense,
-         BaseOperator::TNorm* tnorm) : antecedent(antecedent), consequense(consequense), tnorm(tnorm) {};
+    Rule(shared_ptr<Clause> antecedent, shared_ptr<FuzzySet> consequense,
+         shared_ptr<BaseOperator::TNorm> tnorm) : antecedent(antecedent), consequense(consequense), tnorm(tnorm) {};
 
 
-    FuzzySet* getConclusion(FuzzyInput* fuzzyInput);
+    shared_ptr<FuzzySet> getConclusion(shared_ptr<FuzzyInput> fuzzyInput);
 };
 
 

@@ -20,10 +20,10 @@ public:
 
 class SimpleClause : public Clause {
 protected:
-    LanguageTerm* languageTerm;
-    LanguageVariable* languageVariable;
+    shared_ptr<LanguageTerm> languageTerm;
+    shared_ptr<LanguageVariable> languageVariable;
 public:
-    SimpleClause(LanguageTerm* languageTerm, LanguageVariable* languageVariable) :
+    SimpleClause(shared_ptr<LanguageTerm> languageTerm, shared_ptr<LanguageVariable> languageVariable) :
             languageTerm(languageTerm), languageVariable(languageVariable) {
     };
 
@@ -32,42 +32,36 @@ public:
 
 class NotClause : public Clause {
 protected:
-    Clause* clause;
-    BaseOperator::Complement* complement;
+    shared_ptr<Clause> clause;
+    shared_ptr<BaseOperator::Complement> complement;
 public:
-    NotClause(Clause* clause, BaseOperator::Complement* complement);
+    NotClause(shared_ptr<Clause> clause, shared_ptr<BaseOperator::Complement> complement);
 
-    virtual ~NotClause();
-
-    explicit NotClause(Clause* clause);
+    explicit NotClause(shared_ptr<Clause> clause);
 
     double calculateMembership(FuzzyInput fuzzyInput) override;
 };
 
 class OrClause : public Clause {
 protected:
-    std::vector<Clause*> clauses;
-    BaseOperator::SNorm* snorm;
+    std::vector<shared_ptr<Clause>> clauses;
+    shared_ptr<BaseOperator::SNorm> snorm;
 public:
-    explicit OrClause(std::vector<Clause*> clauses);
+    explicit OrClause(std::vector<shared_ptr<Clause>> clauses);
 
-    virtual ~OrClause();
-
-    OrClause(vector<Clause*> clauses, BaseOperator::SNorm* snorm);
+    OrClause(vector<shared_ptr<Clause>> clauses, shared_ptr<BaseOperator::SNorm> snorm);
 
     double calculateMembership(FuzzyInput fuzzyInput) override;
 };
 
 class AndClause : public Clause {
 protected:
-    std::vector<Clause*> clauses;
-    BaseOperator::TNorm* tnorm;
+    std::vector<shared_ptr<Clause>> clauses;
+    shared_ptr<BaseOperator::TNorm> tnorm;
 public:
-    explicit AndClause(std::vector<Clause*> clauses);
+    explicit AndClause(std::vector<shared_ptr<Clause>> clauses);
 
-    virtual ~AndClause();
-
-    AndClause(vector<Clause*> clauses, BaseOperator::TNorm* tnorm);
+    AndClause(vector<shared_ptr<Clause>> clauses, shared_ptr<BaseOperator::TNorm> tnorm);
 
     double calculateMembership(FuzzyInput fuzzyInput) override;
 };

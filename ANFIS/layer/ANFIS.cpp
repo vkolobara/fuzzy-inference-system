@@ -6,8 +6,8 @@
 #include <utility>
 #include "ANFIS.h"
 
-ANFIS::ANFIS(int numRules, AntecedentLayer *antecedentLayer, NormalizingLayer *normalizingLayer, ConsequentLayer *consequentLayer,
-             OutputLayer *outputLayer) : numRules(numRules), antecedentLayer(antecedentLayer), normalizingLayer(normalizingLayer),
+ANFIS::ANFIS(int numRules, shared_ptr<AntecedentLayer>antecedentLayer, shared_ptr<NormalizingLayer>normalizingLayer, shared_ptr<ConsequentLayer>consequentLayer,
+             shared_ptr<OutputLayer>outputLayer) : numRules(numRules), antecedentLayer(antecedentLayer), normalizingLayer(normalizingLayer),
                                          consequentLayer(consequentLayer), outputLayer(outputLayer) {}
 
 ANFIS::~ANFIS() {
@@ -44,19 +44,19 @@ vector<double> ANFIS::outputForward(vector<double> inputs) {
     return outputLayer->forwardPass(std::move(inputs));
 }
 
-AntecedentLayer *ANFIS::getAntecedentLayer() {
+shared_ptr<AntecedentLayer>ANFIS::getAntecedentLayer() {
     return antecedentLayer;
 }
 
-NormalizingLayer *ANFIS::getNormalizingLayer() {
+shared_ptr<NormalizingLayer>ANFIS::getNormalizingLayer() {
     return normalizingLayer;
 }
 
-ConsequentLayer *ANFIS::getConsequentLayer() {
+shared_ptr<ConsequentLayer>ANFIS::getConsequentLayer() {
     return consequentLayer;
 }
 
-OutputLayer *ANFIS::getOutputLayer() {
+shared_ptr<OutputLayer>ANFIS::getOutputLayer() {
     return outputLayer;
 };
 

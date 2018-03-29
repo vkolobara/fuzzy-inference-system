@@ -10,12 +10,12 @@
 
 class Defuzzifier {
 public:
-    virtual double defuzzify(FuzzySet* fuzzySet) = 0;
+    virtual double defuzzify(shared_ptr<FuzzySet> fuzzySet) = 0;
 };
 
 class COADefuzzifier : public Defuzzifier {
 public:
-    double defuzzify(FuzzySet* fuzzySet) override;
+    double defuzzify(shared_ptr<FuzzySet> fuzzySet) override;
 };
 
 

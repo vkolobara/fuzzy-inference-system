@@ -5,7 +5,7 @@
 #include "Defuzzifier.h"
 
 
-double COADefuzzifier::defuzzify(FuzzySet* fuzzySet) {
+double COADefuzzifier::defuzzify(shared_ptr<FuzzySet> fuzzySet) {
     double sum = 0;
     double sumX = 0;
 

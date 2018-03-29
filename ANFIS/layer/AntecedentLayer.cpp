@@ -29,10 +29,10 @@ AntecedentLayer::~AntecedentLayer() {
     }
 }
 
-AntecedentLayer::AntecedentLayer(int numRules, TNorm *tnorm,
-                                 vector<vector<AnfisMembershipFunction*>> memberships) : numRules(
+AntecedentLayer::AntecedentLayer(int numRules, shared_ptr<TNorm>tnorm,
+                                 vector<vector<shared_ptr<AnfisMembershipFunction>>> memberships) : numRules(
         numRules), tnorm(tnorm), memberships(std::move(memberships)) {}
 
-vector<AnfisMembershipFunction *> AntecedentLayer::membershipsForRule(int index) {
+vector<shared_ptr<AnfisMembershipFunction>> AntecedentLayer::membershipsForRule(int index) {
     return memberships.at(index);
 }

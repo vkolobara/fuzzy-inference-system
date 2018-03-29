@@ -12,13 +12,13 @@
 #include "ConsequentLayer.h"
 
 struct ANFIS {
-    AntecedentLayer* antecedentLayer;
-    NormalizingLayer* normalizingLayer;
-    ConsequentLayer* consequentLayer;
-    OutputLayer* outputLayer;
+    shared_ptr<AntecedentLayer> antecedentLayer;
+    shared_ptr<NormalizingLayer> normalizingLayer;
+    shared_ptr<ConsequentLayer> consequentLayer;
+    shared_ptr<OutputLayer> outputLayer;
     int numRules;
-    ANFIS(int numRules, AntecedentLayer *antecedentLayer, NormalizingLayer *normalizingLayer, ConsequentLayer *consequentLayer,
-          OutputLayer *outputLayer);
+    ANFIS(int numRules, shared_ptr<AntecedentLayer>antecedentLayer, shared_ptr<NormalizingLayer>normalizingLayer, shared_ptr<ConsequentLayer>consequentLayer,
+          shared_ptr<OutputLayer>outputLayer);
 
     vector<double> forward(vector<double> inputs);
     vector<double> antecedentForward(vector<double> inputs);
@@ -29,13 +29,13 @@ struct ANFIS {
 
     ~ANFIS();
 
-    AntecedentLayer *getAntecedentLayer() ;
+    shared_ptr<AntecedentLayer>getAntecedentLayer() ;
 
-    NormalizingLayer *getNormalizingLayer() ;
+    shared_ptr<NormalizingLayer>getNormalizingLayer() ;
 
-    ConsequentLayer *getConsequentLayer() ;
+    shared_ptr<ConsequentLayer>getConsequentLayer() ;
 
-    OutputLayer *getOutputLayer() ;
+    shared_ptr<OutputLayer>getOutputLayer() ;
 
 };
 

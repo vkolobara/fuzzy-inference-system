@@ -34,7 +34,7 @@ int RangeDomain::indexOfElement(double element) {
     auto index = (int) ((element - start) / step);
 
     if (index < 0) index = 0;
-    else if (index > end) index = getCardinality()-1;
+    else if (index >= getCardinality()) index = getCardinality()-1;
 
     return index;
 }

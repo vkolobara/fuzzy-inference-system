@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
 
     auto input = new FuzzyInput(inputNames);
 
-    map<string, InferenceSystem*> inferenceSystems;
+    map<string, shared_ptr<InferenceSystem>> inferenceSystems;
 
     for (auto ruleSet : rulesParser.getRules()) {
         inferenceSystems[ruleSet.first] = new MamdaniInferenceSystem(ruleSet.second, new Zadeh::SNorm(), &defuzzifier);

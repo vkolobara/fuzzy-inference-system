@@ -4,9 +4,9 @@
 
 #include "Rule.h"
 
-FuzzySet* Rule::getConclusion(FuzzyInput* fuzzyInput) {
+shared_ptr<FuzzySet> Rule::getConclusion(shared_ptr<FuzzyInput> fuzzyInput) {
 
-    auto ret = new MutableFuzzySet(consequense->getDomain());
+    auto ret = make_shared<MutableFuzzySet>(consequense->getDomain());
 
     for (unsigned int i = 0; i < ret->getDomain()->getCardinality(); i++) {
         double el = ret->getDomain()->getElementAt(i);

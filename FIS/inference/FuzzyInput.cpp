@@ -18,7 +18,3 @@ void FuzzyInput::setValue(string languageVariable, double value) {
 double FuzzyInput::getValue(string languageVariable) {
     return currentValues[languageVariable];
 }
-
-FuzzyInput::~FuzzyInput() {
-    currentValues.clear();
-}

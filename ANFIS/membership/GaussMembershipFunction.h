@@ -11,7 +11,7 @@
 
 class GaussMembershipFunction : public AnfisMembershipFunction{
 private:
-    SmoothMembershipFunction::GaussMembershipFunction* f;
+    shared_ptr<SmoothMembershipFunction::GaussMembershipFunction> f;
 public:
     GaussMembershipFunction();
 

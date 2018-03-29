@@ -4,7 +4,7 @@
 
 #include "FuzzySet.h"
 
-Domain* CalculatedFuzzySet::getDomain() {
+shared_ptr<Domain> CalculatedFuzzySet::getDomain() {
     return domain;
 }
 
@@ -13,14 +13,14 @@ double CalculatedFuzzySet::getValueAt(double el) {
     return function->valueAt(el);
 }
 
-CalculatedFuzzySet::CalculatedFuzzySet(MembershipFunction* function, Domain* domain)
+CalculatedFuzzySet::CalculatedFuzzySet(shared_ptr<MembershipFunction> function, shared_ptr<Domain> domain)
         : function(function), domain(domain) {}
 
-Domain* MutableFuzzySet::getDomain() {
+shared_ptr<Domain> MutableFuzzySet::getDomain() {
     return domain;
 }
 
-MutableFuzzySet::MutableFuzzySet(Domain *domain) : domain(domain) {
+MutableFuzzySet::MutableFuzzySet(shared_ptr<Domain>domain) : domain(domain) {
     memberships = vector<double>(domain->getCardinality());
 }
 
@@ -39,10 +39,10 @@ void MutableFuzzySet::set(double el, double mu) {
     memberships.at(index) = mu;
 }
 
-FuzzySet *
-FuzzySet::combine(FuzzySet* set1, FuzzySet* set2, BinaryFunction* f) {
+shared_ptr<FuzzySet>
+FuzzySet::combine(shared_ptr<FuzzySet> set1, shared_ptr<FuzzySet> set2, shared_ptr<BinaryFunction> f) {
 
-    auto set = new MutableFuzzySet(set1->getDomain());
+    auto set = make_shared<MutableFuzzySet>(set1->getDomain());
 
     for (unsigned int i = 0; i < set->getDomain()->getCardinality(); i++) {
         double el = set->getDomain()->getElementAt(i);
@@ -52,11 +52,11 @@ FuzzySet::combine(FuzzySet* set1, FuzzySet* set2, BinaryFunction* f) {
     return set;
 }
 
-NegatedFuzzySet::NegatedFuzzySet(FuzzySet* fuzzySet,
-                                 BaseOperator::Complement* complement) : fuzzySet(fuzzySet),
+NegatedFuzzySet::NegatedFuzzySet(shared_ptr<FuzzySet> fuzzySet,
+                                 shared_ptr<BaseOperator::Complement> complement) : fuzzySet(fuzzySet),
                                                                                            complement(complement) {}
 
-Domain* NegatedFuzzySet::getDomain() {
+shared_ptr<Domain> NegatedFuzzySet::getDomain() {
     return fuzzySet->getDomain();
 }
 
@@ -64,9 +64,9 @@ double NegatedFuzzySet::getValueAt(double el) {
     return complement->calculateValue(fuzzySet->getValueAt(el));
 }
 
-ConcentratedFuzzySet::ConcentratedFuzzySet(FuzzySet* fuzzySet) : fuzzySet(fuzzySet) {}
+ConcentratedFuzzySet::ConcentratedFuzzySet(shared_ptr<FuzzySet> fuzzySet) : fuzzySet(fuzzySet) {}
 
-Domain* ConcentratedFuzzySet::getDomain() {
+shared_ptr<Domain> ConcentratedFuzzySet::getDomain() {
     return fuzzySet->getDomain();
 }
 
@@ -75,9 +75,9 @@ double ConcentratedFuzzySet::getValueAt(double el) {
     return val*val;
 }
 
-DilatedFuzzySet::DilatedFuzzySet(FuzzySet* fuzzySet) : fuzzySet(fuzzySet) {}
+DilatedFuzzySet::DilatedFuzzySet(shared_ptr<FuzzySet> fuzzySet) : fuzzySet(fuzzySet) {}
 
-Domain* DilatedFuzzySet::getDomain() {
+shared_ptr<Domain> DilatedFuzzySet::getDomain() {
     return fuzzySet->getDomain();
 }
 

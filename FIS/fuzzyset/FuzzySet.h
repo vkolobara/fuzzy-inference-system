@@ -12,22 +12,22 @@
 class FuzzySet {
 
 public:
-    virtual Domain* getDomain() = 0;
+    virtual shared_ptr<Domain> getDomain() = 0;
 
     virtual double getValueAt(double el) = 0;
 
-    static FuzzySet*
-    combine(FuzzySet* set1, FuzzySet* set2, BinaryFunction* f);
+    static shared_ptr<FuzzySet>
+    combine(shared_ptr<FuzzySet> set1, shared_ptr<FuzzySet> set2, shared_ptr<BinaryFunction> f);
 };
 
 class CalculatedFuzzySet : public FuzzySet {
 private:
-    MembershipFunction* function;
-    Domain* domain;
+    shared_ptr<MembershipFunction> function;
+    shared_ptr<Domain> domain;
 public:
-    CalculatedFuzzySet(MembershipFunction* function, Domain* domain);
+    CalculatedFuzzySet(shared_ptr<MembershipFunction> function, shared_ptr<Domain> domain);
 
-    Domain* getDomain() override;
+    shared_ptr<Domain> getDomain() override;
 
     double getValueAt(double el) override;
 };
@@ -35,11 +35,11 @@ public:
 class MutableFuzzySet : public FuzzySet {
 private:
     vector<double> memberships;
-    Domain* domain;
+    shared_ptr<Domain> domain;
 public:
-    explicit MutableFuzzySet(Domain* domain);
+    explicit MutableFuzzySet(shared_ptr<Domain> domain);
 
-    Domain* getDomain() override;
+    shared_ptr<Domain> getDomain() override;
 
     double getValueAt(double el) override;
 
@@ -48,34 +48,34 @@ public:
 
 class NegatedFuzzySet : public FuzzySet {
 private:
-    FuzzySet* fuzzySet;
-    BaseOperator::Complement* complement;
+    shared_ptr<FuzzySet> fuzzySet;
+    shared_ptr<BaseOperator::Complement> complement;
 public:
-    NegatedFuzzySet(FuzzySet* fuzzySet, BaseOperator::Complement* complement);
+    NegatedFuzzySet(shared_ptr<FuzzySet> fuzzySet, shared_ptr<BaseOperator::Complement> complement);
 
-    Domain* getDomain() override;
+    shared_ptr<Domain> getDomain() override;
 
     double getValueAt(double el) override;
 };
 
 class ConcentratedFuzzySet : public FuzzySet {
 private:
-    FuzzySet* fuzzySet;
+    shared_ptr<FuzzySet> fuzzySet;
 public:
-    explicit ConcentratedFuzzySet(FuzzySet* fuzzySet);
+    explicit ConcentratedFuzzySet(shared_ptr<FuzzySet> fuzzySet);
 
-    Domain* getDomain() override;
+    shared_ptr<Domain> getDomain() override;
 
     double getValueAt(double el) override;
 };
 
 class DilatedFuzzySet : public FuzzySet {
 private:
-    FuzzySet* fuzzySet;
+    shared_ptr<FuzzySet> fuzzySet;
 public:
-    explicit DilatedFuzzySet(FuzzySet* fuzzySet);
+    explicit DilatedFuzzySet(shared_ptr<FuzzySet> fuzzySet);
 
-    Domain* getDomain() override;
+    shared_ptr<Domain> getDomain() override;
 
     double getValueAt(double el) override;
 };

@@ -11,10 +11,10 @@
 
 class Backpropagation {
 private:
-    ANFIS* anfis;
-    Loss* loss;
+    shared_ptr<ANFIS> anfis;
+    shared_ptr<Loss> loss;
 public:
-    Backpropagation(ANFIS *anfis, Loss *loss);
+    Backpropagation(shared_ptr<ANFIS>anfis, shared_ptr<Loss>loss);
 
     void learn(vector<vector<double>> inputs, vector<double> outputs);
     void learnExample(vector<double> inputs, double output);

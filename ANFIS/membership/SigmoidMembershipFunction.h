@@ -11,7 +11,7 @@
 
 class SigmoidMembershipFunction : public AnfisMembershipFunction {
 private:
-    SmoothMembershipFunction::SigmoidMembershipFunction* f;
+    shared_ptr<SmoothMembershipFunction::SigmoidMembershipFunction> f;
 public:
     SigmoidMembershipFunction();
     double valueAt(double x) override;

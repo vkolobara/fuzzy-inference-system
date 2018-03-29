@@ -13,9 +13,9 @@ int main(int argc, char* argv[]) {
     std::random_device rd;
     std::mt19937 mt(rd());
     std::uniform_real_distribution<double> dist(-1,1);
-    vector<vector<AnfisMembershipFunction*>> mems(2);
+    vector<vector<shared_ptr<AnfisMembershipFunction>>> mems(2);
     for (int i=0; i<mems.size(); i++) {
-        mems[i] = vector<AnfisMembershipFunction*>{new GaussMembershipFunction(), new GaussMembershipFunction()};
+        mems[i] = vector<shared_ptr<AnfisMembershipFunction>>{new GaussMembershipFunction(), new GaussMembershipFunction()};
     }
 
     auto antecedentLayer = new AntecedentLayer(2, new ProductTNorm(), mems);
