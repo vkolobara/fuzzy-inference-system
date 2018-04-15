@@ -2,7 +2,7 @@
 // Created by vkolobara on 8/8/17.
 //
 
-#include "Operators.h"
+#include "Norm.h"
 #include <algorithm>
 
 
@@ -11,12 +11,24 @@ namespace Zadeh {
         return 1 - a;
     }
 
+    BaseOperator::Complement *Complement::clone() const {
+        return new Zadeh::Complement();
+    }
+
     double TNorm::calculateValue(double a, double b) {
         return std::min(a, b);
     }
 
+    BaseOperator::TNorm *TNorm::clone() const {
+        return new Zadeh::TNorm();
+    }
+
     double SNorm::calculateValue(double a, double b) {
         return std::max(a, b);
+    }
+
+    BaseOperator::SNorm *SNorm::clone() const {
+        return new Zadeh::SNorm();
     }
 }
 

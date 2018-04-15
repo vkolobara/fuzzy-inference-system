@@ -1,29 +1,17 @@
 //
-// Created by vkolobara on 12/31/17.
+// Created by Vinko Kolobara on 15. 4. 2018..
 //
 
-#include <sstream>
-#include "../domain/Domain.h"
-#include "../domain/RangeDomain.h"
-#include "../language_variable/LanguageTerm.h"
-#include "../fuzzyset/MembershipFunction.h"
-#include "../inference/Clause.h"
+#ifndef FUZZY_TIME_SERIES_HELPER_H
+#define FUZZY_TIME_SERIES_HELPER_H
 
-shared_ptr<MembershipFunction> parseMembershipFunction(string membershipString, string paramsStr);
+#endif //FUZZY_TIME_SERIES_HELPER_H
 
-vector<string> split(string s, string delimiter);
+#include <string>
+#include <vector>
 
-shared_ptr<Domain> parseDomain(string domainStr);
+using namespace std;
 
-shared_ptr<LanguageTerm> parseTerm(string termString, shared_ptr<Domain> domain);
+void split(const string& s, char delim, vector<string>& v);
 
-shared_ptr<SimpleClause> parseSimpleClause(string clauseString, map<string, shared_ptr<LanguageVariable>> variables);
-
-shared_ptr<FuzzySet> parseConsequense(string consequense, map<string, shared_ptr<LanguageVariable>> variables);
-
-std::string ltrim(std::string s);
-
-std::string rtrim(std::string s);
-
-string trim(string s);
-
+vector<string> splitString(const string &str, const string &delim);

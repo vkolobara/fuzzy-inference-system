@@ -17,13 +17,18 @@ public:
 
 namespace BaseOperator {
 
-    class SNorm : public BinaryFunction {
+    struct SNorm : public BinaryFunction {
+        virtual BaseOperator::SNorm* clone() const = 0;
+
     };
 
-    class TNorm : public BinaryFunction {
+    struct TNorm : public BinaryFunction {
+        virtual BaseOperator::TNorm* clone() const = 0;
+
     };
 
-    class Complement : public UnaryFunction {
+    struct Complement : public UnaryFunction {
+        virtual BaseOperator::Complement* clone() const = 0;
     };
 }
 
@@ -31,16 +36,21 @@ namespace Zadeh {
     class Complement : public BaseOperator::Complement {
     public:
         double calculateValue(double a) override;
+        BaseOperator::Complement *clone() const override;
     };
 
     class TNorm : public BaseOperator::TNorm {
     public:
         double calculateValue(double a, double b) override;
+
+        BaseOperator::TNorm *clone() const override;
     };
 
     class SNorm : public BaseOperator::SNorm {
     public:
         double calculateValue(double a, double b) override;
+
+        BaseOperator::SNorm *clone() const override;
     };
 }
 

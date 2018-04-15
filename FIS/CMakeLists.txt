@@ -7,38 +7,27 @@ set(FIS_VERSION_MINOR 0)
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
-        ./domain
-        ./domain/Domain.h
-        ./domain/RangeDomain.cpp
-        ./domain/RangeDomain.h
-        ./fuzzyset/FuzzySet.cpp
-        ./fuzzyset/FuzzySet.h
-        ./fuzzyset/MembershipFunction.cpp
-        ./fuzzyset/MembershipFunction.h
-        ./fuzzyset/Operators.cpp
-        ./fuzzyset/Operators.h
-        ./inference/Clause.cpp
-        ./inference/Clause.h
-        ./inference/Defuzzifier.cpp
-        ./inference/Defuzzifier.h
-        ./inference/FuzzyInput.cpp
-        ./inference/FuzzyInput.h
-        ./inference/InferenceSystem.cpp
-        ./inference/InferenceSystem.h
-        ./inference/Rule.cpp
-        ./inference/Rule.h
-        ./language_variable/LanguageTerm.cpp
-        ./language_variable/LanguageTerm.h
+        norm/Norm.cpp
+        norm/Norm.h
+        language_variable/LanguageTerm.cpp
+        language_variable/LanguageTerm.h
         ./language_variable/LanguageVariable.cpp
         ./language_variable/LanguageVariable.h
-        ./parser/Helper.cpp
-        ./parser/Helper.h
-        ./parser/Parser.h
-        ./parser/RulesParser.cpp
-        ./parser/RulesParser.h
-        ./parser/VariableParser.cpp
-        ./parser/VariableParser.h
-        )
+        language_variable/LanguageTerm.cpp
+        rule/Antecedent.cpp
+        rule/Antecedent.h
+        rule/Rule.cpp
+        rule/Rule.h
+        rule/InferenceSystem.cpp
+        rule/InferenceSystem.h
+        rule/Defuzzifier.cpp
+        rule/Defuzzifier.h
+        rule/Clause.cpp
+        rule/Clause.h
+        parser/VariableParser.cpp
+        parser/VariableParser.h
+        parser/Parser.h
+        parser/Helper.h parser/Helper.cpp)
 
 # add_executable(FIS ${SOURCE_FILES} main.cpp)
 add_library(FIS ${SOURCE_FILES})

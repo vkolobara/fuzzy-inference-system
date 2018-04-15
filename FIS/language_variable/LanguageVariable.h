@@ -8,31 +8,37 @@
 #include <vector>
 #include <map>
 #include "string"
-#include "../fuzzyset/MembershipFunction.h"
-#include "../domain/Domain.h"
 #include "LanguageTerm.h"
 
 
 using namespace std;
 
-class LanguageVariable {
-private:
+struct LanguageVariable {
+
+    enum Type {
+        Input,
+        Output
+    };
+
     string name;
-    shared_ptr<Domain> domain;
-    map<string, shared_ptr<LanguageTerm>> terms;
-    vector<string> termNames;
-public:
-    LanguageVariable(string name, shared_ptr<Domain> domain, vector<shared_ptr<LanguageTerm>> terms);
+    vector<LanguageTerm*> terms;
+    Type variableType;
 
-    string getName();
+    double value;
+    double min;
+    double step;
+    double max;
 
-    shared_ptr<Domain> getDomain();
+    LanguageVariable(const string &name, Type variableType, double min, double step, double max);
 
-    vector<string> getTermNames();
+    ~LanguageVariable();
 
-    shared_ptr<FuzzySet> getMeaning(string term);
+    LanguageVariable* clone() const;
 
-    shared_ptr<LanguageTerm> getLanguageTerm(string term);
+    void addTerm(LanguageTerm* term);
+
+    LanguageTerm* getTerm(size_t index);
+    LanguageTerm* getTerm(const string &name);
 };
 
 

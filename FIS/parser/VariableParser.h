@@ -1,37 +1,24 @@
 //
-// Created by vkolobara on 12/31/17.
+// Created by Vinko Kolobara on 12. 4. 2018..
 //
 
-#ifndef FUZZY_INFERENCE_SYSTEM_VARIABLEPARSER_H
-#define FUZZY_INFERENCE_SYSTEM_VARIABLEPARSER_H
+#ifndef FUZZY_TIME_SERIES_VARIABLEPARSER_H
+#define FUZZY_TIME_SERIES_VARIABLEPARSER_H
 
-#include <memory>
 #include "Parser.h"
 #include "../language_variable/LanguageVariable.h"
 
-class VariableParser : public Parser {
+struct VariableParser : public Parser {
+
+    vector<LanguageVariable*> inputVariables;
+    vector<LanguageVariable*> outputVariables;
+
+    void parse(string fileContents) override;
+
 private:
-    map<string, shared_ptr<LanguageVariable>> inputVariables;
-    map<string, shared_ptr<LanguageVariable>> outputVariables;
-    vector<string> inputNames;
-    vector<string> outputNames;
-public:
-    VariableParser() = default;
-
-    void parseLines(vector<string> lines) override;
-
-    const vector<string> &getOutputNames() const;
-
-    shared_ptr<LanguageVariable> getInputVariable(string name);
-    shared_ptr<LanguageVariable> getOuputVariable(string name);
-
-    const map<string, shared_ptr<LanguageVariable>> &getInputVariables() const;
-
-    const map<string, shared_ptr<LanguageVariable>> &getOutputVariables() const;
-
-    const vector<string> &getInputNames() const;
+    LanguageVariable* parseLanguageVariable(vector<string> lines);
+    LanguageTerm* parseLanguageTerm(string line);
 };
 
 
-
-#endif //FUZZY_INFERENCE_SYSTEM_VARIABLEPARSER_H
+#endif //FUZZY_TIME_SERIES_VARIABLEPARSER_H

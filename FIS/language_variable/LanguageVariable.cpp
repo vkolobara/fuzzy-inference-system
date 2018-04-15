@@ -1,35 +1,43 @@
-//
-// Created by vkolobara on 8/7/17.
-//
-
 #include "LanguageVariable.h"
+#include "LanguageTerm.h"
 
+LanguageVariable::LanguageVariable(const string &name, LanguageVariable::Type variableType, double min, double step, double max)
+        : name(name), variableType(variableType), min(min), step(step), max(max) {}
 
-LanguageVariable::LanguageVariable(string name, shared_ptr<Domain> domain, vector<shared_ptr<LanguageTerm>> term_vector)
-        : name(
-        std::move(name)), domain(domain) {
-    for (auto term : term_vector) {
-        terms[term->getName()] = term;
-        termNames.push_back(term->getName());
+void LanguageVariable::addTerm(LanguageTerm *term) {
+    terms.push_back(term);
+}
+
+LanguageVariable::~LanguageVariable() {
+    for (size_t i; i<terms.size(); i++) {
+        delete terms.at(i);
     }
+
 }
 
-string LanguageVariable::getName() {
-    return name;
+LanguageTerm *LanguageVariable::getTerm(size_t index) {
+    if (index < 0 || index >= terms.size())
+        return nullptr;
+
+    return terms.at(index);
 }
 
-vector<string> LanguageVariable::getTermNames() {
-    return termNames;
+LanguageTerm *LanguageVariable::getTerm(const string &name) {
+    for (size_t i; i<terms.size(); i++) {
+        if (terms.at(i)->name == name) {
+            return terms.at(i);
+        }
+    }
+    return nullptr;
 }
 
-shared_ptr<FuzzySet> LanguageVariable::getMeaning(string term) {
-    return terms[term]->getMeaning();
-}
+LanguageVariable *LanguageVariable::clone() const {
+    auto langVar = new LanguageVariable(this->name, this->variableType, this->min, this->step, this->max);
+    langVar->value = this->value;
 
-shared_ptr<Domain> LanguageVariable::getDomain() {
-    return domain;
-}
+    for (auto term : terms) {
+        langVar->addTerm(term->clone());
+    }
 
-shared_ptr<LanguageTerm> LanguageVariable::getLanguageTerm(string term) {
-    return terms[term];
+    return langVar;
 }

@@ -29,7 +29,6 @@ set(SOURCE_FILES
         ./membership/SigmoidMembershipFunction.h
         ./tnorm/TNorm.cpp
         ./tnorm/TNorm.h
-        ../FIS/fuzzyset/MembershipFunction.h
-        ../FIS/fuzzyset/MembershipFunction.cpp)
+        )
 
 add_library(ANFIS ${SOURCE_FILES})
