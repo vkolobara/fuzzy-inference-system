@@ -9,7 +9,6 @@ Rule::Rule(Antecedent *antecedent, Clause *consequent) : antecedent(antecedent),
 Rule::~Rule() {
     delete antecedent;
     delete consequent;
-
 }
 
 Rule *Rule::clone() const {

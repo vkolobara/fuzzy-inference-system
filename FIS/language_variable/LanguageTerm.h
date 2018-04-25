@@ -23,6 +23,8 @@ struct LanguageTerm {
 
     explicit LanguageTerm(const string &name): name(name) {}
 
+    virtual ~LanguageTerm() {};
+
     virtual double membership(const double &x) = 0;
 };
 
@@ -33,7 +35,7 @@ struct ActivationLanguageTerm : public LanguageTerm {
 
     ActivationLanguageTerm(const string &name, double activation, LanguageTerm* term) : LanguageTerm(name), activation(activation), term(term) {}
 
-    ~ActivationLanguageTerm();
+    ~ActivationLanguageTerm() override;
 
     LanguageTerm *clone() const override;
 
@@ -50,7 +52,7 @@ namespace LinearLanguageTerm {
         double alpha, beta;
         GammaLanguageTerm(const string &name, double alpha, double beta);
 
-        ~GammaLanguageTerm() = default;
+        ~GammaLanguageTerm() override = default;
 
         LanguageTerm *clone() const override;
 
@@ -65,7 +67,7 @@ namespace LinearLanguageTerm {
         double alpha, beta, gamma;
         LambdaLanguageTerm(const string &name, double alpha, double beta, double gamma);
 
-        ~LambdaLanguageTerm() = default;
+        ~LambdaLanguageTerm() override = default;
 
         LanguageTerm *clone() const override;
 
@@ -81,7 +83,7 @@ namespace LinearLanguageTerm {
 
         LLanguageTerm(const string &name, double alpha, double beta);
 
-        ~LLanguageTerm() = default;
+        ~LLanguageTerm() override = default;
 
         LanguageTerm *clone() const override;
 
@@ -96,7 +98,7 @@ namespace LinearLanguageTerm {
         double alpha, beta, gamma, delta;
         PiLanguageTerm(const string &name, double alpha, double beta, double gamma, double delta);
 
-        ~PiLanguageTerm() = default;
+        ~PiLanguageTerm() override = default;
 
         LanguageTerm *clone() const override;
 
@@ -114,7 +116,7 @@ namespace SmoothLanguageTerm {
         double alpha, beta, gamma;
         SLanguageTerm(const string &name, double alpha, double beta, double gamma);
 
-        ~SLanguageTerm() = default;
+        ~SLanguageTerm() override = default;
 
         double membership(const double &x) override;
     };
@@ -126,7 +128,7 @@ namespace SmoothLanguageTerm {
         double mu, sigma;
         GaussLanguageTerm(const string &name, double mu, double sigma);
 
-        ~GaussLanguageTerm() = default;
+        ~GaussLanguageTerm() override = default;
 
         double membership(const double &x) override;
     };
@@ -138,7 +140,7 @@ namespace SmoothLanguageTerm {
         double a, c;
         SigmoidLanguageTerm(const string &name, double a, double c);
 
-        ~SigmoidLanguageTerm() = default;
+        ~SigmoidLanguageTerm() override = default;
 
         double membership(const double &x) override;
     };
@@ -151,7 +153,7 @@ namespace SmoothLanguageTerm {
         double mu, k;
         ExponentialLikeLanguageTerm(const string &name, double mu, double k);
 
-        ~ExponentialLikeLanguageTerm() = default;
+        ~ExponentialLikeLanguageTerm() override = default;
 
         double membership(const double &x) override;
     };

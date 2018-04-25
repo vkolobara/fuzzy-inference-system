@@ -18,7 +18,7 @@ Clause *Antecedent::getClause(size_t index) {
 }
 
 double Antecedent::getActivation() {
-    double value = 0;
+    double value = 1;
 
     for (auto clause : clauses) {
         value = tnorm->calculateValue(value, clause->membership());

@@ -17,19 +17,13 @@ Rule *InferenceSystem::getRule(size_t index) {
 InferenceSystem::InferenceSystem(BaseOperator::SNorm *snorm) : snorm(snorm) {}
 
 double InferenceSystem::getConclusion(Defuzzifier *defuzzifier) {
-    double value = 0;
-
-    vector<Clause*> clauses(rules.size());
+    vector<Clause*> clauses;
 
     for (auto rule : rules) {
         auto newTerm = new ActivationLanguageTerm(rule->consequent->languageTerm->name, rule->antecedent->getActivation(), rule->consequent->languageTerm->clone());
         auto newClause = new Clause(rule->consequent->languageVariable->clone(), newTerm);
-        value += defuzzifier->defuzzify(newClause);
 
         clauses.push_back(newClause);
-
-        delete newTerm;
-        delete newClause;
     }
 
     double val = defuzzifier->defuzzify(clauses);
@@ -43,8 +37,8 @@ double InferenceSystem::getConclusion(Defuzzifier *defuzzifier) {
 InferenceSystem::~InferenceSystem() {
     delete snorm;
 
-    for (auto rule : rules) {
-        delete rule;
+    for (auto var : variables) {
+        delete var;
     }
 
     rules.clear();

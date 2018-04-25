@@ -12,9 +12,7 @@ Clause::Clause(LanguageVariable *languageVariable, LanguageTerm *languageTerm) :
                                                                                  languageTerm(languageTerm) {}
 
 Clause::~Clause() {
-    delete languageTerm;
     delete languageVariable;
-
 }
 
 Clause *Clause::clone() const {
