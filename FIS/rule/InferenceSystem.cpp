@@ -4,62 +4,41 @@
 
 #include "InferenceSystem.h"
 
-void InferenceSystem::addRule(Rule *rule) {
-    rules.push_back(rule);
+void InferenceSystem::addRule(Rule& rule) {
+    rules.push_back(make_shared<Rule>(rule));
 }
 
-Rule *InferenceSystem::getRule(size_t index) {
+weak_ptr<Rule> InferenceSystem::getRule(size_t index) {
     if (index < 0 || index >= rules.size())
         return nullptr;
     return rules.at(index);
 }
 
-InferenceSystem::InferenceSystem(BaseOperator::SNorm *snorm) : snorm(snorm) {}
+InferenceSystem::InferenceSystem(BaseOperator::SNorm& snorm) {
+    this->snorm = make_unique<BaseOperator::SNorm>(snorm);
+}
 
 double InferenceSystem::getConclusion(Defuzzifier *defuzzifier) {
     vector<Clause*> clauses;
 
     for (auto rule : rules) {
-        auto newTerm = new ActivationLanguageTerm(rule->consequent->languageTerm->name, rule->antecedent->getActivation(), rule->consequent->languageTerm->clone());
-        auto newClause = new Clause(rule->consequent->languageVariable->clone(), newTerm);
+        auto newTerm = make_unique<ActivationLanguageTerm>(rule->consequent->languageTerm->name, rule->antecedent->getActivation(), rule->consequent->languageTerm);
+        auto newClause = make_unique<Clause>(rule->consequent->languageVariable, newTerm);
 
-        clauses.push_back(newClause);
+        clauses.push_back(newClause.get());
     }
 
     double val = defuzzifier->defuzzify(clauses);
-    for (auto clause : clauses) {
-        delete clause;
-    }
-
+    
     return val;
 }
 
-InferenceSystem::~InferenceSystem() {
-    delete snorm;
-
-    for (auto var : variables) {
-        delete var;
-    }
-
-    rules.clear();
-}
-
-InferenceSystem *InferenceSystem::clone() const {
-    auto newSystem = new InferenceSystem(this->snorm->clone());
-
-    for (auto rule : rules) {
-        newSystem->addRule(rule->clone());
-    }
-
-    return newSystem;
-}
-
-void InferenceSystem::addVariable(LanguageVariable *variable) {
-    this->variables.push_back(variable);
+void InferenceSystem::addVariable(LanguageVariable& variable) {
+    this->variables.push_back(make_shared<LanguageVariable>(variable));
 
 }
 
-LanguageVariable *InferenceSystem::getVariable(size_t index) {
+weak_ptr<LanguageVariable> InferenceSystem::getVariable(size_t index) {
     if (index < 0 || index >= this->variables.size()) {
         return nullptr;
     }

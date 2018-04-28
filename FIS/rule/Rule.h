@@ -9,13 +9,10 @@
 #include "Antecedent.h"
 
 struct Rule {
-    Antecedent* antecedent;
-    Clause* consequent;
+    unique_ptr<Antecedent> antecedent;
+    shared_ptr<Clause> consequent;
 
-    Rule(Antecedent *antecedent, Clause *consequent);
-    Rule* clone() const;
-    ~Rule();
-
+    Rule(Antecedent& antecedent, shared_ptr<Clause> consequent);
 };
 
 

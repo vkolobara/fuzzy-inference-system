@@ -12,16 +12,13 @@
 #include "Clause.h"
 
 struct Antecedent {
-    BaseOperator::TNorm* tnorm;
-    std::vector<Clause*> clauses;
+    unique_ptr<BaseOperator::TNorm> tnorm;
+    std::vector<shared_ptr<Clause>> clauses;
 
-    explicit Antecedent(BaseOperator::TNorm *tnorm);
-    ~Antecedent();
+    explicit Antecedent(BaseOperator::TNorm& tnorm);
 
-    Antecedent* clone() const;
-
-    void addClause(Clause* term);
-    Clause* getClause(size_t index);
+    void addClause(Clause& term);
+    weak_ptr<Clause> getClause(size_t index);
 
     double getActivation();
 };

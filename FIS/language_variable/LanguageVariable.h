@@ -21,7 +21,7 @@ struct LanguageVariable {
     };
 
     string name;
-    vector<LanguageTerm*> terms;
+    vector<shared_ptr<LanguageTerm>> terms;
     Type variableType;
 
     double value;
@@ -31,14 +31,10 @@ struct LanguageVariable {
 
     LanguageVariable(const string &name, Type variableType, double min, double step, double max);
 
-    ~LanguageVariable();
+    void addTerm(LanguageTerm& term);
 
-    LanguageVariable* clone() const;
-
-    void addTerm(LanguageTerm* term);
-
-    LanguageTerm* getTerm(size_t index);
-    LanguageTerm* getTerm(const string &name);
+    weak_ptr<LanguageTerm> getTerm(size_t index);
+    weak_ptr<LanguageTerm> getTerm(const string &name);
 };
 
 

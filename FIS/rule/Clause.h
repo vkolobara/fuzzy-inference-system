@@ -10,14 +10,10 @@
 #include "../language_variable/LanguageTerm.h"
 
 struct Clause {
-    LanguageVariable* languageVariable;
-    LanguageTerm* languageTerm;
+    shared_ptr<LanguageVariable> languageVariable;
+    shared_ptr<LanguageTerm> languageTerm;
 
-    Clause(LanguageVariable *languageVariable, LanguageTerm *languageTerm);
-    Clause* clone() const;
-
-    ~Clause();
-
+    Clause(shared_ptr<LanguageVariable> languageVariable, shared_ptr<LanguageTerm> languageTerm);
     double membership();
 };
 

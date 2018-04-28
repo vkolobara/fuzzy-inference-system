@@ -8,13 +8,7 @@ double Clause::membership() {
     return languageTerm->membership(languageVariable->value);
 }
 
-Clause::Clause(LanguageVariable *languageVariable, LanguageTerm *languageTerm) : languageVariable(languageVariable),
-                                                                                 languageTerm(languageTerm) {}
-
-Clause::~Clause() {
-    delete languageVariable;
-}
-
-Clause *Clause::clone() const {
-    return new Clause(this->languageVariable->clone(), this->languageTerm->clone());
+Clause::Clause(shared_ptr<LanguageVariable> languageVariable, shared_ptr<LanguageTerm> languageTerm) {
+    this->languageVariable = languageVariable;
+    this->languageTerm = languageTerm;
 }

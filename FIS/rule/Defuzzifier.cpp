@@ -28,7 +28,7 @@ double COADefuzzifier::defuzzify(Clause *clause) {
     return sumX / sum;
 }
 
-double COADefuzzifier::defuzzify(vector<Clause *> clauses) {
+double COADefuzzifier::defuzzify(vector<unique_ptr<Clause>> clauses) {
     auto max = clauses.at(0)->languageVariable->max;
     auto min = clauses.at(0)->languageVariable->min;
     auto frequency = clauses.at(0)->languageVariable->step;

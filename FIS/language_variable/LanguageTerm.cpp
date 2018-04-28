@@ -23,11 +23,6 @@ namespace LinearLanguageTerm {
         }
     }
 
-    LanguageTerm *GammaLanguageTerm::clone() const {
-        LanguageTerm* newTerm = new GammaLanguageTerm(this->name, this->alpha, this->beta);
-        return newTerm;
-    }
-
     LambdaLanguageTerm::LambdaLanguageTerm(const string &name, double alpha, double beta, double gamma) : LanguageTerm(name), alpha{alpha},
                                                                                                   beta{beta},
                                                                                                   gamma{gamma} {
@@ -40,12 +35,6 @@ namespace LinearLanguageTerm {
         else return (gamma - x) / (gamma - beta);
     }
 
-    LanguageTerm *LambdaLanguageTerm::clone() const {
-        LanguageTerm* newTerm = new LambdaLanguageTerm(this->name, this->alpha, this->beta, this->gamma);
-        return newTerm;
-    }
-
-
     LLanguageTerm::LLanguageTerm(const string &name, double alpha, double beta) : LanguageTerm(name), alpha(alpha), beta(beta) {
         if (alpha >= beta) throw std::invalid_argument("Arguments must be: alpha < beta");
     }
@@ -54,11 +43,6 @@ namespace LinearLanguageTerm {
         if (x < alpha) return 1;
         else if (x >= beta) return 0;
         else return (beta - x) / (beta - alpha);
-    }
-
-    LanguageTerm *LLanguageTerm::clone() const {
-        LanguageTerm* newTerm = new LLanguageTerm(this->name, this->alpha, this->beta);
-        return newTerm;
     }
 
     PiLanguageTerm::PiLanguageTerm(const string &name, double alpha, double beta, double gamma, double delta) : LanguageTerm(name), alpha(alpha),
@@ -76,10 +60,6 @@ namespace LinearLanguageTerm {
         else return (delta - x) / (delta - gamma);
     }
 
-    LanguageTerm *PiLanguageTerm::clone() const {
-        LanguageTerm* newTerm = new PiLanguageTerm(this->name, this->alpha, this->beta, this->gamma, this->delta);
-        return newTerm;
-    }
 }
 
 namespace SmoothLanguageTerm {
@@ -125,13 +105,4 @@ namespace SmoothLanguageTerm {
 double ActivationLanguageTerm::membership(const double &x) {
     auto memb = term->membership(x);
     return activation < memb ? activation : memb;
-}
-
-LanguageTerm *ActivationLanguageTerm::clone() const {
-    LanguageTerm* newTerm = new ActivationLanguageTerm(this->name, this->activation, this->term->clone());
-    return newTerm;
-}
-
-ActivationLanguageTerm::~ActivationLanguageTerm() {
-    delete term;
 }

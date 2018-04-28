@@ -4,13 +4,15 @@
 
 #include "Antecedent.h"
 
-Antecedent::Antecedent(BaseOperator::TNorm *tnorm) : tnorm(tnorm) {}
-
-void Antecedent::addClause(Clause *clause) {
-    clauses.push_back(clause);
+Antecedent::Antecedent(BaseOperator::TNorm& tnorm) {
+    make_unique<BaseOperator::TNorm>(tnorm);
 }
 
-Clause *Antecedent::getClause(size_t index) {
+void Antecedent::addClause(Clause& clause) {
+    clauses.push_back(make_shared<Clause>(clause));
+}
+
+weak_ptr<Clause> Antecedent::getClause(size_t index) {
     if (index < 0 || index >= clauses.size())
         return nullptr;
 
@@ -25,25 +27,4 @@ double Antecedent::getActivation() {
     }
 
     return value;
-}
-
-Antecedent::~Antecedent() {
-    delete tnorm;
-
-    for (auto clause : clauses) {
-        delete clause;
-    }
-
-    clauses.clear();
-
-}
-
-Antecedent *Antecedent::clone() const {
-    auto newAntecedent = new Antecedent(this->tnorm->clone());
-
-    for (auto clause : clauses) {
-        newAntecedent->addClause(clause->clone());
-    }
-
-    return newAntecedent;
 }

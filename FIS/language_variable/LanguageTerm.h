@@ -19,11 +19,7 @@ struct LanguageTerm {
 
     LanguageTerm() = default;
 
-    virtual LanguageTerm* clone() const = 0;
-
     explicit LanguageTerm(const string &name): name(name) {}
-
-    virtual ~LanguageTerm() {};
 
     virtual double membership(const double &x) = 0;
 };
@@ -31,13 +27,9 @@ struct LanguageTerm {
 struct ActivationLanguageTerm : public LanguageTerm {
 
     double activation;
-    LanguageTerm* term;
+    shared_ptr<LanguageTerm> term;
 
-    ActivationLanguageTerm(const string &name, double activation, LanguageTerm* term) : LanguageTerm(name), activation(activation), term(term) {}
-
-    ~ActivationLanguageTerm() override;
-
-    LanguageTerm *clone() const override;
+    ActivationLanguageTerm(const string &name, double activation, LanguageTerm& term) : LanguageTerm(name), activation(activation), term(term) {}
 
     double membership(const double &x) override;
 
@@ -52,10 +44,6 @@ namespace LinearLanguageTerm {
         double alpha, beta;
         GammaLanguageTerm(const string &name, double alpha, double beta);
 
-        ~GammaLanguageTerm() override = default;
-
-        LanguageTerm *clone() const override;
-
         double membership(const double &x) override;
     };
 
@@ -66,10 +54,6 @@ namespace LinearLanguageTerm {
     struct LambdaLanguageTerm : public LanguageTerm {
         double alpha, beta, gamma;
         LambdaLanguageTerm(const string &name, double alpha, double beta, double gamma);
-
-        ~LambdaLanguageTerm() override = default;
-
-        LanguageTerm *clone() const override;
 
         double membership(const double &x) override;
 
@@ -83,10 +67,6 @@ namespace LinearLanguageTerm {
 
         LLanguageTerm(const string &name, double alpha, double beta);
 
-        ~LLanguageTerm() override = default;
-
-        LanguageTerm *clone() const override;
-
         double membership(const double &x) override;
     };
 
@@ -97,10 +77,6 @@ namespace LinearLanguageTerm {
     struct PiLanguageTerm : public LanguageTerm {
         double alpha, beta, gamma, delta;
         PiLanguageTerm(const string &name, double alpha, double beta, double gamma, double delta);
-
-        ~PiLanguageTerm() override = default;
-
-        LanguageTerm *clone() const override;
 
         double membership(const double &x) override;
     };
@@ -116,8 +92,6 @@ namespace SmoothLanguageTerm {
         double alpha, beta, gamma;
         SLanguageTerm(const string &name, double alpha, double beta, double gamma);
 
-        ~SLanguageTerm() override = default;
-
         double membership(const double &x) override;
     };
 
@@ -128,8 +102,6 @@ namespace SmoothLanguageTerm {
         double mu, sigma;
         GaussLanguageTerm(const string &name, double mu, double sigma);
 
-        ~GaussLanguageTerm() override = default;
-
         double membership(const double &x) override;
     };
 
@@ -139,8 +111,6 @@ namespace SmoothLanguageTerm {
     struct SigmoidLanguageTerm : public LanguageTerm {
         double a, c;
         SigmoidLanguageTerm(const string &name, double a, double c);
-
-        ~SigmoidLanguageTerm() override = default;
 
         double membership(const double &x) override;
     };
@@ -153,12 +123,9 @@ namespace SmoothLanguageTerm {
         double mu, k;
         ExponentialLikeLanguageTerm(const string &name, double mu, double k);
 
-        ~ExponentialLikeLanguageTerm() override = default;
-
         double membership(const double &x) override;
     };
 }
-
 
 
 #endif //FUZZY_INFERENCE_SYSTEM_LANGUAGETERM_H

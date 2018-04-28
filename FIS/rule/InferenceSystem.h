@@ -11,21 +11,18 @@
 #include "Defuzzifier.h"
 
 struct InferenceSystem {
-    BaseOperator::SNorm* snorm;
+    unique_ptr<BaseOperator::SNorm> snorm;
 
-    std::vector<Rule*> rules;
-    std::vector<LanguageVariable*> variables;
+    std::vector<shared_ptr<Rule>> rules;
+    std::vector<shared_ptr<LanguageVariable>> variables;
 
-    explicit InferenceSystem(BaseOperator::SNorm *snorm);
-    ~InferenceSystem();
+    explicit InferenceSystem(BaseOperator::SNorm& snorm);
 
-    InferenceSystem* clone() const;
+    void addRule(Rule& rule);
+    weak_ptr<Rule> getRule(size_t index);
 
-    void addRule(Rule* rule);
-    Rule* getRule(size_t index);
-
-    void addVariable(LanguageVariable* variable);
-    LanguageVariable* getVariable(size_t index);
+    void addVariable(LanguageVariable& variable);
+    weak_ptr<LanguageVariable> getVariable(size_t index);
 
     double getConclusion(Defuzzifier* defuzzifier);
 

@@ -1,11 +1,6 @@
 #include <iostream>
 #include <memory>
-#include "fuzzyset/MembershipFunction.h"
-#include "inference/Clause.h"
-#include "inference/Defuzzifier.h"
-#include "inference/InferenceSystem.h"
 #include "parser/VariableParser.h"
-#include "parser/RulesParser.h"
 
 using namespace std;
 

@@ -4,13 +4,7 @@
 
 #include "Rule.h"
 
-Rule::Rule(Antecedent *antecedent, Clause *consequent) : antecedent(antecedent), consequent(consequent) {}
-
-Rule::~Rule() {
-    delete antecedent;
-    delete consequent;
-}
-
-Rule *Rule::clone() const {
-    return new Rule(this->antecedent->clone(), this->consequent->clone());
+Rule::Rule(Antecedent& antecedent, shared_ptr<Clause> consequent) {
+    this->antecedent = make_unique<Antecedent>(antecedent);
+    this->consequent = consequent;
 }
