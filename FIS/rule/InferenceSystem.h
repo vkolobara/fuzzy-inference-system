@@ -8,24 +8,26 @@
 
 #include <vector>
 #include "Rule.h"
-#include "Defuzzifier.h"
+#include "KnowledgeBase.h"
 
 struct InferenceSystem {
-    unique_ptr<BaseOperator::SNorm> snorm;
 
-    std::vector<shared_ptr<Rule>> rules;
-    std::vector<shared_ptr<LanguageVariable>> variables;
+    explicit InferenceSystem(shared_ptr<KnowledgeBase> knowledgeBase);
 
-    explicit InferenceSystem(BaseOperator::SNorm& snorm);
+    shared_ptr<KnowledgeBase> knowledgeBase;
+    vector<shared_ptr<Rule>> rules;
 
     void addRule(Rule& rule);
-    weak_ptr<Rule> getRule(size_t index);
+    Rule* getRule(size_t index);
 
-    void addVariable(LanguageVariable& variable);
-    weak_ptr<LanguageVariable> getVariable(size_t index);
+    virtual double getConclusion() = 0;
 
-    double getConclusion(Defuzzifier* defuzzifier);
+};
 
+struct TSKInferenceSystem : public InferenceSystem {
+    explicit TSKInferenceSystem(shared_ptr<KnowledgeBase> knowledgeBase);
+
+    double getConclusion() override;
 };
 
 

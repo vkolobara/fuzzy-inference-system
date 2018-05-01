@@ -10,6 +10,7 @@
 #include <map>
 #include <memory>
 #include <stdexcept>
+#include <utility>
 #include "LanguageTerm.h"
 
 using namespace std;
@@ -19,20 +20,9 @@ struct LanguageTerm {
 
     LanguageTerm() = default;
 
-    explicit LanguageTerm(const string &name): name(name) {}
+    explicit LanguageTerm(string name): name(std::move(name)) {}
 
     virtual double membership(const double &x) = 0;
-};
-
-struct ActivationLanguageTerm : public LanguageTerm {
-
-    double activation;
-    shared_ptr<LanguageTerm> term;
-
-    ActivationLanguageTerm(const string &name, double activation, LanguageTerm& term) : LanguageTerm(name), activation(activation), term(term) {}
-
-    double membership(const double &x) override;
-
 };
 
 namespace LinearLanguageTerm {

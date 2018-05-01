@@ -33,8 +33,8 @@ struct LanguageVariable {
 
     void addTerm(LanguageTerm& term);
 
-    weak_ptr<LanguageTerm> getTerm(size_t index);
-    weak_ptr<LanguageTerm> getTerm(const string &name);
+    LanguageTerm* getTerm(size_t index);
+    LanguageTerm* getTerm(const string &name);
 };
 
 

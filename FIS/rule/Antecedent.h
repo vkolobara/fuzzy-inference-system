@@ -18,7 +18,7 @@ struct Antecedent {
     explicit Antecedent(BaseOperator::TNorm& tnorm);
 
     void addClause(Clause& term);
-    weak_ptr<Clause> getClause(size_t index);
+    Clause* getClause(size_t index);
 
     double getActivation();
 };

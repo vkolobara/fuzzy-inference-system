@@ -5,25 +5,25 @@
 #include "Antecedent.h"
 
 Antecedent::Antecedent(BaseOperator::TNorm& tnorm) {
-    make_unique<BaseOperator::TNorm>(tnorm);
+    this->tnorm = unique_ptr<BaseOperator::TNorm>(&tnorm);
 }
 
 void Antecedent::addClause(Clause& clause) {
     clauses.push_back(make_shared<Clause>(clause));
 }
 
-weak_ptr<Clause> Antecedent::getClause(size_t index) {
+Clause* Antecedent::getClause(size_t index) {
     if (index < 0 || index >= clauses.size())
         return nullptr;
 
-    return clauses.at(index);
+    return clauses.at(index).get();
 }
 
 double Antecedent::getActivation() {
     double value = 1;
 
     for (auto clause : clauses) {
-        value = tnorm->calculateValue(value, clause->membership());
+        value = tnorm.get()->calculateValue(value, clause->membership());
     }
 
     return value;

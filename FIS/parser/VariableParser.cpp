@@ -10,7 +10,7 @@ void VariableParser::parse(string fileContent) {
     vector<string> langVars = splitString(fileContent, "\n\n");
 
     for (auto langVar : langVars) {
-        auto var = parseLanguageVariable(splitString(langVar, "\n"));
+        auto var = shared_ptr<LanguageVariable>(parseLanguageVariable(splitString(langVar, "\n")));
         if (var->variableType == LanguageVariable::Type::Output) {
             this->outputVariables.push_back(var);
         } else {
@@ -62,10 +62,10 @@ LanguageVariable *VariableParser::parseLanguageVariable(vector<string> lines) {
 
     if (varTypeStr == "OUT") varType = LanguageVariable::Type::Output;
 
-    LanguageVariable* langVar = new LanguageVariable(name, varType, min, step, max);
+    auto langVar = new LanguageVariable(name, varType, min, step, max);
 
     for (auto i = 1; i<lines.size(); i++) {
-        langVar->addTerm(parseLanguageTerm(lines[i]));
+        langVar->addTerm(*parseLanguageTerm(lines[i]));
     }
 
     return langVar;

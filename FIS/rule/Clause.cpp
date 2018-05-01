@@ -4,11 +4,13 @@
 
 #include "Clause.h"
 
+#include <utility>
+
 double Clause::membership() {
-    return languageTerm->membership(languageVariable->value);
+    return languageVariable->terms.at(termIndex)->membership(languageVariable->value);
 }
 
-Clause::Clause(shared_ptr<LanguageVariable> languageVariable, shared_ptr<LanguageTerm> languageTerm) {
-    this->languageVariable = languageVariable;
-    this->languageTerm = languageTerm;
+Clause::Clause(shared_ptr<LanguageVariable> languageVariable, uint termIndex) {
+    this->languageVariable = std::move(languageVariable);
+    this->termIndex = termIndex;
 }

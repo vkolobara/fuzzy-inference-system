@@ -102,7 +102,3 @@ namespace SmoothLanguageTerm {
     }
 }
 
-double ActivationLanguageTerm::membership(const double &x) {
-    auto memb = term->membership(x);
-    return activation < memb ? activation : memb;
-}

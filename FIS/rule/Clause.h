@@ -11,9 +11,9 @@
 
 struct Clause {
     shared_ptr<LanguageVariable> languageVariable;
-    shared_ptr<LanguageTerm> languageTerm;
+    uint termIndex;
 
-    Clause(shared_ptr<LanguageVariable> languageVariable, shared_ptr<LanguageTerm> languageTerm);
+    Clause(shared_ptr<LanguageVariable> languageVariable, uint termIndex);
     double membership();
 };
 

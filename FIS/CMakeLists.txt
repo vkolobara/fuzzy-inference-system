@@ -20,14 +20,12 @@ set(SOURCE_FILES
         rule/Rule.h
         rule/InferenceSystem.cpp
         rule/InferenceSystem.h
-        rule/Defuzzifier.cpp
-        rule/Defuzzifier.h
         rule/Clause.cpp
         rule/Clause.h
         parser/VariableParser.cpp
         parser/VariableParser.h
         parser/Parser.h
-        parser/Helper.h parser/Helper.cpp)
+        parser/Helper.h parser/Helper.cpp rule/Consequent.cpp rule/Consequent.h rule/KnowledgeBase.cpp rule/KnowledgeBase.h)
 
 # add_executable(FIS ${SOURCE_FILES} main.cpp)
 add_library(FIS ${SOURCE_FILES})

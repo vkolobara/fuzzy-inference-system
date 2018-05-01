@@ -4,7 +4,7 @@
 
 #include "Rule.h"
 
-Rule::Rule(Antecedent& antecedent, shared_ptr<Clause> consequent) {
-    this->antecedent = make_unique<Antecedent>(antecedent);
-    this->consequent = consequent;
+Rule::Rule(Antecedent& antecedent, Consequent& consequent) {
+    this->antecedent = unique_ptr<Antecedent>(&antecedent);
+    this->consequent = shared_ptr<Consequent>(&consequent);
 }

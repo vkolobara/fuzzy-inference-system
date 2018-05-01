@@ -10,8 +10,8 @@
 
 struct VariableParser : public Parser {
 
-    vector<LanguageVariable*> inputVariables;
-    vector<LanguageVariable*> outputVariables;
+    vector<shared_ptr<LanguageVariable>> inputVariables;
+    vector<shared_ptr<LanguageVariable>> outputVariables;
 
     void parse(string fileContents) override;
 

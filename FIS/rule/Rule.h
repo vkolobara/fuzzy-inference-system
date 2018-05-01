@@ -7,12 +7,13 @@
 
 
 #include "Antecedent.h"
+#include "Consequent.h"
 
 struct Rule {
     unique_ptr<Antecedent> antecedent;
-    shared_ptr<Clause> consequent;
+    shared_ptr<Consequent> consequent;
 
-    Rule(Antecedent& antecedent, shared_ptr<Clause> consequent);
+    Rule(Antecedent& antecedent, Consequent& consequent);
 };
 
 
