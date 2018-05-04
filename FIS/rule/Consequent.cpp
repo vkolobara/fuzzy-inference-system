@@ -13,9 +13,10 @@ double FuzzyConsequent::membership() {
 }
 
 double LinearConsequent::membership() {
-    double value = w.at(0);
+    double value = 0;
+
     for (auto i = 0; i<variables.size(); i++) {
-        value += w.at(i+1) * variables.at(i)->value;
+        value += w.at(i) * variables.at(i)->value;
     }
     return value;
 }
