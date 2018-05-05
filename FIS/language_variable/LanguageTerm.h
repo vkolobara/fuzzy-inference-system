@@ -23,6 +23,7 @@ struct LanguageTerm {
     explicit LanguageTerm(string name): name(std::move(name)) {}
 
     virtual double membership(const double &x) = 0;
+    virtual double midpoint() = 0;
 };
 
 namespace LinearLanguageTerm {
@@ -69,6 +70,8 @@ namespace LinearLanguageTerm {
         PiLanguageTerm(const string &name, double alpha, double beta, double gamma, double delta);
 
         double membership(const double &x) override;
+
+        double midpoint() override;
     };
 }
 

@@ -60,6 +60,10 @@ namespace LinearLanguageTerm {
         else return (delta - x) / (delta - gamma);
     }
 
+    double PiLanguageTerm::midpoint() {
+        return (gamma + beta) / 2;
+    }
+
 }
 
 namespace SmoothLanguageTerm {

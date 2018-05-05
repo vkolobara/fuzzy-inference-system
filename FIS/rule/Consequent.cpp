@@ -12,7 +12,7 @@ double FuzzyConsequent::membership() {
     return clause->membership();
 }
 
-double LinearConsequent::membership() {
+double LinearVariableConsequent::membership() {
     double value = 0;
 
     for (auto i = 0; i<variables.size(); i++) {
@@ -21,5 +21,25 @@ double LinearConsequent::membership() {
     return value;
 }
 
-LinearConsequent::LinearConsequent(const vector<double> &w, const vector<shared_ptr<LanguageVariable>> &variables) : w(
+LinearVariableConsequent::LinearVariableConsequent(const vector<double> &w, const vector<shared_ptr<LanguageVariable>> &variables) : w(
         w), variables(variables) {}
+
+double ConstantConsequent::membership() {
+    return value;
+}
+
+ConstantConsequent::ConstantConsequent(double value) : value(value) {}
+
+LinearClauseConsequent::LinearClauseConsequent(const vector<double> &w, const vector<shared_ptr<Clause>> &clauses) : w(
+        w), clauses(clauses) {}
+
+double LinearClauseConsequent::membership() {
+    double val = 0;
+
+    for (auto i=0; i<w.size(); i++) {
+        auto termIndex = clauses.at(i)->termIndex;
+        val += w.at(i) * clauses.at(i)->languageVariable->terms[termIndex]->midpoint();
+    }
+
+    return val;
+}

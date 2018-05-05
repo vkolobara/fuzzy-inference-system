@@ -21,12 +21,29 @@ struct FuzzyConsequent : public Consequent{
     double membership() override;
 };
 
-struct LinearConsequent : public Consequent {
+struct LinearVariableConsequent : public Consequent {
 
     vector<double> w;
     vector<shared_ptr<LanguageVariable>> variables;
 
-    LinearConsequent(const vector<double> &w, const vector<shared_ptr<LanguageVariable>> &variables);
+    LinearVariableConsequent(const vector<double> &w, const vector<shared_ptr<LanguageVariable>> &variables);
+
+    double membership() override;
+};
+
+struct LinearClauseConsequent : public Consequent {
+    vector<double> w;
+    vector<shared_ptr<Clause>> clauses;
+
+    LinearClauseConsequent(const vector<double> &w, const vector<shared_ptr<Clause>> &clauses);
+
+    double membership() override;
+};
+
+struct ConstantConsequent : public Consequent {
+    double value;
+
+    ConstantConsequent(double value);
 
     double membership() override;
 };
