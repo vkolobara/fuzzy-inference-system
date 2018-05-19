@@ -48,4 +48,14 @@ struct ConstantConsequent : public Consequent {
     double membership() override;
 };
 
+struct MultipleConstantConsequent : public Consequent {
+    vector<double> values;
+    vector<double> weights;
+
+    MultipleConstantConsequent(const vector<double> &values, const vector<double> &weights);
+
+    double membership() override;
+
+};
+
 #endif //FUZZY_TIME_SERIES_CONSEQUENT_H

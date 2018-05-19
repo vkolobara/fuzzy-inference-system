@@ -23,7 +23,7 @@ double Antecedent::getActivation() {
     double value = 1;
 
     for (auto clause : clauses) {
-        value = tnorm.get()->calculateValue(value, clause->membership());
+        value = tnorm->calculateValue(value, clause->membership());
     }
 
     return value;

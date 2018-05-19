@@ -10,7 +10,7 @@ double Clause::membership() {
     return languageVariable->terms.at(termIndex)->membership(languageVariable->value);
 }
 
-Clause::Clause(shared_ptr<LanguageVariable> languageVariable, uint termIndex) {
+Clause::Clause(shared_ptr<LanguageVariable> languageVariable, unsigned int termIndex) {
     this->languageVariable = std::move(languageVariable);
     this->termIndex = termIndex;
 }

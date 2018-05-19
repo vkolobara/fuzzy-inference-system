@@ -43,3 +43,21 @@ double LinearClauseConsequent::membership() {
 
     return val;
 }
+
+MultipleConstantConsequent::MultipleConstantConsequent(const vector<double> &values, const vector<double> &weights)
+        : values(values), weights(weights) {}
+
+double MultipleConstantConsequent::membership() {
+
+    double val = 0;
+    double sum = 0;
+
+    for (auto i=0; i<values.size(); i++) {
+        val += weights[i] * values[i];
+        sum += weights[i];
+    }
+
+    if (sum <= 1e-6) sum = 1;
+
+    return val/sum;
+}
