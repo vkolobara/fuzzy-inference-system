@@ -16,7 +16,9 @@ struct ANFIS {
     shared_ptr<NormalizingLayer> normalizingLayer;
     shared_ptr<ConsequentLayer> consequentLayer;
     shared_ptr<OutputLayer> outputLayer;
+
     int numRules;
+
     ANFIS(int numRules, shared_ptr<AntecedentLayer>antecedentLayer, shared_ptr<NormalizingLayer>normalizingLayer, shared_ptr<ConsequentLayer>consequentLayer,
           shared_ptr<OutputLayer>outputLayer);
 
@@ -25,9 +27,6 @@ struct ANFIS {
     vector<double> normalizingForward(vector<double> inputs);
     vector<double> consequentForward(vector<double> startInputs, vector<double> inputs);
     vector<double> outputForward(vector<double> inputs);
-
-
-    ~ANFIS();
 
     shared_ptr<AntecedentLayer>getAntecedentLayer() ;
 

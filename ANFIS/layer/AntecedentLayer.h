@@ -19,8 +19,6 @@ struct AntecedentLayer : public Layer {
 
     vector<double> forwardPass(vector<double> inputs) override;
     vector<shared_ptr<AnfisMembershipFunction>> membershipsForRule(int index);
-
-    virtual ~AntecedentLayer();
 };
 
 

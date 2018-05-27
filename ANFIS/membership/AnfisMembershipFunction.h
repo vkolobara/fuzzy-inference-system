@@ -14,7 +14,6 @@ public:
     virtual double valueAt(double x) = 0;
     virtual int getNumParameters() = 0;
     virtual void updateParameters(vector<double> params) = 0;
-    virtual vector<double> gradients(double x) = 0;
 };
 
 

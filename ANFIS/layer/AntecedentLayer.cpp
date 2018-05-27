@@ -20,15 +20,6 @@ vector<double> AntecedentLayer::forwardPass(vector<double> inputs) {
     return ret;
 }
 
-AntecedentLayer::~AntecedentLayer() {
-    delete tnorm;
-    for (auto mems : memberships) {
-        for (auto mem : mems) {
-            delete mem;
-        }
-    }
-}
-
 AntecedentLayer::AntecedentLayer(int numRules, shared_ptr<TNorm>tnorm,
                                  vector<vector<shared_ptr<AnfisMembershipFunction>>> memberships) : numRules(
         numRules), tnorm(tnorm), memberships(std::move(memberships)) {}

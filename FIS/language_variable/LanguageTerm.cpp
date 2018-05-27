@@ -93,10 +93,18 @@ namespace SmoothLanguageTerm {
         return exp(-(exponent * exponent));
     }
 
+    double GaussLanguageTerm::midpoint() {
+        return mu;
+    }
+
     SigmoidLanguageTerm::SigmoidLanguageTerm(const string &name, double a, double c) : LanguageTerm(name), a(a), c(c) {}
 
     double SigmoidLanguageTerm::membership(const double &x) {
         return 1.0 / (1 + exp(a * (x - c)));
+    }
+
+    double SigmoidLanguageTerm::midpoint() {
+        return a;
     }
 
     ExponentialLikeLanguageTerm::ExponentialLikeLanguageTerm(const string &name, double mu, double k) : LanguageTerm(name), mu(mu), k(k) {}

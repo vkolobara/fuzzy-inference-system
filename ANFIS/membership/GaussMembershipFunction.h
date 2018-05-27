@@ -7,23 +7,19 @@
 
 
 #include "AnfisMembershipFunction.h"
-#include "../../FIS/fuzzyset/MembershipFunction.h"
+#include "../../FIS/language_variable/LanguageTerm.h"
 
 class GaussMembershipFunction : public AnfisMembershipFunction{
 private:
-    shared_ptr<SmoothMembershipFunction::GaussMembershipFunction> f;
+    shared_ptr<SmoothLanguageTerm::GaussLanguageTerm> f;
 public:
     GaussMembershipFunction();
-
-    virtual ~GaussMembershipFunction();
 
     double valueAt(double x) override;
 
     int getNumParameters() override;
 
     void updateParameters(vector<double> params) override;
-
-    vector<double> gradients(double x) override;
 };
 
 

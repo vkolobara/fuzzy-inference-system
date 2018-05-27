@@ -7,22 +7,18 @@
 
 
 #include "AnfisMembershipFunction.h"
-#include "../../FIS/fuzzyset/MembershipFunction.h"
+#include "../../FIS/language_variable/LanguageTerm.h"
 
 class SigmoidMembershipFunction : public AnfisMembershipFunction {
 private:
-    shared_ptr<SmoothMembershipFunction::SigmoidMembershipFunction> f;
+    shared_ptr<SmoothLanguageTerm::SigmoidLanguageTerm> f;
 public:
     SigmoidMembershipFunction();
     double valueAt(double x) override;
 
-    virtual ~SigmoidMembershipFunction();
-
     int getNumParameters() override;
 
     void updateParameters(vector<double> params) override;
-
-    vector<double> gradients(double x) override;
 };
 
 

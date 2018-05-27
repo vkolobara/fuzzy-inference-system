@@ -6,7 +6,7 @@
 #include "GaussMembershipFunction.h"
 
 double GaussMembershipFunction::valueAt(double x) {
-    return f->valueAt(x);
+    return f->membership(x);
 }
 
 int GaussMembershipFunction::getNumParameters() {
@@ -14,31 +14,13 @@ int GaussMembershipFunction::getNumParameters() {
 }
 
 void GaussMembershipFunction::updateParameters(vector<double> params) {
-    f->setMu(f->getMu()-params[0]);
-    f->setSigma(f->getSigma()-params[1]);
-}
-
-vector<double> GaussMembershipFunction::gradients(double x) {
-    auto mu = f->getMu();
-    auto sigma = f->getSigma();
-
-    double gradF = valueAt(x);
-    double gradSq = (mu - x) / sigma;
-
-    double gradMu = gradF * gradSq * (-1/(2*sigma));
-    double gradSigma = gradF * gradSq * (-1 * (x-mu) / (2*sigma*sigma));
-
-    return vector<double>{gradMu, gradSigma};
+    f->mu = params[0];
+    f->sigma = params[1];
 }
 
 GaussMembershipFunction::GaussMembershipFunction() {
     std::random_device r;
     std::default_random_engine e1(r());
     std::uniform_real_distribution<double> uniform_dist(-1, 1);
-    f = new SmoothMembershipFunction::GaussMembershipFunction(uniform_dist(e1), uniform_dist(e1));
-}
-
-GaussMembershipFunction::~GaussMembershipFunction() {
-    delete f;
-
+    f = make_shared<SmoothLanguageTerm::GaussLanguageTerm>("name", uniform_dist(e1), uniform_dist(e1));
 }

@@ -3,19 +3,19 @@
 //
 
 #include <random>
+#include <iostream>
 #include "ConsequentLayer.h"
 
 vector<double> ConsequentLayer::forwardPass(vector<double> inputs) {
 
     vector<double> outputs;
 
-    outputs.reserve(params.size());
     for (int i=0; i<params.size(); i++) {
         auto rule = params[i];
         double out = rule[rule.size()-1];
 
-        for (int i=0; i<rule.size()-1; i++) {
-            out += rule[i] * startInputs[i];
+        for (int j=0; j<rule.size()-1; j++) {
+            out += rule[j] * startInputs[j];
         }
 
         outputs.push_back(out * inputs[i]);
@@ -58,3 +58,5 @@ ConsequentLayer::ConsequentLayer(int numRules, int numInputs) {
 void ConsequentLayer::setParams(int index, const vector<double> &params) {
     this->params[index] = params;
 }
+
+ConsequentLayer::ConsequentLayer(const vector<vector<double>> &params) : params(params) {}

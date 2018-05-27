@@ -7,8 +7,6 @@ set(ANFIS_VERSION_MINOR 0)
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
-        ./algorithm/Backpropagation.cpp
-        ./algorithm/Backpropagation.h
         ./layer/ANFIS.cpp
         ./layer/ANFIS.h
         ./layer/AntecedentLayer.cpp
@@ -20,8 +18,6 @@ set(SOURCE_FILES
         ./layer/NormalizingLayer.h
         ./layer/OutputLayer.cpp
         ./layer/OutputLayer.h
-        ./loss/Loss.cpp
-        ./loss/Loss.h
         ./membership/AnfisMembershipFunction.h
         ./membership/GaussMembershipFunction.cpp
         ./membership/GaussMembershipFunction.h

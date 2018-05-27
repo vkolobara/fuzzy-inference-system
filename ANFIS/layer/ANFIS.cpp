@@ -7,15 +7,10 @@
 #include "ANFIS.h"
 
 ANFIS::ANFIS(int numRules, shared_ptr<AntecedentLayer>antecedentLayer, shared_ptr<NormalizingLayer>normalizingLayer, shared_ptr<ConsequentLayer>consequentLayer,
-             shared_ptr<OutputLayer>outputLayer) : numRules(numRules), antecedentLayer(antecedentLayer), normalizingLayer(normalizingLayer),
-                                         consequentLayer(consequentLayer), outputLayer(outputLayer) {}
+             shared_ptr<OutputLayer>outputLayer) : numRules(numRules), antecedentLayer(std::move(antecedentLayer)), normalizingLayer(
+        std::move(normalizingLayer)),
+                                         consequentLayer(std::move(consequentLayer)), outputLayer(std::move(outputLayer)) {}
 
-ANFIS::~ANFIS() {
-    delete antecedentLayer;
-    delete normalizingLayer;
-    delete consequentLayer;
-    delete outputLayer;
-}
 
 vector<double> ANFIS::forward(vector<double> inputs) {
     vector<double> w  = antecedentForward(inputs);
@@ -25,6 +20,7 @@ vector<double> ANFIS::forward(vector<double> inputs) {
     vector<double> f  = consequentForward(inputs, z);
 
     vector<double> o  = outputForward(f);
+
     return o;
 }
 

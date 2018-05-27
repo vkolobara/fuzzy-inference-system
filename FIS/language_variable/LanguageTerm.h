@@ -96,6 +96,8 @@ namespace SmoothLanguageTerm {
         GaussLanguageTerm(const string &name, double mu, double sigma);
 
         double membership(const double &x) override;
+
+        double midpoint() override;
     };
 
     /*
@@ -106,6 +108,8 @@ namespace SmoothLanguageTerm {
         SigmoidLanguageTerm(const string &name, double a, double c);
 
         double membership(const double &x) override;
+
+        double midpoint() override;
     };
 
     /*

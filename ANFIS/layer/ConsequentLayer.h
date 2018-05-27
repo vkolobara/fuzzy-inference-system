@@ -12,6 +12,9 @@ struct ConsequentLayer : public Layer {
     vector<double> startInputs;
     vector<vector<double>> params;
     ConsequentLayer(int numRules, int numInputs);
+
+    ConsequentLayer(const vector<vector<double>> &params);
+
     vector<double> forwardPass(vector<double> inputs) override;
 
     const vector<double> &getStartInputs() const;
